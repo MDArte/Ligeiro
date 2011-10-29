@@ -66,6 +66,20 @@ public class Core
 	}
 
 	/**
+	 * Reads the FPA Configuration.
+	 * 
+	 * @return fileName the XML's filename
+	 * @throws ReadXMLException
+	 */
+	public FPAConfig readFPAConfiguration(String fileName) throws ReadXMLException
+	{
+		// conf/ExpressFPA.xml
+		FPAConfig fpaConfig = XMLUtil.readFPAConfiguration(fileName);
+
+		return fpaConfig;
+	}
+
+	/**
 	 * Reads the statistics.
 	 * 
 	 * @param fileName the XML's filename
@@ -263,13 +277,8 @@ public class Core
 		return false;
 	}
 
-	/**
-	 * Starts the Function Point Analysis.
-	 */
-	public void startFunctionPointAnalysis() throws ReadXMLException
+	public void startFunctionPointAnalysisDF()
 	{
-		FPAConfig fpaConfig = XMLUtil.readFPAConfiguration("conf/ExpressFPA.xml");
-
 		Map<String, Entity> tempEntities = new HashMap<String, Entity>();
 		tempEntities.putAll(entities);
 
@@ -337,11 +346,45 @@ public class Core
 				}
 			}
 		}
+	}
 
+	public int startFunctionPointAnalysisDFReport(FPAConfig fpaConfig)
+	{
+		int total = 0;
+
+		for (String key : entities.keySet())
+		{
+			Entity entity = entities.get(key);
+
+			if (key.equals(entity.getName()))
+			{
+				Util.println("\t" + entity.getName());
+				Util.println("\t\tInternal? " + entity.isInternal());
+				Util.println("\t\tRET: 1");
+	
+				int det = Util.countDET(entity, entities);
+
+				Util.println("\t\tDET: " + det);
+
+				int value = 0;
+
+				if (entity.isInternal())
+					value = fpaConfig.getIFLComplexityValue(1, det);
+				else
+					value = fpaConfig.getEIFComplexityValue(1, det);
+
+				Util.println("\t\tValue: " + value);
+
+				total += value;
+			}
+		}
+
+		return total;
+	}
+
+	public void startFunctionPointAnalysisTF()
+	{
 		Util.println("\n-- TRANSACTION FUNCTION --");
-
-		tempEntities = new HashMap<String, Entity>();
-		tempEntities.putAll(entities);
 
 		for (UseCase useCase : useCases)
 		{
@@ -494,39 +537,11 @@ public class Core
 				}
 			}
 		}
+	}
 
-		// REPORT
-
-		Util.println("\n -- REPORT --\n");
-
+	public int startFunctionPointAnalysisTFReport(FPAConfig fpaConfig)
+	{
 		int total = 0;
-
-		for (String key : entities.keySet())
-		{
-			Entity entity = entities.get(key);
-
-			if (key.equals(entity.getName()))
-			{
-				Util.println("\t" + entity.getName());
-				Util.println("\t\tInternal? " + entity.isInternal());
-				Util.println("\t\tRET: 1");
-	
-				int det = Util.countDET(entity, entities);
-
-				Util.println("\t\tDET: " + det);
-
-				int value = 0;
-
-				if (entity.isInternal())
-					value = fpaConfig.getIFLComplexityValue(1, det);
-				else
-					value = fpaConfig.getEIFComplexityValue(1, det);
-
-				Util.println("\t\tValue: " + value);
-
-				total += value;
-			}
-		}
 
 		for (UseCase useCase : useCases)
 		{
@@ -576,6 +591,27 @@ public class Core
 				total += value;
 			}
 		}
+
+		return total;
+	}
+
+	/**
+	 * Starts the Function Point Analysis.
+	 */
+	public void startFunctionPointAnalysis(FPAConfig fpaConfig)
+	{
+		startFunctionPointAnalysisDF();
+		startFunctionPointAnalysisTF();
+
+		int total = 0;
+
+		Util.println("\n -- REPORT --\n");
+
+		total += startFunctionPointAnalysisDFReport(fpaConfig);
+
+		Util.print("\n");
+
+		total += startFunctionPointAnalysisTFReport(fpaConfig);
 
 		Util.println("  TOTAL: " + total);
 	}

@@ -1,5 +1,6 @@
 package br.ufrj.coppe.pinel.express;
 
+import br.ufrj.coppe.pinel.express.common.FPAConfig;
 import br.ufrj.coppe.pinel.express.common.Util;
 import br.ufrj.coppe.pinel.express.xml.exception.ReadXMLException;
 
@@ -46,8 +47,11 @@ public class TestCore
 //			core.readDependencies("data/dependency/as-web-system.xml");
 			core.readDependencies("data/dependency/example.xml");
 
+			Util.println(">> Configuration...");
+			FPAConfig fpaConfig = core.readFPAConfiguration("conf/ExpressFPA.xml");
+
 			Util.println(">> Starting...");
-			core.startFunctionPointAnalysis();
+			core.startFunctionPointAnalysis(fpaConfig);
 
 			Util.println("Done.");
 		}
