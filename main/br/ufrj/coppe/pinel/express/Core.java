@@ -658,10 +658,10 @@ public class Core
 	{
 		ClassUsageReport classUsageReport = new ClassUsageReport(fileName);
 
-//		if (fileName == null)
-//			classUsages = classUsageReport.loadClassUsage(entities, allClasses, dependencyClasses);
-//		else
-//			classUsages = classUsageReport.loadCSV();
+		if (fileName == null)
+			classUsages = classUsageReport.loadClassUsage(entities, allClasses, dependencyClasses);
+		else
+			classUsages = classUsageReport.loadCSV();
 	}
 
 	public void generateClassUsageGraph() throws ExpressFPAException

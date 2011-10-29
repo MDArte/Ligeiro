@@ -69,9 +69,9 @@ public class ClassUsageReport
 	 * @return the class usages
 	 * @throws ExpressFPAException
 	 */
-	public Collection<ClassUsage> loadClassUsage(Map<String, Entity> entities, Map<String, IBaseClass> allClasses, Collection<BaseClass> dependencyClasses) throws ExpressFPAException
+	public Collection<ClassUsage> loadClassUsage(Map<String, Entity> entities, Map<String, IBaseClass> allClasses, Map<String, BaseClass> dependencyClasses) throws ExpressFPAException
 	{
-		for (BaseClass dependencyClass : dependencyClasses)
+		for (BaseClass dependencyClass : dependencyClasses.values())
 		{
 			IBaseClass clazz1 = allClasses.get(dependencyClass.getName());
 			if (clazz1 == null)
