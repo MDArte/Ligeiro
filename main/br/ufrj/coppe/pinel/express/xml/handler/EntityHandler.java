@@ -1,0 +1,181 @@
+package br.ufrj.coppe.pinel.express.xml.handler;
+
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
+
+import org.xml.sax.Attributes;
+
+import br.ufrj.coppe.pinel.express.data.Attribute;
+import br.ufrj.coppe.pinel.express.data.Entity;
+import br.ufrj.coppe.pinel.express.data.Method;
+import br.ufrj.coppe.pinel.express.data.Parameter;
+
+/**
+ * The listener used to read entities from a XML.
+ * 
+ * @author Roque Pinel
+ * 
+ */
+public class EntityHandler extends GenericHandler
+{
+	private List<Entity> entities = new LinkedList<Entity>();
+
+	private String tagName = null;
+	private String valueNode = null;
+
+	private Entity entity = null;
+	private Method method = null;
+	private Attribute attribute = null;
+	private Parameter parameter = null;
+
+	private boolean hasMethodReturn = false;
+
+
+	/**
+	 * @return the entities read.
+	 */
+	public Collection<Entity> getEntities()
+	{
+		return entities;
+	}
+
+	/**
+	 * @see org.xml.sax.helpers.DefaultHandler#startElement(java.lang.String, java.lang.String, java.lang.String, org.xml.sax.Attributes)
+	 */
+	public void startElement(String uri, String localName, String tag, Attributes attributes)
+	{
+		tagName = tag.trim();
+
+		if (tagName.equals("entity"))
+		{
+			entity = new Entity();
+			entities.add(entity);
+		}
+		else if (tagName.equals("method"))
+		{
+			method = new Method();
+			entity.addMethod(method);
+
+			String modifierStr = attributes.getValue("modifier");
+			if (modifierStr != null && Boolean.valueOf(modifierStr))
+				method.setAsModifier();
+		}
+		else if (tagName.equals("return"))
+		{
+			hasMethodReturn = true;
+		}
+		else if (tagName.equals("parameter"))
+		{
+			parameter = new Parameter();
+			method.addParameter(parameter);
+		}
+		else if (tagName.equals("attribute"))
+		{
+			attribute = new Attribute();
+			entity.addAttribute(attribute);
+
+			String identifierStr = attributes.getValue("identifier");
+			if (identifierStr != null && Boolean.valueOf(identifierStr))
+				attribute.setAsIdentifier();
+		}
+	}
+
+	/**
+	 * @see org.xml.sax.helpers.DefaultHandler#endElement(java.lang.String, java.lang.String, java.lang.String)
+	 */
+	public void endElement(String uri, String localName, String tag)
+	{
+		tagName = null;
+		valueNode = null;
+
+		if (tag.equals("entity"))
+		{
+			entity = null;
+		}
+		else if (tag.equals("method"))
+		{
+			method = null;
+		}
+		else if (tag.equals("return"))
+		{
+			hasMethodReturn = false;
+		}
+		else if (tag.equals("parameter"))
+		{
+			parameter = null;
+		}
+		else if (tag.equals("attribute"))
+		{
+			attribute = null;
+		}
+	}
+
+	/**
+	 * @see org.xml.sax.helpers.DefaultHandler#characters(char[], int, int)
+	 */
+	public void characters(char[] ch, int start, int length)
+	{
+		StringBuffer content = new StringBuffer();
+		content.append(ch, start, length);
+
+		valueNode = content.toString().trim();
+
+		if(valueNode == null || valueNode.length() <= 0)
+		{ 
+			return;
+		}
+
+		if (entity != null)
+		{
+			if (method != null)
+			{
+				if (hasMethodReturn)
+				{
+					if (tagName.equals("type"))
+					{
+						method.setReturnType(valueNode);
+					}
+				}
+				else if (parameter != null)
+				{
+					if (tagName.equals("name"))
+					{
+						parameter.setName(valueNode);
+					}
+					else if (tagName.equals("type"))
+					{
+						parameter.setType(valueNode);
+					}
+				}
+				else if (tagName.equals("name"))
+				{
+					method.setName(valueNode);
+				}
+			}
+			else if (attribute != null)
+			{
+				if (tagName.equals("name"))
+				{
+					attribute.setName(valueNode);
+				}
+				else if (tagName.equals("type"))
+				{
+					attribute.setType(valueNode);
+				}
+			}
+			else if (tagName.equals("name"))
+			{
+				entity.setName(valueNode);
+			}
+			else if (tagName.equals("implementationName"))
+			{
+				entity.setImplementationName(valueNode);
+			}
+			else if (tagName.equals("extends"))
+			{
+				entity.setExtendsClass(valueNode);
+			}
+		}
+	}
+}
