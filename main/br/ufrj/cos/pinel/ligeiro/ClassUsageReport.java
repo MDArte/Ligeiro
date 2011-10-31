@@ -168,7 +168,7 @@ public class ClassUsageReport
 			
 			while (in.ready())
 			{
-				String[] columns = Util.getCSVColumns(in.readLine(), Constants.CSV.DELIMITER);
+				String[] columns = Util.getCSVColumns(in.readLine(), Constants.CSV_DELIMITER);
 
 				ClassUsage classUsage = new ClassUsage(columns[0], columns[1], columns[2], columns[3], columns[4]);
 
@@ -207,19 +207,19 @@ public class ClassUsageReport
 		{
 			BufferedWriter out = new BufferedWriter(new FileWriter(fileName));
 
-			out.write("Type" + Constants.CSV.DELIMITER + "Element" + Constants.CSV.DELIMITER
-					+ "Element Method" + Constants.CSV.DELIMITER + "Dependency Type" + Constants.CSV.DELIMITER
+			out.write("Type" + Constants.CSV_DELIMITER + "Element" + Constants.CSV_DELIMITER
+					+ "Element Method" + Constants.CSV_DELIMITER + "Dependency Type" + Constants.CSV_DELIMITER
 					+ "Dependency" + "\n");
 	
 			for (ClassUsage classUsage : classUsages)
 			{
-				out.write(classUsage.getType() + Constants.CSV.DELIMITER);
+				out.write(classUsage.getType() + Constants.CSV_DELIMITER);
 
-				out.write(classUsage.getElement() + Constants.CSV.DELIMITER);
+				out.write(classUsage.getElement() + Constants.CSV_DELIMITER);
 
-				out.write(classUsage.getMethod() + Constants.CSV.DELIMITER);
+				out.write(classUsage.getMethod() + Constants.CSV_DELIMITER);
 
-				out.write(classUsage.getDependencyType() + Constants.CSV.DELIMITER);
+				out.write(classUsage.getDependencyType() + Constants.CSV_DELIMITER);
 
 				out.write(classUsage.getDependency() + "\n");
 			}

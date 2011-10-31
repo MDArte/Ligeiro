@@ -96,7 +96,7 @@ public class Core
 	{
 		String statisticType = XMLUtil.readStatisticType(fileName);
 
-		if (statisticType.equals(Constants.XML.CLASSES))
+		if (statisticType.equals(Constants.XML_CLASSES))
 		{
 			Collection<BaseClass> classes = XMLUtil.readClasses(fileName);
 
@@ -105,7 +105,7 @@ public class Core
 				this.allClasses.put(clazz.getName(), clazz);
 			}
 		}
-		else if (statisticType.equals(Constants.XML.ENTITY))
+		else if (statisticType.equals(Constants.XML_ENTITY))
 		{
 			Collection<Entity> entities = XMLUtil.readEntities(fileName);
 
@@ -115,7 +115,7 @@ public class Core
 				this.entities.put(entity.getImplementationName(), entity);
 			}
 		}
-		else if (statisticType.equals(Constants.XML.SERVICE))
+		else if (statisticType.equals(Constants.XML_SERVICE))
 		{
 			Collection<Service> services = XMLUtil.readServices(fileName);
 
@@ -130,7 +130,7 @@ public class Core
 				}
 			}
 		}
-		else if (statisticType.equals(Constants.XML.USE_CASE))
+		else if (statisticType.equals(Constants.XML_USE_CASE))
 		{
 			Collection<UseCase> useCases = XMLUtil.readUseCases(fileName);
 

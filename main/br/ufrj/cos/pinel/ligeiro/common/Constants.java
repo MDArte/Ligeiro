@@ -31,32 +31,17 @@ public class Constants
 	public static String XML_ENGINE = XML_ENGINE_TYPE.SAX;
 
 	/**
-	 * XML.
-	 * 
-	 * @author Roque Pinel
-	 *
+	 * XML Types.
 	 */
-	public static class XML
-	{
-		public static String CLASSES = "classes";
-		public static String ENTITY = "entities";
-		public static String SERVICE = "services";
-		public static String USE_CASE = "usecases";
-	}
+	public static String XML_CLASSES = "classes";
+	public static String XML_ENTITY = "entities";
+	public static String XML_SERVICE = "services";
+	public static String XML_USE_CASE = "usecases";
 
 	/**
-	 * CSV.
-	 * 
-	 * @author Roque Pinel
-	 *
+	 * The caracter used to separe the value in a CSV file.
 	 */
-	public static class CSV
-	{
-		/**
-		 * The caracter used to separe the value in a CSV file.
-		 */
-		public static char DELIMITER = ';';
-	}
+	public static char CSV_DELIMITER = ';';
 
 	/*
 	 * Data Function.
