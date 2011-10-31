@@ -1,6 +1,6 @@
 package br.ufrj.cos.pinel.ligeiro;
 
-import br.ufrj.coppe.pinel.express.Core;
+import br.ufrj.cos.pinel.ligeiro.Core;
 
 
 /**

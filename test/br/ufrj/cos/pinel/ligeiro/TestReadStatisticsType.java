@@ -1,8 +1,8 @@
 package br.ufrj.cos.pinel.ligeiro;
 
-import br.ufrj.coppe.pinel.express.common.Util;
-import br.ufrj.coppe.pinel.express.xml.XMLUtil;
-import br.ufrj.coppe.pinel.express.xml.exception.ReadXMLException;
+import br.ufrj.cos.pinel.ligeiro.common.Util;
+import br.ufrj.cos.pinel.ligeiro.xml.XMLUtil;
+import br.ufrj.cos.pinel.ligeiro.xml.exception.ReadXMLException;
 
 /**
  * 

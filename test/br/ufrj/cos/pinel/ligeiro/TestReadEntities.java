@@ -2,10 +2,10 @@ package br.ufrj.cos.pinel.ligeiro;
 
 import java.util.Collection;
 
-import br.ufrj.coppe.pinel.express.common.Util;
-import br.ufrj.coppe.pinel.express.data.Entity;
-import br.ufrj.coppe.pinel.express.xml.XMLUtil;
-import br.ufrj.coppe.pinel.express.xml.exception.ReadXMLException;
+import br.ufrj.cos.pinel.ligeiro.common.Util;
+import br.ufrj.cos.pinel.ligeiro.data.Entity;
+import br.ufrj.cos.pinel.ligeiro.xml.XMLUtil;
+import br.ufrj.cos.pinel.ligeiro.xml.exception.ReadXMLException;
 
 /**
  * 
