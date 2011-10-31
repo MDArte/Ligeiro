@@ -16,9 +16,11 @@ import br.ufrj.cos.pinel.ligeiro.data.ClassUsage;
 import br.ufrj.cos.pinel.ligeiro.data.Dependency;
 import br.ufrj.cos.pinel.ligeiro.data.Entity;
 import br.ufrj.cos.pinel.ligeiro.data.Event;
+import br.ufrj.cos.pinel.ligeiro.data.FPAReport;
 import br.ufrj.cos.pinel.ligeiro.data.IBaseClass;
 import br.ufrj.cos.pinel.ligeiro.data.Method;
 import br.ufrj.cos.pinel.ligeiro.data.Parameter;
+import br.ufrj.cos.pinel.ligeiro.data.ReportResult;
 import br.ufrj.cos.pinel.ligeiro.data.Service;
 import br.ufrj.cos.pinel.ligeiro.data.UseCase;
 import br.ufrj.cos.pinel.ligeiro.data.View;
@@ -49,7 +51,9 @@ public class Core
 	//private Collection<BaseClass> dependencyClasses;
 	private Map<String, BaseClass> dependencyClasses;
 
-	private Collection<ClassUsage> classUsages = null;
+	private Collection<ClassUsage> classUsages;
+
+	private FPAReport fpaReport;
 
 	/**
 	 * Default constructor.
@@ -63,6 +67,8 @@ public class Core
 
 		//this.dependencyClasses = new ArrayList<BaseClass>();
 		this.dependencyClasses = new HashMap<String, BaseClass>();
+
+		this.classUsages = null;
 	}
 
 	/**
@@ -348,9 +354,10 @@ public class Core
 		}
 	}
 
-	public int startFunctionPointAnalysisDFReport(FPAConfig fpaConfig)
+	public FPAReport startFunctionPointAnalysisDFReport(FPAConfig fpaConfig)
 	{
-		int total = 0;
+		if (fpaReport == null)
+			fpaReport = new FPAReport();
 
 		for (String key : entities.keySet())
 		{
@@ -358,28 +365,42 @@ public class Core
 
 			if (key.equals(entity.getName()))
 			{
-				Util.println("\t" + entity.getName());
-				Util.println("\t\tInternal? " + entity.isInternal());
-				Util.println("\t\tRET: 1");
-	
-				int det = Util.countDET(entity, entities);
+				ReportResult reportResult = new ReportResult();
+				reportResult.setElement(entity.getName());
 
-				Util.println("\t\tDET: " + det);
+				reportResult.setRet_ftr(Constants.DF_DEFAULT_RET);
+				reportResult.setDet(Util.countDET(entity, entities));
 
 				int value = 0;
+				String complexity = null;
 
 				if (entity.isInternal())
-					value = fpaConfig.getIFLComplexityValue(1, det);
+				{
+					reportResult.setType(Constants.DF_ILF);
+					complexity = fpaConfig.getIFLComplexity(reportResult.getRet_ftr(), reportResult.getDet());
+					value = fpaConfig.getIFLComplexityValue(reportResult.getRet_ftr(), reportResult.getDet());
+				}
 				else
-					value = fpaConfig.getEIFComplexityValue(1, det);
+				{
+					reportResult.setType(Constants.DF_EIF);
+					complexity = fpaConfig.getEIFComplexity(reportResult.getRet_ftr(), reportResult.getDet());
+					value = fpaConfig.getEIFComplexityValue(reportResult.getRet_ftr(), reportResult.getDet());
+				}
 
-				Util.println("\t\tValue: " + value);
+				reportResult.setComplexity(complexity);
+				reportResult.setComplexityValue(value);
 
-				total += value;
+				fpaReport.addDFReportTotal(value);
+
+				Util.println("\t" + reportResult.getType() + ": " + reportResult.getElement());
+				Util.println("\t\tRET: " + reportResult.getRet_ftr());
+				Util.println("\t\tDET: " + reportResult.getDet());
+				Util.println("\t\tComplexity: " + reportResult.getComplexity());
+				Util.println("\t\tComplexity Value: " + reportResult.getComplexityValue());
 			}
 		}
 
-		return total;
+		return fpaReport;
 	}
 
 	public void startFunctionPointAnalysisTF()
@@ -539,81 +560,93 @@ public class Core
 		}
 	}
 
-	public int startFunctionPointAnalysisTFReport(FPAConfig fpaConfig)
+	public FPAReport startFunctionPointAnalysisTFReport(FPAConfig fpaConfig)
 	{
-		int total = 0;
+		if (fpaReport == null)
+			fpaReport = new FPAReport();
 
 		for (UseCase useCase : useCases)
 		{
 			for (View view : useCase.getViews())
 			{
-				int ftr = 1;
-				int det = view.getNumberInputParameters() + view.getNumberButtons();
-
-				int value = 0;
-
-				if (view.isEI())
+				if (!view.isEQ2())
 				{
-					Util.println("\tEI: " + view.getName());
-
-					value = fpaConfig.getEIComplexityValue(ftr, det);
-
-					Util.println("\t\tFTR: " + ftr);
-					Util.println("\t\tDET: " + det);
-					Util.println("\t\tValue: " + value);
-				}
-				else if (view.isEO())
-				{
-					Util.println("\tEO: " + view.getName());
-
-					value = fpaConfig.getEOComplexityValue(ftr, det);
-
-					Util.println("\t\tFTR: " + ftr);
-					Util.println("\t\tDET: " + det);
-					Util.println("\t\tValue: " + value);
-				}
-				else if (view.isEQ1())
-				{
-					Util.println("\tEQ1: " + view.getName());
-
-					if (view.getResultView() != null)
+					ReportResult reportResult = new ReportResult();
+	
+					int det = view.getNumberInputParameters() + view.getNumberButtons();
+					int value = 0;
+					String complexity = null;
+	
+					if (view.isEI())
 					{
-						Util.println("\tEQ2: " + view.getResultView().getName());
-						det += view.getResultView().getNumberInputParameters() + view.getResultView().getNumberButtons();
+						reportResult.setElement(view.getName());
+						reportResult.setType(Constants.TF_EI);
+						complexity = fpaConfig.getEIComplexity(reportResult.getRet_ftr(), det);
+						value = fpaConfig.getEIComplexityValue(reportResult.getRet_ftr(), det);
 					}
-					value = fpaConfig.getEQComplexityValue(ftr, det);
-
-					Util.println("\t\tFTR: " + ftr);
-					Util.println("\t\tDET: " + det);
-					Util.println("\t\tValue: " + value);
+					else if (view.isEO())
+					{
+						reportResult.setElement(view.getName());
+						reportResult.setType(Constants.TF_EO);
+						complexity = fpaConfig.getEOComplexity(reportResult.getRet_ftr(), det);
+						value = fpaConfig.getEOComplexityValue(reportResult.getRet_ftr(), det);
+					}
+					else if (view.isEQ1())
+					{
+						StringBuilder element = new StringBuilder(view.getName());
+	
+						if (view.getResultView() != null)
+						{
+							element.append(" / ");
+							element.append(view.getResultView().getName());
+							det += view.getResultView().getNumberInputParameters() + view.getResultView().getNumberButtons();
+						}
+	
+						reportResult.setElement(element.toString());
+						reportResult.setType(Constants.TF_EO);
+						complexity = fpaConfig.getEQComplexity(reportResult.getRet_ftr(), det);
+						value = fpaConfig.getEQComplexityValue(reportResult.getRet_ftr(), det);
+					}
+	
+					reportResult.setRet_ftr(Constants.TF_DEFAULT_FTR);
+					reportResult.setDet(det);
+	
+					reportResult.setComplexity(complexity);
+					reportResult.setComplexityValue(value);
+	
+					fpaReport.addDFReportTotal(value);
+	
+					Util.println("\t" + reportResult.getType() + ": " + reportResult.getElement());
+					Util.println("\t\tRET: " + reportResult.getRet_ftr());
+					Util.println("\t\tDET: " + reportResult.getDet());
+					Util.println("\t\tComplexity: " + reportResult.getComplexity());
+					Util.println("\t\tComplexity Value: " + reportResult.getComplexityValue());
 				}
-
-				total += value;
 			}
 		}
 
-		return total;
+		return fpaReport;
 	}
 
 	/**
 	 * Starts the Function Point Analysis.
 	 */
-	public void startFunctionPointAnalysis(FPAConfig fpaConfig)
+	public FPAReport startFunctionPointAnalysis(FPAConfig fpaConfig)
 	{
 		startFunctionPointAnalysisDF();
 		startFunctionPointAnalysisTF();
 
-		int total = 0;
-
 		Util.println("\n -- REPORT --\n");
 
-		total += startFunctionPointAnalysisDFReport(fpaConfig);
+		startFunctionPointAnalysisDFReport(fpaConfig);
 
 		Util.print("\n");
 
-		total += startFunctionPointAnalysisTFReport(fpaConfig);
+		startFunctionPointAnalysisTFReport(fpaConfig);
 
-		Util.println("  TOTAL: " + total);
+		Util.println("  TOTAL: " + fpaReport.getReportTotal());
+
+		return fpaReport;
 	}
 
 	/**

@@ -70,6 +70,11 @@ public class FPAConfig
 		ilf_values[i] = value;
 	}
 
+	public String getIFLComplexity(int ret, int det)
+	{
+		return getComplexity(ilf_ret_row, ilf_det_col, ilf_complexity, ret, det);
+	}
+
 	public int getIFLComplexityValue(int ret, int det)
 	{
 		return getComplexityValue(ilf_ret_row, ilf_det_col, ilf_complexity, ilf_values_row, ilf_values, ret, det);
@@ -122,6 +127,11 @@ public class FPAConfig
 
 		eif_values_row[i] = complexity;
 		eif_values[i] = value;
+	}
+
+	public String getEIFComplexity(int ret, int det)
+	{
+		return getComplexity(eif_ret_row, eif_det_col, eif_complexity, ret, det);
 	}
 
 	public int getEIFComplexityValue(int ret, int det)
@@ -178,6 +188,11 @@ public class FPAConfig
 		ei_values[i] = value;
 	}
 
+	public String getEIComplexity(int ret, int det)
+	{
+		return getComplexity(ei_ftr_row, ei_det_col, ei_complexity, ret, det);
+	}
+
 	public int getEIComplexityValue(int ftr, int det)
 	{
 		return getComplexityValue(ei_ftr_row, ei_det_col, ei_complexity, ei_values_row, ei_values, ftr, det);
@@ -230,6 +245,11 @@ public class FPAConfig
 
 		eo_values_row[i] = complexity;
 		eo_values[i] = value;
+	}
+
+	public String getEOComplexity(int ret, int det)
+	{
+		return getComplexity(eo_ftr_row, eo_det_col, eo_complexity, ret, det);
 	}
 
 	public int getEOComplexityValue(int ftr, int det)
@@ -286,6 +306,11 @@ public class FPAConfig
 		eq_values[i] = value;
 	}
 
+	public String getEQComplexity(int ret, int det)
+	{
+		return getComplexity(eq_ftr_row, eq_det_col, eq_complexity, ret, det);
+	}
+
 	public int getEQComplexityValue(int ftr, int det)
 	{
 		return getComplexityValue(eq_ftr_row, eq_det_col, eq_complexity, eq_values_row, eq_values, ftr, det);
@@ -293,7 +318,7 @@ public class FPAConfig
 
 	/* GENERAL */
 
-	private int getComplexityValue(int[][] rows, int[][] cols, String[][] complexity, String[] values_row, int[] values, int r, int c)
+	private String getComplexity(int[][] rows, int[][] cols, String[][] complexity, int r, int c)
 	{
 		for (int i = 0; i < rows.length; i++)
 		{
@@ -303,15 +328,45 @@ public class FPAConfig
 				{
 					if (cols[j][MIN_COL] <= c && (cols[j][MAX_COL] == INFINITY || c <= cols[j][MAX_COL]))
 					{
-						for (int k = 0; k < values_row.length; k++)
-						{
-							if (values_row[k].equals(complexity[i][j]))
-								return values[k];
-						}
+						return complexity[i][j];
 					}
 				}
 			}
 		}
+
+		return null;
+	}
+
+	private int getComplexityValue(int[][] rows, int[][] cols, String[][] complexity, String[] values_row, int[] values, int r, int c)
+	{
+		String complexityStr = getComplexity(rows, cols, complexity, r, c);
+
+		if (complexityStr != null)
+		{
+			for (int k = 0; k < values_row.length; k++)
+			{
+				if (values_row[k].equals(complexityStr))
+					return values[k];
+			}
+		}
+
+//		for (int i = 0; i < rows.length; i++)
+//		{
+//			if (rows[i][MIN_COL] <= r && (rows[i][MAX_COL] == INFINITY || r <= rows[i][MAX_COL]))
+//			{
+//				for (int j = 0; j < cols.length; j++)
+//				{
+//					if (cols[j][MIN_COL] <= c && (cols[j][MAX_COL] == INFINITY || c <= cols[j][MAX_COL]))
+//					{
+//						for (int k = 0; k < values_row.length; k++)
+//						{
+//							if (values_row[k].equals(complexity[i][j]))
+//								return values[k];
+//						}
+//					}
+//				}
+//			}
+//		}
 
 		return NULL;
 	}

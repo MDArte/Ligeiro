@@ -57,4 +57,19 @@ public class Constants
 		 */
 		public static char DELIMITER = ';';
 	}
+
+	/*
+	 * Data Function.
+	 */
+	public static String DF_ILF = "ILF";
+	public static String DF_EIF = "EIF";
+	public static int DF_DEFAULT_RET = 1;
+
+	/*
+	 * Transaction Function.
+	 */
+	public static String TF_EI = "EI";
+	public static String TF_EO = "EO";
+	public static String TF_EQ = "EQ";
+	public static int TF_DEFAULT_FTR = 1;
 }
