@@ -101,5 +101,6 @@
 				<value type="high">6</value>
 			</complexityValues>
 		</externalInquiry>
+		<vaf>0.65</vaf>
 	</fpa>
 </expressFPA>

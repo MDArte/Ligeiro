@@ -52,6 +52,8 @@ public class FPAConfigHandler extends GenericHandler
 
 	private int counter = -1;
 
+	private boolean isVAF = false;
+
 	/**
 	 * @return the FPA Configuration read.
 	 */
@@ -86,6 +88,10 @@ public class FPAConfigHandler extends GenericHandler
 		else if (tagName.equals("externalInquiry"))
 		{
 			fpaType = FPA_TYPE.EQ;
+		}
+		else if (tagName.equals("vaf"))
+		{
+			isVAF = true;
 		}
 		else if (fpaType != FPA_TYPE.NONE && tagName.equals("complexity"))
 		{
@@ -223,6 +229,10 @@ public class FPAConfigHandler extends GenericHandler
 			ftrMax = -1;
 			type = null;
 		}
+		else if (tagName.equals("vaf"))
+		{
+			isVAF = false;
+		}
 	}
 
 	/**
@@ -288,6 +298,10 @@ public class FPAConfigHandler extends GenericHandler
 			{
 				fpaConfig.setEQComplexityValue(counter, type, Integer.parseInt(valueNode));
 			}
+		}
+		else if (isVAF)
+		{
+			fpaConfig.setVaf(Double.parseDouble(valueNode));
 		}
 	}
 }

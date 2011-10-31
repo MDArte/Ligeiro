@@ -13,6 +13,9 @@ public class FPAConfig
 	private static int MAX_COL = 1;
 	private static int COLUMNS_SIZE = 2;
 
+	// Value Adjustment Factor
+	private double vaf;
+
 	/**
 	 * Default contructor.
 	 */
@@ -316,6 +319,22 @@ public class FPAConfig
 		return getComplexityValue(eq_ftr_row, eq_det_col, eq_complexity, eq_values_row, eq_values, ftr, det);
 	}
 
+	/**
+	 * @return the vaf
+	 */
+	public double getVaf()
+	{
+		return vaf;
+	}
+
+	/**
+	 * @param vaf the vaf to set
+	 */
+	public void setVaf(double vaf)
+	{
+		this.vaf = vaf;
+	}
+
 	/* GENERAL */
 
 	private String getComplexity(int[][] rows, int[][] cols, String[][] complexity, int r, int c)
@@ -349,24 +368,6 @@ public class FPAConfig
 					return values[k];
 			}
 		}
-
-//		for (int i = 0; i < rows.length; i++)
-//		{
-//			if (rows[i][MIN_COL] <= r && (rows[i][MAX_COL] == INFINITY || r <= rows[i][MAX_COL]))
-//			{
-//				for (int j = 0; j < cols.length; j++)
-//				{
-//					if (cols[j][MIN_COL] <= c && (cols[j][MAX_COL] == INFINITY || c <= cols[j][MAX_COL]))
-//					{
-//						for (int k = 0; k < values_row.length; k++)
-//						{
-//							if (values_row[k].equals(complexity[i][j]))
-//								return values[k];
-//						}
-//					}
-//				}
-//			}
-//		}
 
 		return NULL;
 	}
@@ -419,6 +420,8 @@ public class FPAConfig
 			Util.println("  ComplexityValue");
 			printComplexityValue(eq_values_row, eq_values, "\t");
 		}
+
+		Util.println("Value Adjustment Factor: " + vaf);
 	}
 
 	private void printComplexity(int[][] row, int[][] col, String[][] matrix, String prefix)
