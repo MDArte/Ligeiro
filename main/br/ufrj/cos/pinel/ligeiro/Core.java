@@ -359,6 +359,8 @@ public class Core
 	{
 		if (fpaReport == null)
 			fpaReport = new FPAReport();
+		else
+			fpaReport.clearTFReport();
 
 		for (String key : entities.keySet())
 		{
@@ -566,6 +568,8 @@ public class Core
 	{
 		if (fpaReport == null)
 			fpaReport = new FPAReport();
+		else
+			fpaReport.clearTFReport();
 
 		for (UseCase useCase : useCases)
 		{
