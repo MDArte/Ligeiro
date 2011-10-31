@@ -15,20 +15,15 @@ public class Constants
 
 	/**
 	 * XML Engine Type.
-	 * 
-	 * @author Roque Pinel
 	 *
 	 */
-	public static class XML_ENGINE_TYPE
-	{
-		public static String JDOM = "JDOM";
-		public static String SAX = "SAX";
-	}
+	public static String XML_ENGINE_TYPE_JDOM = "JDOM";
+	public static String XML_ENGINE_TYPE_SAX = "SAX";
 
 	/**
 	 * XML Engine
 	 */
-	public static String XML_ENGINE = XML_ENGINE_TYPE.SAX;
+	public static String XML_ENGINE = XML_ENGINE_TYPE_SAX;
 
 	/**
 	 * XML Types.

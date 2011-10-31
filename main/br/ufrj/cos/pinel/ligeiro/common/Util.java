@@ -1,14 +1,7 @@
 package br.ufrj.cos.pinel.ligeiro.common;
 
-import java.io.IOException;
 import java.util.Collection;
 import java.util.Map;
-
-import org.apache.log4j.Appender;
-import org.apache.log4j.BasicConfigurator;
-import org.apache.log4j.FileAppender;
-import org.apache.log4j.Logger;
-import org.apache.log4j.PatternLayout;
 
 import br.ufrj.cos.pinel.ligeiro.data.Attribute;
 import br.ufrj.cos.pinel.ligeiro.data.Entity;
@@ -23,20 +16,20 @@ import br.ufrj.cos.pinel.ligeiro.data.Parameter;
  */
 public class Util
 {
-	private static Logger logger = Logger.getLogger(Util.class);
-
-	static {
-		BasicConfigurator.configure();
-		try
-		{
-			Appender fileAppender = new FileAppender(new PatternLayout(PatternLayout.TTCC_CONVERSION_PATTERN), "ExpressFPA.log");
-			logger.addAppender(fileAppender);
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-	}
+//	private static Logger logger = Logger.getLogger(Util.class);
+//
+//	static {
+//		BasicConfigurator.configure();
+//		try
+//		{
+//			Appender fileAppender = new FileAppender(new PatternLayout(PatternLayout.TTCC_CONVERSION_PATTERN), "ExpressFPA.log");
+//			logger.addAppender(fileAppender);
+//		}
+//		catch (IOException e)
+//		{
+//			e.printStackTrace();
+//		}
+//	}
 
 	public static void print(String s)
 	{

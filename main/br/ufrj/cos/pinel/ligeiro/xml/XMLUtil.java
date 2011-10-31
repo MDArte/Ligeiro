@@ -30,12 +30,12 @@ public class XMLUtil
 	{
 		IXMLEngine xmlEngine = null;
 
-		if (Constants.XML_ENGINE.equals(Constants.XML_ENGINE_TYPE.JDOM))
+		if (Constants.XML_ENGINE.equals(Constants.XML_ENGINE_TYPE_JDOM))
 		{
 			Util.println("Using JDOM (" + methodName + ") in " + fileName);
 			xmlEngine = new JDOMUtil();
 		}
-		else if (Constants.XML_ENGINE.equals(Constants.XML_ENGINE_TYPE.SAX))
+		else if (Constants.XML_ENGINE.equals(Constants.XML_ENGINE_TYPE_SAX))
 		{
 			Util.println("Using SAX (" + methodName + ") in " + fileName);
 			xmlEngine = new SAXUtil();
