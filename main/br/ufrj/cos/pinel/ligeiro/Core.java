@@ -55,6 +55,7 @@ public class Core
 
 	private FPAReport fpaReport;
 
+
 	/**
 	 * Default constructor.
 	 */
