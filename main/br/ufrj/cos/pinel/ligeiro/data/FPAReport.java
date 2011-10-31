@@ -38,11 +38,11 @@ public class FPAReport
 	}
 
 	/**
-	 * @param result the result to be added
+	 * @param reportResult the result to be added
 	 */
-	public void setDFReport(ReportResult result)
+	public void addDFReport(ReportResult reportResult)
 	{
-		dfReport.add(result);
+		dfReport.add(reportResult);
 	}
 
 	/**
@@ -70,17 +70,17 @@ public class FPAReport
 	}
 
 	/**
-	 * @param result the result to be added
+	 * @param reportResult the result to be added
 	 */
-	public void setTFReport(ReportResult result)
+	public void addTFReport(ReportResult reportResult)
 	{
-		tfReport.add(result);
+		tfReport.add(reportResult);
 	}
 
 	/**
 	 * @return the tfReportTotal
 	 */
-	public int getTfReportTotal()
+	public int getTFReportTotal()
 	{
 		return tfReportTotal;
 	}
@@ -88,7 +88,7 @@ public class FPAReport
 	/**
 	 * @param value value to be added
 	 */
-	public void addTfReportTotal(int value)
+	public void addTFReportTotal(int value)
 	{
 		tfReportTotal += value;
 	}

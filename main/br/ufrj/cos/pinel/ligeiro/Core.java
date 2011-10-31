@@ -391,6 +391,7 @@ public class Core
 				reportResult.setComplexity(complexity);
 				reportResult.setComplexityValue(value);
 
+				fpaReport.addDFReport(reportResult);
 				fpaReport.addDFReportTotal(value);
 
 				Util.println("\t" + reportResult.getType() + ": " + reportResult.getElement());
@@ -615,7 +616,8 @@ public class Core
 					reportResult.setComplexity(complexity);
 					reportResult.setComplexityValue(value);
 	
-					fpaReport.addDFReportTotal(value);
+					fpaReport.addTFReport(reportResult);
+					fpaReport.addTFReportTotal(value);
 	
 					Util.println("\t" + reportResult.getType() + ": " + reportResult.getElement());
 					Util.println("\t\tRET: " + reportResult.getRet_ftr());
