@@ -1,4 +1,4 @@
-package br.ufrj.coppe.pinel.express;
+package br.ufrj.cos.pinel.ligeiro;
 
 import java.util.Collection;
 

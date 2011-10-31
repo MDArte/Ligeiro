@@ -1,37 +1,41 @@
-package br.ufrj.coppe.pinel.express;
+package br.ufrj.cos.pinel.ligeiro;
 
+import br.ufrj.coppe.pinel.express.Core;
+import br.ufrj.coppe.pinel.express.common.FPAConfig;
+import br.ufrj.coppe.pinel.express.common.Util;
+import br.ufrj.coppe.pinel.express.xml.exception.ReadXMLException;
 
 /**
  * 
  * @author Roque Pinel
  *
  */
-public class TestCoreClassUsageReport
+public class TestCore
 {
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args)
 	{
-		System.out.println("-- TestCoreClassUsageReport --");
+		Util.println("-- TestCore --");
 
 		Core core = new Core();
 
 		try
 		{
-			System.out.println(">> Entities");
+			Util.println(">> Entities");
 			core.readStatistics("data/statistics/statistics_entities.xml");
 
-			System.out.println(">> Services");
+			Util.println(">> Services");
 			core.readStatistics("data/statistics/statistics_services.xml");
 
-			System.out.println(">> Controllers");
+			Util.println(">> Controllers");
 			core.readStatistics("data/statistics/statistics_usecases.xml");
 
-			System.out.println(">> ControleAcesso");
+			Util.println(">> ControleAcesso");
 			core.readStatistics("data/statistics/statistics_controleacesso.xml");
 
-			System.out.println(">> Dependencies");
+			Util.println(">> Dependencies");
 //			core.readDependencies("data/dependency/as-common.xml");
 //			core.readDependencies("data/dependency/as-core-cd.xml");
 //			core.readDependencies("data/dependency/as-core-compartilhado.xml");
@@ -44,15 +48,15 @@ public class TestCoreClassUsageReport
 //			core.readDependencies("data/dependency/as-web-system.xml");
 			core.readDependencies("data/dependency/example.xml");
 
-			System.out.println(">> Starting...");
+			Util.println(">> Configuration...");
+			FPAConfig fpaConfig = core.readFPAConfiguration("conf/ExpressFPA.xml");
 
-			core.loadClassUsageReport();
+			Util.println(">> Starting...");
+			core.startFunctionPointAnalysis(fpaConfig);
 
-			core.createClassUsageReport("data/ClassUsageReport.csv");
-
-			System.out.println("Done.");
+			Util.println("Done.");
 		}
-		catch (Exception e)
+		catch (ReadXMLException e)
 		{
 			e.printStackTrace();
 		}

@@ -1,4 +1,4 @@
-package br.ufrj.coppe.pinel.express;
+package br.ufrj.cos.pinel.ligeiro;
 
 import br.ufrj.coppe.pinel.express.common.Util;
 import br.ufrj.coppe.pinel.express.xml.XMLUtil;

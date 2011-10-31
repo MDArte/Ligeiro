@@ -1,4 +1,4 @@
-package br.ufrj.coppe.pinel.express;
+package br.ufrj.cos.pinel.ligeiro;
 
 import java.util.Collection;
 
@@ -8,10 +8,11 @@ import br.ufrj.coppe.pinel.express.xml.XMLUtil;
 import br.ufrj.coppe.pinel.express.xml.exception.ReadXMLException;
 
 /**
+ * 
  * @author Roque Pinel
  *
  */
-public class TestReadDependency
+public class TestReadClasses
 {
 	/**
 	 * @param args
@@ -20,10 +21,9 @@ public class TestReadDependency
 	{
 		try
 		{
-			Util.println("-- TestReadDependency --");
+			Util.println("-- TestReadClasses --");
 
-			Collection<BaseClass> classes = XMLUtil.readDependencies("data/dependency/as-core-student.xml");
-
+			Collection<BaseClass> classes = XMLUtil.readClasses("data/statistics/statistics_controleacesso.xml");
 			Util.println("Classes: " + classes.size());
 
 			for (BaseClass clazz : classes)
