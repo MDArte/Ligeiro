@@ -17,6 +17,8 @@
 		<property name="etc.dir" location="etc"/>
 		<property name="lib.dir" location="lib"/>
 
+		<property name="ligeiro.jar.plugin" value="${target.folder}/../br.ufrj.cos.pinel.ligeiro/"/>
+
 		<!-- Build paths -->
 		<property name="compile.src" value="${src.java.dir}"/>
 		<property name="build.dir" location="build"/>
@@ -52,8 +54,11 @@
 	<target name="print-properties" depends="set-properties" description="Display properties">
 
 		<echo message="target.folder: ${target.folder}"/>
-		<echo message="project.name ${ant.project.name}"/>
-		<echo message="project.version ${project.version}"/>
+		<echo message="project.name: ${ant.project.name}"/>
+		<echo message="project.version: ${project.version}"/>
+		<echo message=" "/>
+
+		<echo message="ligeiro.jar.plugin: ${ligeiro.jar.plugin}"/>
 		<echo message=" "/>
 
 		<echo message="java.version: ${java.version}"/>
@@ -61,23 +66,23 @@
 		<echo message="java.class.path: ${java.class.path}"/>
 		<echo message=" "/>
 
-		<echo message="src.java.dir ${src.java.dir}"/>
+		<echo message="src.java.dir: ${src.java.dir}"/>
 		<echo message=" "/>
 
-		<echo message="compile.src ${compile.src}"/>
-		<echo message="compile.dest.dir ${compile.dest.dir}"/>
-		<echo message="resources.temp.dir ${resources.temp.dir}"/>
+		<echo message="compile.src: ${compile.src}"/>
+		<echo message="compile.dest.dir: ${compile.dest.dir}"/>
+		<echo message="resources.temp.dir: ${resources.temp.dir}"/>
 		<echo message=" "/>
 		
-		<echo message="source.jdk ${source.jdk}"/>
-		<echo message="target.jdk ${target.jdk}"/>
+		<echo message="source.jdk: ${source.jdk}"/>
+		<echo message="target.jdk: ${target.jdk}"/>
 		<echo message=" "/>
 
-		<echo message="jarfile.name ${jarfile.name}"/>
+		<echo message="jarfile.name: ${jarfile.name}"/>
 		<echo message=" "/>
 
 		<echo message=""/>
-		<echo message="build.time ${build.time}"/>
+		<echo message="build.time: ${build.time}"/>
 
 		<echo message="print-properties done"/>
 	</target>
@@ -89,8 +94,8 @@
 		<mkdir dir="${compile.dest.dir}"/>
 
 		<javac 
-			srcdir="${compile.src}" 
-			destdir="${compile.dest.dir}" 
+			srcdir="${compile.src}"
+			destdir="${compile.dest.dir}"
 			debug="on"
 			optimize="on"
 			deprecation="off"
@@ -126,6 +131,20 @@
 		</jar>
 
 		<echo message="build-jar done"/>
+
+		
+	</target>
+
+	<target name="copy-classes-plugin" depends="build-classes" description="Compile classes (javac)">
+		<delete dir="${ligeiro.jar.plugin}/br"/>
+
+		<copy todir="${ligeiro.jar.plugin}">
+			<fileset dir="${compile.dest.dir}">
+				<include name="**/*" />
+			</fileset>
+		</copy>
+
+		<echo message="copy-classes-plugin done"/>
 	</target>
 
 	<!--  ******************************************************  -->
