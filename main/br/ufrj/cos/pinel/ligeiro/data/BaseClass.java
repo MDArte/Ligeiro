@@ -87,10 +87,10 @@ public class BaseClass implements IBaseClass
 	/**
 	 * @see br.ufrj.cos.pinel.ligeiro.data.IBaseClass#setPackageName(java.lang.String)
 	 */
-	public void setPackageName(String packageName)
-	{
-		this.packageName = packageName;
-	}
+//	public void setPackageName(String packageName)
+//	{
+//		this.packageName = packageName;
+//	}
 
 	/**
 	 * @see br.ufrj.cos.pinel.ligeiro.data.IBaseClass#getModule()

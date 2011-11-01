@@ -32,12 +32,12 @@ public interface IBaseClass
 	/**
 	 * @return the packageName
 	 */
-	//public String getPackageName();
+//	public String getPackageName();
 
 	/**
 	 * @param packageName the packageName to set
 	 */
-	public void setPackageName(String packageName);
+//	public void setPackageName(String packageName);
 
 	/**
 	 * @return the module
