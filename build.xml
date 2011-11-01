@@ -1,4 +1,4 @@
-<project name="Ligeiro" default="build-jar" basedir=".">
+<project name="Ligeiro" default="copy-classes-plugin" basedir=".">
 
 	<property environment="env"/>
 	<property name="project.version" value="1.0"/>
@@ -135,6 +135,9 @@
 		
 	</target>
 
+	<!-- ****************************************************** -->
+	<!-- Copy Classes for Plugin                                -->
+	<!-- ****************************************************** -->
 	<target name="copy-classes-plugin" depends="build-classes" description="Compile classes (javac)">
 		<delete dir="${ligeiro.jar.plugin}/br"/>
 
