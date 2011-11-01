@@ -102,6 +102,14 @@ public class FPAReport
 	}
 
 	/**
+	 * @return the adjustedReportTotal
+	 */
+	public double getAdjustedReportTotal(double vaf)
+	{
+		return getReportTotal() * vaf;
+	}
+
+	/**
 	 * Clears the DF Report.
 	 */
 	public void clearDFReport()
