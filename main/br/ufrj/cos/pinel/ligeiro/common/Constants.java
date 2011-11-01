@@ -11,7 +11,7 @@ public class Constants
 	/**
 	 * Enables debug report.
 	 */
-	public static boolean DEBUG = false;
+	public static boolean DEBUG = true;
 
 	/**
 	 * XML Engine Type.
