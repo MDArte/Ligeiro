@@ -403,13 +403,15 @@ public class Core
 
 				if (entity.isInternal())
 				{
-					reportResult.setType(Constants.DF_ILF);
+					if (reportResult.getDet() > 0)
+						reportResult.setType(Constants.DF_ILF);
 					complexity = fpaConfig.getIFLComplexity(reportResult.getRet_ftr(), reportResult.getDet());
 					value = fpaConfig.getIFLComplexityValue(reportResult.getRet_ftr(), reportResult.getDet());
 				}
 				else
 				{
-					reportResult.setType(Constants.DF_EIF);
+					if (reportResult.getDet() > 0)
+						reportResult.setType(Constants.DF_EIF);
 					complexity = fpaConfig.getEIFComplexity(reportResult.getRet_ftr(), reportResult.getDet());
 					value = fpaConfig.getEIFComplexityValue(reportResult.getRet_ftr(), reportResult.getDet());
 				}
@@ -633,7 +635,7 @@ public class Core
 						}
 	
 						reportResult.setElement(element.toString());
-						reportResult.setType(Constants.TF_EO);
+						reportResult.setType(Constants.TF_EQ);
 						complexity = fpaConfig.getEQComplexity(reportResult.getRet_ftr(), det);
 						value = fpaConfig.getEQComplexityValue(reportResult.getRet_ftr(), det);
 					}
