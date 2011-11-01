@@ -11,6 +11,8 @@ public class UseCase
 {
 	private String name;
 
+	private String moduleName;
+
 	private Controller controller;
 
 	private Collection<View> views;
@@ -49,6 +51,22 @@ public class UseCase
 	public void setName(String name)
 	{
 		this.name = name;
+	}
+
+	/**
+	 * @return the moduleName
+	 */
+	public String getModuleName()
+	{
+		return moduleName;
+	}
+
+	/**
+	 * @param moduleName the moduleName to set
+	 */
+	public void setModuleName(String moduleName)
+	{
+		this.moduleName = moduleName;
 	}
 
 	/**

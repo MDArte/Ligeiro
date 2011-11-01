@@ -32,6 +32,7 @@ public class TestReadUseCases
 			for (UseCase useCase : useCases)
 			{
 				Util.println("UseCase name: " + useCase.getName());
+				Util.println("UseCase module: " + useCase.getModuleName());
 
 				Util.println("--> Views");
 				for (View view : useCase.getViews())

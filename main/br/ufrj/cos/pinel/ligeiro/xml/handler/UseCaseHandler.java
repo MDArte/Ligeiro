@@ -25,9 +25,11 @@ import br.ufrj.cos.pinel.ligeiro.data.View;
 public class UseCaseHandler extends GenericHandler
 {
 	private List<UseCase> useCases = new LinkedList<UseCase>();
-	
+
 	private String tagName = null;
 	private String valueNode = null;
+
+	private String moduleName = null;
 
 	private UseCase useCase = null;
 
@@ -91,7 +93,11 @@ public class UseCaseHandler extends GenericHandler
 	{
 		tagName = tag.trim();
 
-		if (tagName.equals("useCase"))
+		if (tagName.equals("module"))
+		{
+			moduleName = new String();
+		}
+		else if (tagName.equals("useCase"))
 		{
 			useCase = new UseCase();
 			useCases.add(useCase);
@@ -196,8 +202,13 @@ public class UseCaseHandler extends GenericHandler
 		tagName = null;
 		valueNode = null;
 
-		if (tag.equals("useCase"))
+		if (tag.equals("module")) 
 		{
+			moduleName = null;
+		}
+		else if (tag.equals("useCase"))
+		{
+			useCase.setModuleName(moduleName);
 			useCase = null;
 		}
 		else if (tag.equals("view"))
@@ -249,64 +260,104 @@ public class UseCaseHandler extends GenericHandler
 			return;
 		}
 
-		if (useCase != null)
+		if (moduleName != null)
 		{
-			if (controller != null)
+			if (useCase != null)
 			{
-				if (method != null)
+				if (controller != null)
 				{
-					if (hasMethodReturn)
+					if (method != null)
 					{
-						if (tagName.equals("type"))
+						if (hasMethodReturn)
 						{
-							method.setReturnType(valueNode);
+							if (tagName.equals("type"))
+							{
+								method.setReturnType(valueNode);
+							}
 						}
-					}
-					else if (parameter != null)
-					{
-						if (tagName.equals("name"))
+						else if (parameter != null)
 						{
-							parameter.setName(valueNode);
+							if (tagName.equals("name"))
+							{
+								parameter.setName(valueNode);
+							}
+							else if (tagName.equals("type"))
+							{
+								parameter.setType(valueNode);
+							}
 						}
-						else if (tagName.equals("type"))
+						else if (tagName.equals("name"))
 						{
-							parameter.setType(valueNode);
+							method.setName(valueNode);
 						}
 					}
 					else if (tagName.equals("name"))
 					{
-						method.setName(valueNode);
+						controller.setName(valueNode);
+					}
+					else if (tagName.equals("implementationName"))
+					{
+						controller.setImplementationName(valueNode);
 					}
 				}
-				else if (tagName.equals("name"))
+				else if (view != null)
 				{
-					controller.setName(valueNode);
-				}
-				else if (tagName.equals("implementationName"))
-				{
-					controller.setImplementationName(valueNode);
-				}
-			}
-			else if (view != null)
-			{
-				if (method != null)
-				{
-					if (hasMethodReturn)
+					if (method != null)
 					{
-						if (tagName.equals("type"))
+						if (hasMethodReturn)
 						{
-							method.setReturnType(valueNode);
+							if (tagName.equals("type"))
+							{
+								method.setReturnType(valueNode);
+							}
+						}
+						else if (parameter != null)
+						{
+							if (tagName.equals("name"))
+							{
+								parameter.setName(valueNode);
+							}
+							else if (tagName.equals("type"))
+							{
+								parameter.setType(valueNode);
+							}
+						}
+						else if (target != null)
+						{
+							if (tagName.equals("name"))
+							{
+								target.setName(valueNode);
+							}
+							else if (tagName.equals("hyperlinkApplicationName"))
+							{
+								target.setHyperlinkApplicationName(valueNode);
+							}
+							else if (tagName.equals("hyperlinkModulo"))
+							{
+								target.setHyperlinkModulo(valueNode);
+							}
+							else if (tagName.equals("hyperlink"))
+							{
+								target.setHyperlink(valueNode);
+							}
+						}
+						else if (tagName.equals("name"))
+						{
+							method.setName(valueNode);
 						}
 					}
-					else if (parameter != null)
+					else if (tagName.equals("name"))
+					{
+						view.setName(valueNode);
+					}
+				}
+				else if (state != null)
+				{
+					if (event != null)
 					{
 						if (tagName.equals("name"))
 						{
-							parameter.setName(valueNode);
-						}
-						else if (tagName.equals("type"))
-						{
-							parameter.setType(valueNode);
+							event.setName(valueNode);
 						}
 					}
 					else if (target != null)
@@ -330,50 +381,17 @@ public class UseCaseHandler extends GenericHandler
 					}
 					else if (tagName.equals("name"))
 					{
-						method.setName(valueNode);
+						state.setName(valueNode);
 					}
 				}
 				else if (tagName.equals("name"))
 				{
-					view.setName(valueNode);
-				}
-			}
-			else if (state != null)
-			{
-				if (event != null)
-				{
-					if (tagName.equals("name"))
-					{
-						event.setName(valueNode);
-					}
-				}
-				else if (target != null)
-				{
-					if (tagName.equals("name"))
-					{
-						target.setName(valueNode);
-					}
-					else if (tagName.equals("hyperlinkApplicationName"))
-					{
-						target.setHyperlinkApplicationName(valueNode);
-					}
-					else if (tagName.equals("hyperlinkModulo"))
-					{
-						target.setHyperlinkModulo(valueNode);
-					}
-					else if (tagName.equals("hyperlink"))
-					{
-						target.setHyperlink(valueNode);
-					}
-				}
-				else if (tagName.equals("name"))
-				{
-					state.setName(valueNode);
+					useCase.setName(valueNode);
 				}
 			}
 			else if (tagName.equals("name"))
 			{
-				useCase.setName(valueNode);
+				moduleName = valueNode;
 			}
 		}
 	}
