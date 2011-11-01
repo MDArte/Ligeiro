@@ -25,6 +25,7 @@ import br.ufrj.cos.pinel.ligeiro.data.View;
 import br.ufrj.cos.pinel.ligeiro.exception.ExpressFPAException;
 import br.ufrj.cos.pinel.ligeiro.graph.ClassUsageGraph;
 import br.ufrj.cos.pinel.ligeiro.report.FPAReport;
+import br.ufrj.cos.pinel.ligeiro.report.LoadReport;
 import br.ufrj.cos.pinel.ligeiro.report.ReportResult;
 import br.ufrj.cos.pinel.ligeiro.xml.XMLUtil;
 import br.ufrj.cos.pinel.ligeiro.xml.exception.ReadXMLException;
@@ -90,13 +91,17 @@ public class Core
 	 * Reads the statistics.
 	 * 
 	 * @param fileName the XML's filename
+	 * @return loadReport the report
 	 * @throws ReadXMLException 
 	 */
-	public void readStatistics(String fileName) throws ReadXMLException
+	public LoadReport readStatistics(String fileName) throws ReadXMLException
 	{
-		String statisticType = XMLUtil.readStatisticType(fileName);
+		LoadReport loadReport = new LoadReport(fileName);
 
-		if (statisticType.equals(Constants.XML_CLASSES))
+		String statisticType = XMLUtil.readStatisticType(fileName);
+		loadReport.setType(statisticType);
+
+		if (statisticType.equals(Constants.XML_CLASS))
 		{
 			Collection<BaseClass> classes = XMLUtil.readClasses(fileName);
 
@@ -104,6 +109,8 @@ public class Core
 			{
 				this.allClasses.put(clazz.getName(), clazz);
 			}
+
+			loadReport.setElementsRead(classes.size());
 		}
 		else if (statisticType.equals(Constants.XML_ENTITY))
 		{
@@ -114,6 +121,8 @@ public class Core
 				this.entities.put(entity.getName(), entity);
 				this.entities.put(entity.getImplementationName(), entity);
 			}
+
+			loadReport.setElementsRead(entities.size());
 		}
 		else if (statisticType.equals(Constants.XML_SERVICE))
 		{
@@ -129,6 +138,8 @@ public class Core
 					this.allClasses.put(otherName, service);
 				}
 			}
+
+			loadReport.setElementsRead(services.size());
 		}
 		else if (statisticType.equals(Constants.XML_USE_CASE))
 		{
@@ -141,19 +152,27 @@ public class Core
 				if (useCase.getController() != null)
 					this.allClasses.put(useCase.getController().getImplementationName(), useCase.getController());
 			}
+
+			loadReport.setElementsRead(useCases.size());
 		}
 		else
 			throw new ReadXMLException("Could not found statistic type.");
+
+		return loadReport;
 	}
 
 	/**
 	 * Reads the dependencies.
 	 * 
 	 * @param fileName the XML's filename
+	 * @return loadReport the report
 	 * @throws ReadXMLException
 	 */
-	public void readDependencies(String fileName) throws ReadXMLException
+	public LoadReport readDependencies(String fileName) throws ReadXMLException
 	{
+		LoadReport loadReport = new LoadReport(fileName);
+		loadReport.setType(Constants.XML_DEPENDENCY);
+
 		Collection<BaseClass> classes = XMLUtil.readDependencies(fileName);
 
 		for (BaseClass baseClass: classes)
@@ -166,9 +185,14 @@ public class Core
 			}
 		}
 
+		loadReport.setElementsRead(classes.size());
+
 		Util.println("Number of dependencies after cleaning: " + dependencyClasses.size());
+
+		return loadReport;
 	}
 
+	// avoing method stack, so local instance
 	private Set<String> visitedMethods;
 
 	private boolean doesMethodChangeDataOrBehavior(IBaseClass dependencyClass, String methodSignature)

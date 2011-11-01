@@ -11,7 +11,7 @@ public class Constants
 	/**
 	 * Enables debug report.
 	 */
-	public static boolean DEBUG = true;
+	public static boolean DEBUG = false;
 
 	/**
 	 * XML Engine Type.
@@ -28,10 +28,11 @@ public class Constants
 	/**
 	 * XML Types.
 	 */
-	public static String XML_CLASSES = "classes";
+	public static String XML_CLASS = "classes";
 	public static String XML_ENTITY = "entities";
 	public static String XML_SERVICE = "services";
 	public static String XML_USE_CASE = "usecases";
+	public static String XML_DEPENDENCY = "dependencies";
 
 	/**
 	 * The caracter used to separe the value in a CSV file.
