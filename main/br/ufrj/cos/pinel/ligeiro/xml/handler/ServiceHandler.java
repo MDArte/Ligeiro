@@ -23,6 +23,8 @@ public class ServiceHandler extends GenericHandler
 	private String tagName = null;
 	private String valueNode = null;
 
+	private String moduleName = null;
+
 	private Service service = null;
 	private Method method = null;
 	private Parameter parameter = null;
@@ -46,7 +48,11 @@ public class ServiceHandler extends GenericHandler
 	{
 		tagName = tag.trim();
 
-		if (tagName.equals("service"))
+		if (tagName.equals("module"))
+		{
+			moduleName = new String();
+		}
+		else if (tagName.equals("service"))
 		{
 			service = new Service();
 			services.add(service);
@@ -79,8 +85,13 @@ public class ServiceHandler extends GenericHandler
 		tagName = null;
 		valueNode = null;
 
-		if (tag.equals("service"))
+		if (tag.equals("module"))
 		{
+			moduleName = null;
+		}
+		else if (tag.equals("service"))
+		{
+			service.setModuleName(moduleName);
 			service = null;
 		}
 		else if (tag.equals("method"))
@@ -116,51 +127,58 @@ public class ServiceHandler extends GenericHandler
 			return;
 		}
 
-		if (service != null)
+		if (moduleName != null)
 		{
-			if (method != null)
+			if (service != null)
 			{
-				if (hasMethodReturn)
+				if (method != null)
 				{
-					if (tagName.equals("type"))
+					if (hasMethodReturn)
 					{
-						method.setReturnType(valueNode);
+						if (tagName.equals("type"))
+						{
+							method.setReturnType(valueNode);
+						}
+					}
+					else if (parameter != null)
+					{
+						if (tagName.equals("name"))
+						{
+							parameter.setName(valueNode);
+						}
+						else if (tagName.equals("type"))
+						{
+							parameter.setType(valueNode);
+						}
+					}
+					else if (tagName.equals("name"))
+					{
+						method.setName(valueNode);
+					}
+					else if (tagName.equals("implementationName"))
+					{
+						method.setImplementationName(valueNode);
 					}
 				}
-				else if (parameter != null)
+				else if (hasOtherNames)
 				{
-					if (tagName.equals("name"))
+					if (tagName.equals("value"))
 					{
-						parameter.setName(valueNode);
-					}
-					else if (tagName.equals("type"))
-					{
-						parameter.setType(valueNode);
+						service.addOtherName(valueNode);
 					}
 				}
 				else if (tagName.equals("name"))
 				{
-					method.setName(valueNode);
+					service.setName(valueNode);
 				}
 				else if (tagName.equals("implementationName"))
 				{
-					method.setImplementationName(valueNode);
-				}
-			}
-			else if (hasOtherNames)
-			{
-				if (tagName.equals("value"))
-				{
-					service.addOtherName(valueNode);
+					service.setImplementationName(valueNode);
 				}
 			}
 			else if (tagName.equals("name"))
 			{
-				service.setName(valueNode);
-			}
-			else if (tagName.equals("implementationName"))
-			{
-				service.setImplementationName(valueNode);
+				moduleName = valueNode;
 			}
 		}
 	}

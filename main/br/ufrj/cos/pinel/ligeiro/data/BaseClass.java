@@ -15,9 +15,9 @@ public class BaseClass implements IBaseClass
 
 	private String implementationName;
 
-	private String packageName;
+//	private String packageName;
 
-	private String module;
+	private String moduleName;
 
 	private String extendsClass;
 
@@ -93,19 +93,19 @@ public class BaseClass implements IBaseClass
 //	}
 
 	/**
-	 * @see br.ufrj.cos.pinel.ligeiro.data.IBaseClass#getModule()
+	 * @see br.ufrj.cos.pinel.ligeiro.data.IBaseClass#getModuleName()
 	 */
-	public String getModule()
+	public String getModuleName()
 	{
-		return module;
+		return moduleName;
 	}
 
 	/**
-	 * @see br.ufrj.cos.pinel.ligeiro.data.IBaseClass#setModule(java.lang.String)
+	 * @see br.ufrj.cos.pinel.ligeiro.data.IBaseClass#setModuleName(java.lang.String)
 	 */
-	public void setModule(String module)
+	public void setModuleName(String module)
 	{
-		this.module = module;
+		this.moduleName = module;
 	}
 
 	/**

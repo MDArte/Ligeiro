@@ -40,14 +40,14 @@ public interface IBaseClass
 //	public void setPackageName(String packageName);
 
 	/**
-	 * @return the module
+	 * @return the moduleName
 	 */
-	public String getModule();
+	public String getModuleName();
 
 	/**
-	 * @param module the module to set
+	 * @param moduleName the moduleName to set
 	 */
-	public void setModule(String module);
+	public void setModuleName(String moduleName);
 
 	/**
 	 * @return the extendsClass

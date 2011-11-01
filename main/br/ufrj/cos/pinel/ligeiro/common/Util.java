@@ -57,6 +57,7 @@ public class Util
 	{
 		Util.println("Class Name: " + clazz.getName());
 		Util.println("      Impl Name: " + clazz.getImplementationName());
+		Util.println("      Module: " + clazz.getModuleName());
 
 		Util.println("\tMethods:");
 		for (Method method : clazz.getMethods())
