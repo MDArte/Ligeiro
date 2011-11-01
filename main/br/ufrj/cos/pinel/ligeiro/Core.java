@@ -81,7 +81,6 @@ public class Core
 	 */
 	public FPAConfig readFPAConfiguration(String fileName) throws ReadXMLException
 	{
-		// conf/ExpressFPA.xml
 		FPAConfig fpaConfig = XMLUtil.readFPAConfiguration(fileName);
 
 		return fpaConfig;
