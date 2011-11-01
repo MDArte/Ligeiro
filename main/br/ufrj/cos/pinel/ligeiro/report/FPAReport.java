@@ -1,7 +1,8 @@
-package br.ufrj.cos.pinel.ligeiro.data;
+package br.ufrj.cos.pinel.ligeiro.report;
 
 import java.util.ArrayList;
 import java.util.Collection;
+
 
 /**
  * Holds the FPA Report.

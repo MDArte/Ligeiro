@@ -16,16 +16,16 @@ import br.ufrj.cos.pinel.ligeiro.data.ClassUsage;
 import br.ufrj.cos.pinel.ligeiro.data.Dependency;
 import br.ufrj.cos.pinel.ligeiro.data.Entity;
 import br.ufrj.cos.pinel.ligeiro.data.Event;
-import br.ufrj.cos.pinel.ligeiro.data.FPAReport;
 import br.ufrj.cos.pinel.ligeiro.data.IBaseClass;
 import br.ufrj.cos.pinel.ligeiro.data.Method;
 import br.ufrj.cos.pinel.ligeiro.data.Parameter;
-import br.ufrj.cos.pinel.ligeiro.data.ReportResult;
 import br.ufrj.cos.pinel.ligeiro.data.Service;
 import br.ufrj.cos.pinel.ligeiro.data.UseCase;
 import br.ufrj.cos.pinel.ligeiro.data.View;
 import br.ufrj.cos.pinel.ligeiro.exception.ExpressFPAException;
 import br.ufrj.cos.pinel.ligeiro.graph.ClassUsageGraph;
+import br.ufrj.cos.pinel.ligeiro.report.FPAReport;
+import br.ufrj.cos.pinel.ligeiro.report.ReportResult;
 import br.ufrj.cos.pinel.ligeiro.xml.XMLUtil;
 import br.ufrj.cos.pinel.ligeiro.xml.exception.ReadXMLException;
 

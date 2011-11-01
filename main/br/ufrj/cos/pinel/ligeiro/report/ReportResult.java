@@ -1,4 +1,4 @@
-package br.ufrj.cos.pinel.ligeiro.data;
+package br.ufrj.cos.pinel.ligeiro.report;
 
 
 /**
