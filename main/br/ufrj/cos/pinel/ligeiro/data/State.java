@@ -23,6 +23,8 @@ public class State
 
 	private State target;
 
+	private boolean first;
+
 	/**
 	 * Default constructor.
 	 */
@@ -30,7 +32,9 @@ public class State
 	{
 		this.finalState = false;
 
-		events = new ArrayList<Event>();
+		this.events = new ArrayList<Event>();
+
+		this.first = false;
 	}
 
 	/**
@@ -169,5 +173,21 @@ public class State
 	public void setTarget(State target)
 	{
 		this.target = target;
+	}
+
+	/**
+	 * @return the first
+	 */
+	public boolean isFirst()
+	{
+		return first;
+	}
+
+	/**
+	 * Set as first.
+	 */
+	public void setAsFirst()
+	{
+		this.first = true;
 	}
 }

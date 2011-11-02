@@ -233,7 +233,7 @@ public class Core
 					}
 					else
 					{
-						String methodClassName = Util.getClassName(dependency.getValue());
+						String methodClassName = Util.getMethodClassName(dependency.getValue());
 						if (methodClassName != null)
 						{
 							IBaseClass clazz = allClasses.get(methodClassName);
@@ -247,7 +247,7 @@ public class Core
 								{
 									String methodName = Util.getMethodName(dependency.getValue());
 
-									String[] params = Util.getParameters(dependency.getValue());
+									String[] params = Util.getMethodParameters(dependency.getValue());
 
 									boolean foundBestMatch = false;
 									Method methodMatched = null;
@@ -471,11 +471,50 @@ public class Core
 									if (action.getTarget().isFinalState())
 									{
 										Util.println("\t\t\t\t<FinalState>");
-										// TODO: think about finding the use case
+										// TODO: is it really necessary to verify a final state?
+
+										/*
+										 * Transitions between use cases using the name of a final state can only be
+										 * used when linking use cases of the same web module. In order to link use
+										 * cases of different web modules please use the tagged values for external hyperlinks.
+										 */
+//										if (action.getTarget().getName() != null)
+//										{
+											/*
+											 * Each use-case must have a non-empty name that is unique among all use-cases.
+											 * So it's possible to find the use case just by the name, disregarding the package.
+											 * Considering the same module.
+											 */
+//											for (UseCase otherUseCase : useCases)
+//											{
+//												String otherUseCaseName = Util.getClassName(otherUseCase.getName());
+//
+//												if (otherUseCase.getModuleName().equals(useCase.getModuleName())
+//													&& otherUseCaseName.equals(action.getTarget().getName()))
+//												{
+//													if (otherUseCase.isFirstState())
+//													{
+//														State otherFirstState = (State) otherUseCase.getFirst();
+//														if (!otherFirstState.isFinalState())
+//														{
+//															classifyTF(otherUseCase, view, otherFirstState);
+//														}
+//													}
+//
+//													break;
+//												}
+//											}
+//										}
+//										else
+//										{
+											// verificar as validações de estados finais para saber quais
+											// tags devem estar preenchidas.
+//										}
 									}
 									else
 									{
 										Util.println("\t\t\t\t<Action>");
+
 										BaseClass dependencyClass = dependencyClasses.get(useCase.getController().getImplementationName());
 										if (useCase.getController() != null && dependencyClass != null)
 										{
@@ -543,7 +582,7 @@ public class Core
 							if (action.getTarget().isFinalState())
 							{
 								Util.println("\t\t\t\t<FinalState>");
-								// TODO: think about finding the use case
+								// TODO: is it really necessary to verify a final state?
 							}
 							else
 							{

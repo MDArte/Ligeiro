@@ -19,6 +19,9 @@ public class UseCase
 
 	private Collection<State> states;
 
+	// can be a View or State
+	private Object first;
+
 	/**
 	 * Default contructor.
 	 */
@@ -103,5 +106,37 @@ public class UseCase
 	public void addState(State state)
 	{
 		states.add(state);
+	}
+
+	/**
+	 * @return the first
+	 */
+	public Object getFirst()
+	{
+		return first;
+	}
+
+	/**
+	 * @param first the first to set
+	 */
+	public void setFirst(Object first)
+	{
+		this.first = first;
+	}
+
+	/**
+	 * @return if the first is a view
+	 */
+	public boolean isFirstView()
+	{
+		return first instanceof View;
+	}
+
+	/**
+	 * @return if the first is a state
+	 */
+	public boolean isFirstState()
+	{
+		return first instanceof State;
 	}
 }

@@ -152,7 +152,19 @@ public class Util
 		return columns;
 	}
 
-	public static String getClassName(String methodSignature)
+	public static String getClassName(String classSignature)
+	{
+		String className = null;
+
+		int dot = classSignature.lastIndexOf('.');
+
+		if (dot >= 0 && dot < classSignature.length() - 1)
+			className = classSignature.substring(dot + 1, classSignature.length());
+
+		return className;
+	}
+
+	public static String getMethodClassName(String methodSignature)
 	{
 		String className = null;
 
@@ -188,7 +200,7 @@ public class Util
 		return methodName;
 	}
 
-	public static String[] getParameters(String methodSignature)
+	public static String[] getMethodParameters(String methodSignature)
 	{
 		String[] params = new String[0];
 

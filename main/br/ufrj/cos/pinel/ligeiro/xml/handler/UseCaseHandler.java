@@ -106,12 +106,26 @@ public class UseCaseHandler extends GenericHandler
 		{
 			state = new State();
 			useCase.addState(state);
+
+			String firstStr = attributes.getValue("first");
+			if (firstStr != null && firstStr.equals("true"))
+			{
+				state.setAsFirst();
+				useCase.setFirst(state);
+			}
 		}
 		else if (useCase != null && tagName.equals("view"))
 		{
 			view = new View();
 			view.setUseCase(useCase);
 			useCase.addView(view);
+
+			String firstStr = attributes.getValue("first");
+			if (firstStr != null && firstStr.equals("true"))
+			{
+				view.setAsFirst();
+				useCase.setFirst(view);
+			}
 		}
 		else if (useCase != null && tagName.equals("controller"))
 		{

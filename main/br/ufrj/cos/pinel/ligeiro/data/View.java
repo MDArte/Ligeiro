@@ -28,6 +28,8 @@ public class View extends BaseClass
 
 	private View resultView;
 
+	private boolean first;
+
 	/**
 	 * Default constructor.
 	 */
@@ -39,6 +41,8 @@ public class View extends BaseClass
 
 		this.numberInputParameters = 0;
 		this.numberButtons = 0;
+
+		this.first = false;
 	}
 
 	/**
@@ -217,5 +221,21 @@ public class View extends BaseClass
 		}
 
 		return methodSignatures;
+	}
+
+	/**
+	 * @return the first
+	 */
+	public boolean isFirst()
+	{
+		return first;
+	}
+
+	/**
+	 * Set as first.
+	 */
+	public void setAsFirst()
+	{
+		this.first = true;
 	}
 }
