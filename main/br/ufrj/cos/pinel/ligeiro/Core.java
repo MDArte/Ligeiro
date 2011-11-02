@@ -46,10 +46,6 @@ public class Core
 
 	private Collection<UseCase> useCases;
 
-	/*
-	 * Dependencies
-	 */
-	//private Collection<BaseClass> dependencyClasses;
 	private Map<String, BaseClass> dependencyClasses;
 
 	private Collection<ClassUsage> classUsages;
@@ -67,10 +63,61 @@ public class Core
 
 		this.useCases = new ArrayList<UseCase>();
 
-		//this.dependencyClasses = new ArrayList<BaseClass>();
 		this.dependencyClasses = new HashMap<String, BaseClass>();
 
 		this.classUsages = null;
+	}
+
+	/**
+	 * Clears all. Loaded information and reports.
+	 */
+	public void clear()
+	{
+		clearLoadedStatistics();
+
+		clearLoadedDepdencies();
+
+		clearLoadedClassUsages();
+
+		clearFPAReport();
+	}
+
+	/**
+	 * Clears all loaded statistics.
+	 */
+	public void clearLoadedStatistics()
+	{
+		entities.clear();
+		allClasses.clear();
+		useCases.clear();
+	}
+
+	/**
+	 * Clears all loaded dependecies.
+	 */
+	public void clearLoadedDepdencies()
+	{
+		dependencyClasses.clear();
+	}
+
+	/**
+	 * Clears all class usages.
+	 */
+	public void clearLoadedClassUsages()
+	{
+		classUsages = null;
+	}
+
+	/**
+	 * Clears all informantion from the FPA Report.
+	 */
+	public void clearFPAReport()
+	{
+		if (visitedMethods != null)
+			visitedMethods.clear();
+
+		if (fpaReport != null)
+			fpaReport.clear();
 	}
 
 	/**
@@ -192,7 +239,7 @@ public class Core
 	}
 
 	// avoing method stack, so local instance
-	private Set<String> visitedMethods;
+	private Set<String> visitedMethods = null;
 
 	private boolean doesMethodChangeDataOrBehavior(IBaseClass dependencyClass, String methodSignature)
 	{
@@ -537,7 +584,10 @@ public class Core
 											}
 
 											// avoiding an infinite loop
-											visitedMethods = new HashSet<String>();
+											if (visitedMethods == null)
+												visitedMethods = new HashSet<String>();
+											else
+												visitedMethods.clear();
 
 											// calling
 											boolean ret = doesMethodChangeDataOrBehavior(dependencyClass, methodSignature);
@@ -707,6 +757,9 @@ public class Core
 		startFunctionPointAnalysisDF();
 		startFunctionPointAnalysisTF();
 
+		if (visitedMethods != null)
+			visitedMethods.clear();
+
 		Util.println("\n -- REPORT --\n");
 
 		startFunctionPointAnalysisDFReport(fpaConfig);
@@ -731,6 +784,9 @@ public class Core
 	 */
 	public void createClassUsageReport(String fileName) throws ExpressFPAException
 	{
+		if (classUsages == null)
+			throw new ExpressFPAException("Must load the Class Usage Report.");
+
 		ClassUsageReport classUsageReport = new ClassUsageReport(fileName, classUsages);
 
 		classUsageReport.createCSV();

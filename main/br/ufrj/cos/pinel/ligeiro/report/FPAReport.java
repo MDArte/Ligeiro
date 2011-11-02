@@ -131,7 +131,7 @@ public class FPAReport
 	/**
 	 * Clears the all reports.
 	 */
-	public void clearAll()
+	public void clear()
 	{
 		clearDFReport();
 		clearTFReport();
