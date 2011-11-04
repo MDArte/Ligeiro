@@ -341,11 +341,11 @@ public class FPAConfig
 	{
 		for (int i = 0; i < rows.length; i++)
 		{
-			if (rows[i][MIN_COL] <= r && (rows[i][MAX_COL] == INFINITY || r <= rows[i][MAX_COL]))
+			if ((rows[i][MIN_COL] == INFINITY || rows[i][MIN_COL] <= r) && (rows[i][MAX_COL] == INFINITY || r <= rows[i][MAX_COL]))
 			{
 				for (int j = 0; j < cols.length; j++)
 				{
-					if (cols[j][MIN_COL] <= c && (cols[j][MAX_COL] == INFINITY || c <= cols[j][MAX_COL]))
+					if ((cols[j][MIN_COL] == INFINITY || cols[j][MIN_COL] <= c) && (cols[j][MAX_COL] == INFINITY || c <= cols[j][MAX_COL]))
 					{
 						return complexity[i][j];
 					}

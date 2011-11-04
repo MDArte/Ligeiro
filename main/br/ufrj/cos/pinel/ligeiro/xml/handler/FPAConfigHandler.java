@@ -150,45 +150,26 @@ public class FPAConfigHandler extends GenericHandler
 		}
 		else if ((fpaType == FPA_TYPE.ILF || fpaType == FPA_TYPE.EIF) && tableType == TABLE_TYPE.COMPLEXITY && tagName.equals("value"))
 		{
-			// <value retMin="1" retMax="1" detMin="1" detMax="19">low</value>
-			retMin = Integer.parseInt(attributes.getValue("retMin"));
+			retMin = getIntValue(attributes.getValue("retMin"));
+			retMax = getIntValue(attributes.getValue("retMax"));
 
-			if (attributes.getValue("retMax").equals("*"))
-				retMax = FPAConfig.INFINITY;
-			else
-				retMax = Integer.parseInt(attributes.getValue("retMax"));
-
-			detMin = Integer.parseInt(attributes.getValue("detMin"));
-
-			if (attributes.getValue("detMax").equals("*"))
-				detMax = FPAConfig.INFINITY;
-			else
-				detMax = Integer.parseInt(attributes.getValue("detMax"));
+			detMin = getIntValue(attributes.getValue("detMin"));
+			detMax = getIntValue(attributes.getValue("detMax"));
 
 			counter++;
 		}
 		else if ((fpaType == FPA_TYPE.EI || fpaType == FPA_TYPE.EO || fpaType == FPA_TYPE.EQ) && tableType == TABLE_TYPE.COMPLEXITY && tagName.equals("value"))
 		{
-			// <value ftrMin="0" ftrMax="1" detMin="1" detMax="4">low</value>
-			ftrMin = Integer.parseInt(attributes.getValue("ftrMin"));
+			ftrMin = getIntValue(attributes.getValue("ftrMin"));
+			ftrMax = getIntValue(attributes.getValue("ftrMax"));
 
-			if (attributes.getValue("ftrMax").equals("*"))
-				ftrMax = FPAConfig.INFINITY;
-			else
-				ftrMax = Integer.parseInt(attributes.getValue("ftrMax"));
-
-			detMin = Integer.parseInt(attributes.getValue("detMin"));
-
-			if (attributes.getValue("detMax").equals("*"))
-				detMax = FPAConfig.INFINITY;
-			else
-				detMax = Integer.parseInt(attributes.getValue("detMax"));
+			detMin = getIntValue(attributes.getValue("detMin"));
+			detMax = getIntValue(attributes.getValue("detMax"));
 
 			counter++;
 		}
 		else if (fpaType != FPA_TYPE.NONE && tableType == TABLE_TYPE.COMPLEXITY_VALUES && tagName.equals("value"))
 		{
-			// <value type="low">7</value>
 			type = attributes.getValue("type");
 
 			counter++;
@@ -303,5 +284,23 @@ public class FPAConfigHandler extends GenericHandler
 		{
 			fpaConfig.setVaf(Double.parseDouble(valueNode));
 		}
+	}
+
+	/**
+	 * Gets the appropriated value for RET, FTR and DET.
+	 * 
+	 * @param value the <code>String</code> value
+	 * @return the <code>int</code> value
+	 */
+	private int getIntValue(String value)
+	{
+		int valueInt;
+
+		if (value.equals("*"))
+			valueInt = FPAConfig.INFINITY;
+		else
+			valueInt = Integer.parseInt(value);
+
+		return valueInt;
 	}
 }

@@ -25,7 +25,7 @@ public class TestReadFPAConfiguration
 
 			fpaConfig.printAll();
 
-			Util.println("\n" + fpaConfig.getIFLComplexityValue(2, 2));
+			Util.println("\n" + fpaConfig.getIFLComplexityValue(7, 0));
 
 			Util.println("Done.");
 		}
