@@ -21,7 +21,7 @@ public class TestReadFPAConfiguration
 		{
 			Util.println("-- TestReadFPAConfiguration --");
 
-			FPAConfig fpaConfig = XMLUtil.readFPAConfiguration("conf/ExpressFPA.xml");
+			FPAConfig fpaConfig = XMLUtil.readFPAConfiguration("conf/LigeiroConfig.xml");
 
 			fpaConfig.printAll();
 
