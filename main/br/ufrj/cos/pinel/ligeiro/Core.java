@@ -381,7 +381,14 @@ public class Core
 
 					for (Dependency dependency : method.getDependencies())
 					{
-						Entity entity = tempEntities.get(dependency.getValue());
+						String dependencyEntityName;
+
+						if (dependency.isFeature())
+							dependencyEntityName = Util.getMethodClassName(dependency.getValue());
+						else
+							dependencyEntityName = dependency.getValue();
+
+						Entity entity = tempEntities.get(dependencyEntityName);
 
 						// if the dependency is an entity
 						if (entity != null)
@@ -391,7 +398,7 @@ public class Core
 							String entityName = entity.getName();
 
 							// if the dependency is related to the implementation name, then use it 
-							if (dependency.getValue().equals(entity.getImplementationName()))
+							if (dependencyEntityName.equals(entity.getImplementationName()))
 								entityName = entity.getImplementationName();
 
 							boolean found = false;
@@ -402,11 +409,9 @@ public class Core
 
 								String signature = entityName + "." + entityMethod.getSignature();
 
-								for (Iterator<Dependency> iDependency2 = method.getDependencies().iterator(); iDependency2.hasNext() && !found; )
+								if (dependency.isFeature())
 								{
-									Dependency dependency2 = iDependency2.next();
-
-									if (dependency2.getValue().equals(signature) && entityMethod.isModifier())
+									if (dependency.getValue().equals(signature) && entityMethod.isModifier())
 									{
 										Util.println("\t\t\tFound: " + signature);
 										entity.setAsInternal();
@@ -415,6 +420,24 @@ public class Core
 										tempEntities.remove(entity.getImplementationName());
 
 										found = true;
+									}
+								}
+								else
+								{
+									for (Iterator<Dependency> iDependency2 = method.getDependencies().iterator(); iDependency2.hasNext() && !found; )
+									{
+										Dependency dependency2 = iDependency2.next();
+	
+										if (dependency2.getValue().equals(signature) && entityMethod.isModifier())
+										{
+											Util.println("\t\t\tFound: " + signature);
+											entity.setAsInternal();
+	
+											tempEntities.remove(entity.getName());
+											tempEntities.remove(entity.getImplementationName());
+	
+											found = true;
+										}
 									}
 								}
 							}
@@ -449,15 +472,13 @@ public class Core
 
 				if (entity.isInternal())
 				{
-					if (reportResult.getDet() > 0)
-						reportResult.setType(Constants.DF_ILF);
+					reportResult.setType(Constants.DF_ILF);
 					complexity = fpaConfig.getIFLComplexity(reportResult.getRet_ftr(), reportResult.getDet());
 					value = fpaConfig.getIFLComplexityValue(reportResult.getRet_ftr(), reportResult.getDet());
 				}
 				else
 				{
-					if (reportResult.getDet() > 0)
-						reportResult.setType(Constants.DF_EIF);
+					reportResult.setType(Constants.DF_EIF);
 					complexity = fpaConfig.getEIFComplexity(reportResult.getRet_ftr(), reportResult.getDet());
 					value = fpaConfig.getEIFComplexityValue(reportResult.getRet_ftr(), reportResult.getDet());
 				}

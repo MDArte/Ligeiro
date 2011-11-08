@@ -6,7 +6,14 @@ package br.ufrj.cos.pinel.ligeiro.data;
  */
 public class Entity extends BaseClass
 {
-	private boolean internal;
+	private static class FP_TYPE
+	{
+		public static int NONE = -1;
+		public static int ILF = 0;
+		public static int EIF = 1;
+	}
+
+	private int fpType;
 
 	/**
 	 * Default constructor.
@@ -15,7 +22,7 @@ public class Entity extends BaseClass
 	{
 		super();
 
-		this.internal = false;
+		this.fpType = FP_TYPE.NONE;
 	}
 
 	/**
@@ -33,7 +40,23 @@ public class Entity extends BaseClass
 	 */
 	public void setAsInternal()
 	{
-		internal = true;
+		fpType = FP_TYPE.ILF;
+	}
+
+	/**
+	 * Defines as external data.
+	 */
+	public void setAsExternal()
+	{
+		fpType = FP_TYPE.ILF;
+	}
+
+	/**
+	 * @return if it has no type.
+	 */
+	public boolean isNotDefined()
+	{
+		return fpType == FP_TYPE.NONE;
 	}
 
 	/**
@@ -41,6 +64,14 @@ public class Entity extends BaseClass
 	 */
 	public boolean isInternal()
 	{
-		return internal;
+		return fpType == FP_TYPE.ILF;
+	}
+
+	/**
+	 * @return if it's an external data
+	 */
+	public boolean isExternal()
+	{
+		return fpType == FP_TYPE.EIF;
 	}
 }
