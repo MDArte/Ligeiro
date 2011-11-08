@@ -49,7 +49,7 @@ public class TestCore
 			core.readDependencies("data/dependency/example.xml");
 
 			Util.println(">> Configuration...");
-			FPAConfig fpaConfig = core.readFPAConfiguration("conf/ExpressFPA.xml");
+			FPAConfig fpaConfig = core.readFPAConfiguration("conf/LigeiroConfig.xml");
 
 			Util.println(">> Starting...");
 			core.startFunctionPointAnalysis(fpaConfig);
