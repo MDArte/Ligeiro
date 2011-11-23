@@ -360,6 +360,7 @@ public class Core
 		return false;
 	}
 
+	// TODO: the methods extended should be analyzed
 	public void startFunctionPointAnalysisDF()
 	{
 		Map<String, Entity> tempEntities = new HashMap<String, Entity>();
