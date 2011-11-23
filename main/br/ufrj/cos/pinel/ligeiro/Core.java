@@ -575,7 +575,7 @@ public class Core
 //										}
 //										else
 //										{
-											// verificar as validações de estados finais para saber quais
+											// verificar as validacoes de estados finais para saber quais
 											// tags devem estar preenchidas.
 //										}
 									}
