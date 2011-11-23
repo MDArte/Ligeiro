@@ -742,11 +742,21 @@ public class Core
 
 					if (ret)
 					{
-						//Util.println("\t\t\t\t  Is an EI");
+						// TODO: classify if it is an EI or an EO 
+
+						if (method.getReturnType().equals("void"))
+						{
+							Util.println("\t\t  Is an EI");
+						}
+						else
+						{
+							Util.println("\t\t  Is an EO");
+						}
 					}
 					else
 					{
-						//Util.println("\t\t\t\t  Is an EQ1");
+						Util.println("\t\t  Is an EQ");
+						service.setAsEQ1();
 					}
 				}
 			}
