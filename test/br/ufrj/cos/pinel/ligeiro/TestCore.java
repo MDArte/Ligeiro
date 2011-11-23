@@ -52,9 +52,7 @@ public class TestCore
 			FPAConfig fpaConfig = core.readFPAConfiguration("conf/LigeiroConfig.xml");
 
 			Util.println(">> Starting...");
-			//core.startFunctionPointAnalysis(fpaConfig);
-			core.startFunctionPointAnalysisTF();
-			//core.startFunctionPointAnalysisTFReport(fpaConfig);
+			core.startFunctionPointAnalysis(fpaConfig);
 
 			Util.println("Done.");
 		}

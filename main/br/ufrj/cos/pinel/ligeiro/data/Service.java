@@ -15,17 +15,6 @@ public class Service extends BaseClass
 
 	private boolean webService;
 
-	private static class FP_TYPE
-	{
-		public static int NONE = -1;
-		public static int EI = 0;
-		public static int EQ1 = 1;
-		public static int EQ2 = 2;
-		public static int EO = 3;
-	}
-
-	private int fpType;
-
 	/**
 	 * Default constructor.
 	 */
@@ -34,8 +23,6 @@ public class Service extends BaseClass
 		super();
 
 		otherNames = new ArrayList<String>();
-
-		this.fpType = FP_TYPE.NONE;
 	}
 
 	/**
@@ -102,77 +89,5 @@ public class Service extends BaseClass
 		}
 
 		return methodSignatures;
-	}
-
-	/**
-	 * Defines FP Type as EI.
-	 */
-	public void setAsEI()
-	{
-		this.fpType = FP_TYPE.EI;
-	}
-
-	/**
-	 * @return if it's EI
-	 */
-	public boolean isEI()
-	{
-		return this.fpType == FP_TYPE.EI;
-	}
-
-	/**
-	 * Defines FP Type as EO.
-	 */
-	public void setAsEO()
-	{
-		this.fpType = FP_TYPE.EO;
-	}
-
-	/**
-	 * @return if it's EO
-	 */
-	public boolean isEO()
-	{
-		return this.fpType == FP_TYPE.EO;
-	}
-
-	/**
-	 * Defines FP Type as EQ1.
-	 */
-	public void setAsEQ1()
-	{
-		this.fpType = FP_TYPE.EQ1;
-	}
-
-	/**
-	 * @return if it's EQ1
-	 */
-	public boolean isEQ1()
-	{
-		return this.fpType == FP_TYPE.EQ1;
-	}
-
-	/**
-	 * Defines FP Type as EQ2.
-	 */
-	public void setAsEQ2()
-	{
-		this.fpType = FP_TYPE.EQ2;
-	}
-
-	/**
-	 * @return if it's EQ2
-	 */
-	public boolean isEQ2()
-	{
-		return this.fpType == FP_TYPE.EQ2;
-	}
-
-	/**
-	 * @return if it's EQ
-	 */
-	public boolean isEQ()
-	{
-		return this.fpType == FP_TYPE.EQ1 || this.fpType == FP_TYPE.EQ2;
 	}
 }

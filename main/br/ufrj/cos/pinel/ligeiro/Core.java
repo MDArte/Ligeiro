@@ -510,7 +510,7 @@ public class Core
 	{
 		Util.println("\n-- TRANSACTION FUNCTION --");
 
-		//startFunctionPointAnalysisTF_UseCases();
+		startFunctionPointAnalysisTF_UseCases();
 
 		startFunctionPointAnalysisTF_WebServices();
 	}
@@ -747,16 +747,18 @@ public class Core
 						if (method.getReturnType().equals("void"))
 						{
 							Util.println("\t\t  Is an EI");
+							method.setAsEI();
 						}
 						else
 						{
 							Util.println("\t\t  Is an EO");
+							method.setAsEO();
 						}
 					}
 					else
 					{
 						Util.println("\t\t  Is an EQ");
-						service.setAsEQ1();
+						method.setAsEQ1();
 					}
 				}
 			}
@@ -777,6 +779,8 @@ public class Core
 				if (!view.isEQ2())
 				{
 					ReportResult reportResult = new ReportResult();
+
+					reportResult.setRet_ftr(Constants.TF_DEFAULT_FTR);
 	
 					int det = view.getNumberInputParameters() + view.getNumberButtons();
 					int value = 0;
@@ -813,15 +817,64 @@ public class Core
 						value = fpaConfig.getEQComplexityValue(reportResult.getRet_ftr(), det);
 					}
 	
-					reportResult.setRet_ftr(Constants.TF_DEFAULT_FTR);
 					reportResult.setDet(det);
-	
 					reportResult.setComplexity(complexity);
 					reportResult.setComplexityValue(value);
 	
 					fpaReport.addTFReport(reportResult);
 					fpaReport.addTFReportTotal(value);
 	
+					Util.println("\t" + reportResult.getType() + ": " + reportResult.getElement());
+					Util.println("\t\tRET: " + reportResult.getRet_ftr());
+					Util.println("\t\tDET: " + reportResult.getDet());
+					Util.println("\t\tComplexity: " + reportResult.getComplexity());
+					Util.println("\t\tComplexity Value: " + reportResult.getComplexityValue());
+				}
+			}
+		}
+
+		for (Service service : services)
+		{
+			if (service.isWebService())
+			{
+				for (Method method : service.getMethods())
+				{
+					ReportResult reportResult = new ReportResult();
+
+					reportResult.setElement(Util.getClassName(service.getName()) + "." + method.getName());
+					reportResult.setRet_ftr(Constants.TF_DEFAULT_FTR);
+
+					int det = method.getParameters().size();
+					int value = 0;
+					String complexity = null;
+
+					if (method.isEI())
+					{
+						reportResult.setType(Constants.TF_EI);
+						complexity = fpaConfig.getEIComplexity(reportResult.getRet_ftr(), det);
+						value = fpaConfig.getEIComplexityValue(reportResult.getRet_ftr(), det);
+					}
+					else if (method.isEO())
+					{
+						reportResult.setType(Constants.TF_EO);
+						complexity = fpaConfig.getEOComplexity(reportResult.getRet_ftr(), det);
+						value = fpaConfig.getEOComplexityValue(reportResult.getRet_ftr(), det);
+					}
+					else if (method.isEQ1())
+					{
+						reportResult.setType(Constants.TF_EQ);
+						complexity = fpaConfig.getEQComplexity(reportResult.getRet_ftr(), det);
+						value = fpaConfig.getEQComplexityValue(reportResult.getRet_ftr(), det);
+					}
+
+					reportResult.setDet(det);
+					reportResult.setComplexity(complexity);
+					reportResult.setComplexityValue(value);
+
+					fpaReport.addTFReport(reportResult);
+					fpaReport.addTFReportTotal(value);
+
+
 					Util.println("\t" + reportResult.getType() + ": " + reportResult.getElement());
 					Util.println("\t\tRET: " + reportResult.getRet_ftr());
 					Util.println("\t\tDET: " + reportResult.getDet());
