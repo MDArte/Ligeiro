@@ -41,6 +41,8 @@ public class Core
 	 */
 	private Map<String, Entity> entities;
 
+	private Collection<Service> services;
+
 	// impl classes, services and controllers
 	private Map<String, IBaseClass> allClasses;
 
@@ -59,6 +61,7 @@ public class Core
 	public Core()
 	{
 		this.entities = new HashMap<String, Entity>();
+		this.services = new ArrayList<Service>();
 		this.allClasses = new HashMap<String, IBaseClass>();
 
 		this.useCases = new ArrayList<UseCase>();
@@ -88,6 +91,7 @@ public class Core
 	public void clearLoadedStatistics()
 	{
 		entities.clear();
+		services.clear();
 		allClasses.clear();
 		useCases.clear();
 	}
@@ -173,6 +177,8 @@ public class Core
 		else if (statisticType.equals(Constants.XML_SERVICE))
 		{
 			Collection<Service> services = XMLUtil.readServices(fileName);
+
+			this.services.addAll(services);
 
 			for (Service service : services)
 			{
@@ -504,6 +510,15 @@ public class Core
 	{
 		Util.println("\n-- TRANSACTION FUNCTION --");
 
+		//startFunctionPointAnalysisTF_UseCases();
+
+		startFunctionPointAnalysisTF_WebServices();
+	}
+
+	private void startFunctionPointAnalysisTF_UseCases()
+	{
+		Util.println("\n-- TRANSACTION FUNCTION --");
+
 		for (UseCase useCase : useCases)
 		{
 			Util.println("UseCase: " + useCase.getName());
@@ -694,6 +709,45 @@ public class Core
 					view.setAsEO();
 					Util.println("\t" + view.getName());
 					Util.println("\t\tIs an EO");
+				}
+			}
+		}
+	}
+
+	private void startFunctionPointAnalysisTF_WebServices()
+	{
+		for (Service service : services)
+		{
+			if (service.isWebService())
+			{
+				BaseClass dependencyClass = dependencyClasses.get(service.getImplementationName());
+
+				Util.println("Service: " + service.getName());
+				Util.println("  Impl: " + service.getImplementationName());
+
+				for (Method method : service.getMethods())
+				{
+					String methodSignature = service.getImplementationName() + "." + method.getSignature();
+
+					Util.println("\t " + method.getName());
+
+					// avoiding an infinite loop
+					if (visitedMethods == null)
+						visitedMethods = new HashSet<String>();
+					else
+						visitedMethods.clear();
+
+					// calling
+					boolean ret = doesMethodChangeDataOrBehavior(dependencyClass, methodSignature);
+
+					if (ret)
+					{
+						//Util.println("\t\t\t\t  Is an EI");
+					}
+					else
+					{
+						//Util.println("\t\t\t\t  Is an EQ1");
+					}
 				}
 			}
 		}
