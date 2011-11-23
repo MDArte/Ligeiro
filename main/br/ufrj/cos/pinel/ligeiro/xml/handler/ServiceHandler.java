@@ -56,6 +56,10 @@ public class ServiceHandler extends GenericHandler
 		{
 			service = new Service();
 			services.add(service);
+
+			String webServiceStr = attributes.getValue("webService");
+			if (webServiceStr != null && Boolean.valueOf(webServiceStr))
+				service.setAsWebService();
 		}
 		else if (service != null && tagName.equals("method"))
 		{

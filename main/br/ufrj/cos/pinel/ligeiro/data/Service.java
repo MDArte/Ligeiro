@@ -14,6 +14,8 @@ public class Service extends BaseClass
 {
 	private Collection<String> otherNames;
 
+	private boolean webService;
+
 	/**
 	 * Default constructor.
 	 */
@@ -54,6 +56,22 @@ public class Service extends BaseClass
 	public void addOtherName(String otherName)
 	{
 		otherNames.add(otherName);
+	}
+
+	/**
+	 * Defines as a WebService.
+	 */
+	public void setAsWebService()
+	{
+		webService = true;
+	}
+
+	/**
+	 * @return if it's a WebService
+	 */
+	public boolean isWebService()
+	{
+		return webService;
 	}
 
 	/**

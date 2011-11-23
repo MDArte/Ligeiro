@@ -30,6 +30,8 @@ public class TestReadServices
 
 			for (Service service : services)
 			{
+				if (service.isWebService())
+					Util.println("\n<WebSrv>");
 				Util.printClass(service);
 			}
 
