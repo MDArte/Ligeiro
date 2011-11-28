@@ -15,6 +15,8 @@ public class Entity extends BaseClass
 
 	private int fpType;
 
+	private DAO dao;
+
 	/**
 	 * Default constructor.
 	 */
@@ -73,5 +75,21 @@ public class Entity extends BaseClass
 	public boolean isExternal()
 	{
 		return fpType == FP_TYPE.EIF;
+	}
+
+	/**
+	 * @return the dao
+	 */
+	public DAO getDao()
+	{
+		return dao;
+	}
+
+	/**
+	 * @param dao the dao to set
+	 */
+	public void setDao(DAO dao)
+	{
+		this.dao = dao;
 	}
 }

@@ -7,6 +7,8 @@ import java.util.List;
 import org.xml.sax.Attributes;
 
 import br.ufrj.cos.pinel.ligeiro.data.Attribute;
+import br.ufrj.cos.pinel.ligeiro.data.DAO;
+import br.ufrj.cos.pinel.ligeiro.data.DAOMethod;
 import br.ufrj.cos.pinel.ligeiro.data.Entity;
 import br.ufrj.cos.pinel.ligeiro.data.Method;
 import br.ufrj.cos.pinel.ligeiro.data.Parameter;
@@ -31,6 +33,8 @@ public class EntityHandler extends GenericHandler
 
 	private boolean hasMethodReturn = false;
 
+	private DAO dao = null;
+	private DAOMethod daoMethod = null;
 
 	/**
 	 * @return the entities read.
@@ -52,7 +56,7 @@ public class EntityHandler extends GenericHandler
 			entity = new Entity();
 			entities.add(entity);
 		}
-		else if (tagName.equals("method"))
+		else if (entity != null && tagName.equals("method"))
 		{
 			method = new Method();
 			entity.addMethod(method);
@@ -65,12 +69,12 @@ public class EntityHandler extends GenericHandler
 		{
 			hasMethodReturn = true;
 		}
-		else if (tagName.equals("parameter"))
+		else if (method != null && tagName.equals("parameter"))
 		{
 			parameter = new Parameter();
 			method.addParameter(parameter);
 		}
-		else if (tagName.equals("attribute"))
+		else if (entity != null && tagName.equals("attribute"))
 		{
 			attribute = new Attribute();
 			entity.addAttribute(attribute);
@@ -78,6 +82,26 @@ public class EntityHandler extends GenericHandler
 			String identifierStr = attributes.getValue("identifier");
 			if (identifierStr != null && Boolean.valueOf(identifierStr))
 				attribute.setAsIdentifier();
+		}
+		else if (entity != null && tagName.equals("dao"))
+		{
+			dao = new DAO();
+			dao.setEntity(entity);
+
+			entity.setDao(dao);
+		}
+		else if (dao != null && tagName.equals("methodName"))
+		{
+			daoMethod = new DAOMethod();
+			dao.addMethod(daoMethod);
+
+			String modifierStr = attributes.getValue("modifier");
+			if (modifierStr != null && Boolean.valueOf(modifierStr))
+				daoMethod.setAsModifier();
+
+			String deleteStr = attributes.getValue("delete");
+			if (deleteStr != null && Boolean.valueOf(deleteStr))
+				daoMethod.setAsDelete();
 		}
 	}
 
@@ -108,6 +132,14 @@ public class EntityHandler extends GenericHandler
 		else if (tag.equals("attribute"))
 		{
 			attribute = null;
+		}
+		else if (tag.equals("dao"))
+		{
+			dao = null;
+		}
+		else if (tag.equals("methodName"))
+		{
+			daoMethod = null;
 		}
 	}
 
@@ -163,6 +195,25 @@ public class EntityHandler extends GenericHandler
 				{
 					attribute.setType(valueNode);
 				}
+			}
+			else if (dao != null)
+			{
+				if (daoMethod != null)
+				{
+					if (tagName.equals("methodName"))
+					{
+						daoMethod.setName(valueNode);
+					}
+				}
+				else if (tagName.equals("name"))
+				{
+					dao.setName(valueNode);
+				}
+				else if (tagName.equals("implementationName"))
+				{
+					dao.setImplementationName(valueNode);
+				}
+				
 			}
 			else if (tagName.equals("name"))
 			{

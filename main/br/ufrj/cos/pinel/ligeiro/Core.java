@@ -13,6 +13,8 @@ import br.ufrj.cos.pinel.ligeiro.common.FPAConfig;
 import br.ufrj.cos.pinel.ligeiro.common.Util;
 import br.ufrj.cos.pinel.ligeiro.data.BaseClass;
 import br.ufrj.cos.pinel.ligeiro.data.ClassUsage;
+import br.ufrj.cos.pinel.ligeiro.data.DAO;
+import br.ufrj.cos.pinel.ligeiro.data.DAOMethod;
 import br.ufrj.cos.pinel.ligeiro.data.Dependency;
 import br.ufrj.cos.pinel.ligeiro.data.Entity;
 import br.ufrj.cos.pinel.ligeiro.data.Event;
@@ -36,10 +38,8 @@ import br.ufrj.cos.pinel.ligeiro.xml.exception.ReadXMLException;
  */
 public class Core
 {
-	/*
-	 * Statistics
-	 */
 	private Map<String, Entity> entities;
+	private Map<String, DAO> daos;
 
 	private Collection<Service> services;
 
@@ -61,7 +61,10 @@ public class Core
 	public Core()
 	{
 		this.entities = new HashMap<String, Entity>();
+		this.daos = new HashMap<String, DAO>();
+
 		this.services = new ArrayList<Service>();
+
 		this.allClasses = new HashMap<String, IBaseClass>();
 
 		this.useCases = new ArrayList<UseCase>();
@@ -91,6 +94,7 @@ public class Core
 	public void clearLoadedStatistics()
 	{
 		entities.clear();
+		daos.clear();
 		services.clear();
 		allClasses.clear();
 		useCases.clear();
@@ -168,8 +172,20 @@ public class Core
 
 			for (Entity entity : entities)
 			{
-				this.entities.put(entity.getName(), entity);
-				this.entities.put(entity.getImplementationName(), entity);
+				if (entity.getName() != null)
+					this.entities.put(entity.getName(), entity);
+				if (entity.getImplementationName() != null)
+					this.entities.put(entity.getImplementationName(), entity);
+
+				DAO dao = entity.getDao();
+
+				if (dao != null)
+				{
+					if (dao.getName() != null)
+						this.daos.put(dao.getName(), dao);
+					if (dao.getImplementationName() != null)
+						this.daos.put(dao.getImplementationName(), dao);
+				}
 			}
 
 			loadReport.setElementsRead(entities.size());
@@ -182,8 +198,10 @@ public class Core
 
 			for (Service service : services)
 			{
-				this.allClasses.put(service.getName(), service);
-				this.allClasses.put(service.getImplementationName(), service);
+				if (service.getName() != null)
+					this.allClasses.put(service.getName(), service);
+				if (service.getImplementationName() != null)
+					this.allClasses.put(service.getImplementationName(), service);
 
 				for (String otherName : service.getOtherNames())
 				{
@@ -261,96 +279,115 @@ public class Core
 			{
 				for (Dependency dependency : dependencyMethod.getDependencies())
 				{
-					String entityDependencyName = dependency.getValue();
+					if (!dependency.isFeature())
+						continue;
 
-					Entity entity = entities.get(entityDependencyName);
-					if (entity == null)
-					{
-						entityDependencyName = Util.getMethodClassName(dependency.getValue());
-						entity = entities.get(entityDependencyName);
-					}
+					String dependencyElementName = Util.getMethodClassName(dependency.getValue());
+
+					Entity entity = entities.get(dependencyElementName);
 
 					// if the dependency is an entity
 					if (entity != null)
 					{
 						String entityName = entity.getName();
-						if (entityDependencyName.equals(entity.getImplementationName()))
+						if (dependencyElementName.equals(entity.getImplementationName()))
 							entityName = entity.getImplementationName();
 
 						for (Method entityMethod : entity.getMethods())
 						{
 							String signature = entityName + "." + entityMethod.getSignature();
 		
-							for (Dependency dependency2 : dependencyMethod.getDependencies())
+							if (dependency.getValue().equals(signature) && entityMethod.isModifier())
 							{
-								if (dependency2.getValue().equals(signature) && entityMethod.isModifier())
-								{
-									return true;
-								}
+								return true;
 							}
 						}
 					}
 					else
 					{
-						String methodClassName = Util.getMethodClassName(dependency.getValue());
-						if (methodClassName != null)
+						DAO dao = daos.get(dependencyElementName);
+
+						// if the dependency is a DAO
+						if (dao != null)
 						{
-							IBaseClass clazz = allClasses.get(methodClassName);
+							String daoName = dao.getName();
 
-							// if the dependency is a method of a common class, service or controller
-							if (clazz != null)
+							// if the dependency is related to the implementation name, then use it 
+							if (dependencyElementName.equals(dao.getImplementationName()))
+								daoName = dao.getImplementationName();
+
+							for (DAOMethod daoMethod : dao.getMethods())
 							{
-								BaseClass newDependencyClass = dependencyClasses.get(clazz.getImplementationName());
+								String signature = daoName + "." + daoMethod.getName();
 
-								if (newDependencyClass != null)
+								if (daoMethod.isDelete() && dependency.getValue().equals(signature))
 								{
-									String methodName = Util.getMethodName(dependency.getValue());
-
-									String[] params = Util.getMethodParameters(dependency.getValue());
-
-									boolean foundBestMatch = false;
-									Method methodMatched = null;
-
-									// looking for the method to get the right signature
-									for (Method method : clazz.getMethods())
+									return true;
+								}
+							}
+						}
+						else
+						{
+							String methodClassName = Util.getMethodClassName(dependency.getValue());
+							if (methodClassName != null)
+							{
+								IBaseClass clazz = allClasses.get(methodClassName);
+	
+								// if the dependency is a method of a common class, service or controller
+								if (clazz != null)
+								{
+									BaseClass newDependencyClass = dependencyClasses.get(clazz.getImplementationName());
+	
+									if (newDependencyClass != null)
 									{
-										// found a method with the same name,
-										// but it necessary to verify each parameter
-										if (methodName.equals(method.getName())
-											|| (method.getImplementationName() != null && methodName.equals(method.getImplementationName())))
+										String methodName = Util.getMethodName(dependency.getValue());
+	
+										String[] params = Util.getMethodParameters(dependency.getValue());
+	
+										boolean foundBestMatch = false;
+										Method methodMatched = null;
+	
+										// looking for the method to get the right signature
+										for (Method method : clazz.getMethods())
 										{
-											boolean match = true;
-
-											int i = 0;
-											for (Parameter param : method.getParameters())
+											// found a method with the same name,
+											// but it necessary to verify each parameter
+											if (methodName.equals(method.getName())
+												|| (method.getImplementationName() != null && methodName.equals(method.getImplementationName())))
 											{
-												if (i < params.length && !param.getType().equals(params[i]))
+												boolean match = true;
+	
+												int i = 0;
+												for (Parameter param : method.getParameters())
 												{
-													match = false;
-													break;
+													if (i < params.length && !param.getType().equals(params[i]))
+													{
+														match = false;
+														break;
+													}
+													i++;
 												}
-												i++;
+	
+												if (match)
+												{
+													methodMatched = method;
+	
+													// matchs all parameters
+													if (i >= params.length)
+														foundBestMatch = true;
+												}
 											}
-
-											if (match)
-											{
-												methodMatched = method;
-
-												// matchs all parameters
-												if (i >= params.length)
-													foundBestMatch = true;
-											}
+											// if the best match was found, then stop search
+											if (foundBestMatch)
+												break;
 										}
-										// if the best match was found, then stop search
-										if (foundBestMatch)
-											break;
-									}
-
-									if (methodMatched != null
-										&& doesMethodChangeDataOrBehavior(newDependencyClass,
-											clazz.getImplementationName() + "." + methodMatched.getSignature()))
-									{
-										return true;
+	
+										if (methodMatched != null
+											&& doesMethodChangeDataOrBehavior(newDependencyClass,
+												clazz.getImplementationName() + "." + methodMatched.getSignature()))
+										{
+											return true;
+										}
 									}
 								}
 							}
@@ -371,6 +408,9 @@ public class Core
 	{
 		Map<String, Entity> tempEntities = new HashMap<String, Entity>();
 		tempEntities.putAll(entities);
+
+		Map<String, DAO> tempDAOs = new HashMap<String, DAO>();
+		tempDAOs.putAll(daos);
 
 		Util.println("\n-- DATA FUNCTION --");
 
@@ -394,24 +434,22 @@ public class Core
 
 					for (Dependency dependency : method.getDependencies())
 					{
-						String dependencyEntityName;
+						if (!dependency.isFeature())
+							continue;
 
-						if (dependency.isFeature())
-							dependencyEntityName = Util.getMethodClassName(dependency.getValue());
-						else
-							dependencyEntityName = dependency.getValue();
+						Util.println("\t\t" + dependency.getValue());
 
-						Entity entity = tempEntities.get(dependencyEntityName);
+						String dependencyElementName = Util.getMethodClassName(dependency.getValue());
+
+						Entity entity = tempEntities.get(dependencyElementName);
 
 						// if the dependency is an entity
 						if (entity != null)
 						{
-							Util.println("\t\t" + dependency.getValue());
-
 							String entityName = entity.getName();
 
 							// if the dependency is related to the implementation name, then use it 
-							if (dependencyEntityName.equals(entity.getImplementationName()))
+							if (dependencyElementName.equals(entity.getImplementationName()))
 								entityName = entity.getImplementationName();
 
 							boolean found = false;
@@ -422,35 +460,57 @@ public class Core
 
 								String signature = entityName + "." + entityMethod.getSignature();
 
-								if (dependency.isFeature())
+								if (dependency.getValue().equals(signature) && entityMethod.isModifier())
 								{
-									if (dependency.getValue().equals(signature) && entityMethod.isModifier())
-									{
-										Util.println("\t\t\tFound: " + signature);
-										entity.setAsInternal();
+									Util.println("\t\t\tFound 1: " + signature);
+									entity.setAsInternal();
 
-										tempEntities.remove(entity.getName());
-										tempEntities.remove(entity.getImplementationName());
+									tempEntities.remove(entity.getName());
+									tempEntities.remove(entity.getImplementationName());
+
+									if (entity.getDao() != null)
+									{
+										tempDAOs.remove(entity.getDao().getName());
+										tempDAOs.remove(entity.getDao().getImplementationName());
+									}
+
+									found = true;
+								}
+							}
+						}
+						else
+						{
+							DAO dao = tempDAOs.get(dependencyElementName);
+
+							// if the dependency is a DAO
+							if (dao != null)
+							{
+								String daoName = dao.getName();
+
+								// if the dependency is related to the implementation name, then use it 
+								if (dependencyElementName.equals(dao.getImplementationName()))
+									daoName = dao.getImplementationName();
+
+								boolean found = false;
+
+								for (Iterator<DAOMethod> iDAOMethod = dao.getMethods().iterator(); iDAOMethod.hasNext() && !found; )
+								{
+									DAOMethod daoMethod = iDAOMethod.next();
+
+									String signature = daoName + "." + daoMethod.getName();
+
+									if (daoMethod.isDelete() && dependency.getValue().equals(signature))
+									{
+										Util.println("\t\t\tFound 2: " + signature);
+										dao.getEntity().setAsInternal();
+
+										tempEntities.remove(dao.getEntity().getName());
+										tempEntities.remove(dao.getEntity().getImplementationName());
+
+										tempDAOs.remove(dao.getName());
+										tempDAOs.remove(dao.getImplementationName());
 
 										found = true;
-									}
-								}
-								else
-								{
-									for (Iterator<Dependency> iDependency2 = method.getDependencies().iterator(); iDependency2.hasNext() && !found; )
-									{
-										Dependency dependency2 = iDependency2.next();
-	
-										if (dependency2.getValue().equals(signature) && entityMethod.isModifier())
-										{
-											Util.println("\t\t\tFound: " + signature);
-											entity.setAsInternal();
-	
-											tempEntities.remove(entity.getName());
-											tempEntities.remove(entity.getImplementationName());
-	
-											found = true;
-										}
 									}
 								}
 							}
@@ -544,12 +604,15 @@ public class Core
 						{
 							Util.println("\t\t" + param.getName());
 
+							// increasing the counter
+							view.addNumberParameters();
+
 							// if the parameter is an input field
 							if (!param.isPlainText() && !param.isReadOnly() && !param.isHiddenField())
 							{
 								Util.println("\t\t\tINPUT");
 
-								// increase the counter
+								// increasing the counter
 								view.addNumberInputParameters();
 
 								// if the view wasn't already classified as an EI, verify the right type
@@ -788,13 +851,15 @@ public class Core
 					ReportResult reportResult = new ReportResult();
 
 					reportResult.setRet_ftr(Constants.TF_DEFAULT_FTR);
-	
-					int det = view.getNumberInputParameters() + view.getNumberButtons();
+
+					int det = 0;
 					int value = 0;
 					String complexity = null;
-	
+
 					if (view.isEI())
 					{
+						det = view.getNumberInputParameters() + view.getNumberButtons();
+
 						reportResult.setElement(view.getName());
 						reportResult.setType(Constants.TF_EI);
 						complexity = fpaConfig.getEIComplexity(reportResult.getRet_ftr(), det);
@@ -802,6 +867,8 @@ public class Core
 					}
 					else if (view.isEO())
 					{
+						det = view.getNumberParameters() + view.getNumberButtons();
+
 						reportResult.setElement(view.getName());
 						reportResult.setType(Constants.TF_EO);
 						complexity = fpaConfig.getEOComplexity(reportResult.getRet_ftr(), det);
@@ -809,15 +876,17 @@ public class Core
 					}
 					else if (view.isEQ1())
 					{
+						det = view.getNumberParameters() + view.getNumberButtons();
+
 						StringBuilder element = new StringBuilder(view.getName());
-	
+
 						if (view.getResultView() != null)
 						{
 							element.append(" / ");
 							element.append(view.getResultView().getName());
-							det += view.getResultView().getNumberInputParameters() + view.getResultView().getNumberButtons();
+							det += view.getResultView().getNumberParameters() + view.getResultView().getNumberButtons();
 						}
-	
+
 						reportResult.setElement(element.toString());
 						reportResult.setType(Constants.TF_EQ);
 						complexity = fpaConfig.getEQComplexity(reportResult.getRet_ftr(), det);
@@ -826,7 +895,8 @@ public class Core
 					else
 					{
 						Util.println("\t[ERROR] Transaction Function Report.");
-						Util.println("\t\tView:" + view.getName());
+						Util.println("\t\tView: " + view.getName());
+						continue;
 					}
 
 					reportResult.setDet(det);
@@ -881,8 +951,9 @@ public class Core
 					else
 					{
 						Util.println("\t[ERROR] Transaction Function Report.");
-						Util.println("\t\tService:" + service.getName());
-						Util.println("\t\tMethod:" + method.getName());
+						Util.println("\t\tService: " + service.getName());
+						Util.println("\t\tMethod: " + method.getName());
+						continue;
 					}
 
 					reportResult.setDet(det);

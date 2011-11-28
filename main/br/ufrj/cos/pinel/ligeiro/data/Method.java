@@ -125,7 +125,7 @@ public class Method
 	}
 
 	/**
-	 * @param parameter the parameter to add
+	 * @param parameter the parameter to be added
 	 */
 	public void addParameter(Parameter parameter)
 	{
@@ -153,7 +153,7 @@ public class Method
 	 */
 	public void setAsModifier()
 	{
-		modifier = true;
+		this.modifier = true;
 	}
 
 	/**
@@ -185,7 +185,7 @@ public class Method
 	 */
 	public void setAsTableLink()
 	{
-		tableLink = true;
+		this.tableLink = true;
 	}
 
 	/**

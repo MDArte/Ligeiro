@@ -22,6 +22,8 @@ public class View extends BaseClass
 
 	private int fpType;
 
+	private int numberParameters;
+
 	private int numberInputParameters;
 
 	private int numberButtons;
@@ -39,6 +41,7 @@ public class View extends BaseClass
 
 		this.fpType = FP_TYPE.NONE;
 
+		this.numberParameters = 0;
 		this.numberInputParameters = 0;
 		this.numberButtons = 0;
 
@@ -143,19 +146,27 @@ public class View extends BaseClass
 	}
 
 	/**
+	 * @return the numberParameters
+	 */
+	public int getNumberParameters()
+	{
+		return numberParameters;
+	}
+
+	/**
+	 * numberParameters incremental.
+	 */
+	public void addNumberParameters()
+	{
+		this.numberParameters++;
+	}
+
+	/**
 	 * @return the numberInputParameters
 	 */
 	public int getNumberInputParameters()
 	{
 		return numberInputParameters;
-	}
-
-	/**
-	 * @param numberInputParameters the numberInputParameters to set
-	 */
-	public void setNumberInputParameters(int numberInputParameters)
-	{
-		this.numberInputParameters = numberInputParameters;
 	}
 
 	/**
@@ -172,14 +183,6 @@ public class View extends BaseClass
 	public int getNumberButtons()
 	{
 		return numberButtons;
-	}
-
-	/**
-	 * @param numberButtons the numberButtons to set
-	 */
-	public void setNumberButtons(int numberButtons)
-	{
-		this.numberButtons = numberButtons;
 	}
 
 	/**
