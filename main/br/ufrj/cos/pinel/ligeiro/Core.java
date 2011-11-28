@@ -250,7 +250,6 @@ public class Core
 			// check if it's a know class, then store for future analysis
 			if (this.allClasses.containsKey(baseClass.getName()))
 			{
-				//dependencyClasses.add(baseClass);
 				dependencyClasses.put(baseClass.getName(), baseClass);
 			}
 		}
