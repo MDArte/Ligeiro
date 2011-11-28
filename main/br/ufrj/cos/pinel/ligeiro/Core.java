@@ -817,17 +817,22 @@ public class Core
 						complexity = fpaConfig.getEQComplexity(reportResult.getRet_ftr(), det);
 						value = fpaConfig.getEQComplexityValue(reportResult.getRet_ftr(), det);
 					}
-	
+					else
+					{
+						Util.println("\t[ERROR] Transaction Function Report.");
+						Util.println("\t\tView:" + view.getName());
+					}
+
 					reportResult.setDet(det);
 					reportResult.setComplexity(complexity);
 					reportResult.setComplexityValue(value);
-	
+
 					fpaReport.addTFReport(reportResult);
 					fpaReport.addTFReportTotal(value);
-	
+
 					Util.println("\t" + reportResult.getType() + ": " + reportResult.getElement());
 					Util.println("\t\tRET: " + reportResult.getRet_ftr());
-					Util.println("\t\tDET: " + reportResult.getDet());
+					Util.println("\t\tFTR: " + reportResult.getDet());
 					Util.println("\t\tComplexity: " + reportResult.getComplexity());
 					Util.println("\t\tComplexity Value: " + reportResult.getComplexityValue());
 				}
@@ -867,6 +872,12 @@ public class Core
 						complexity = fpaConfig.getEQComplexity(reportResult.getRet_ftr(), det);
 						value = fpaConfig.getEQComplexityValue(reportResult.getRet_ftr(), det);
 					}
+					else
+					{
+						Util.println("\t[ERROR] Transaction Function Report.");
+						Util.println("\t\tService:" + service.getName());
+						Util.println("\t\tMethod:" + method.getName());
+					}
 
 					reportResult.setDet(det);
 					reportResult.setComplexity(complexity);
@@ -875,10 +886,9 @@ public class Core
 					fpaReport.addTFReport(reportResult);
 					fpaReport.addTFReportTotal(value);
 
-
 					Util.println("\t" + reportResult.getType() + ": " + reportResult.getElement());
 					Util.println("\t\tRET: " + reportResult.getRet_ftr());
-					Util.println("\t\tDET: " + reportResult.getDet());
+					Util.println("\t\tFTR: " + reportResult.getDet());
 					Util.println("\t\tComplexity: " + reportResult.getComplexity());
 					Util.println("\t\tComplexity Value: " + reportResult.getComplexityValue());
 				}
