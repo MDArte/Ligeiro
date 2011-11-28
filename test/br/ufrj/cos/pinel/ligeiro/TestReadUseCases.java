@@ -5,6 +5,7 @@ import java.util.Collection;
 import br.ufrj.cos.pinel.ligeiro.common.Util;
 import br.ufrj.cos.pinel.ligeiro.data.Event;
 import br.ufrj.cos.pinel.ligeiro.data.State;
+import br.ufrj.cos.pinel.ligeiro.data.Table;
 import br.ufrj.cos.pinel.ligeiro.data.UseCase;
 import br.ufrj.cos.pinel.ligeiro.data.View;
 import br.ufrj.cos.pinel.ligeiro.xml.XMLUtil;
@@ -38,6 +39,16 @@ public class TestReadUseCases
 				for (View view : useCase.getViews())
 				{
 					Util.printClass(view);
+
+					Util.println("\t--> Tables");
+					for (Table table : view.getTables())
+					{
+						Util.println("\t\tName: " + table.getName());
+						for (String column : table.getColumns())
+						{
+							Util.println("\t\t\t" + column);
+						}
+					}
 				}
 
 				Util.println("--> States");

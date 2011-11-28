@@ -13,6 +13,7 @@ import br.ufrj.cos.pinel.ligeiro.data.Event;
 import br.ufrj.cos.pinel.ligeiro.data.Method;
 import br.ufrj.cos.pinel.ligeiro.data.Parameter;
 import br.ufrj.cos.pinel.ligeiro.data.State;
+import br.ufrj.cos.pinel.ligeiro.data.Table;
 import br.ufrj.cos.pinel.ligeiro.data.UseCase;
 import br.ufrj.cos.pinel.ligeiro.data.View;
 
@@ -44,6 +45,8 @@ public class UseCaseHandler extends GenericHandler
 	private Event event = null;
 
 	private boolean hasMethodReturn = false;
+
+	private Table table = null;
 
 	/**
 	 * @return the useCases read.
@@ -149,6 +152,15 @@ public class UseCaseHandler extends GenericHandler
 				method.setAsTableLink();
 			}
 		}
+		else if (view != null && tagName.equals("variable"))
+		{
+			String tableStr = attributes.getValue("table");
+			if (tableStr != null && tableStr.equals("true"))
+			{
+				table = new Table();
+				view.addTable(table);
+			}
+		}
 		else if (controller != null && tagName.equals("method"))
 		{
 			method = new Method();
@@ -240,6 +252,10 @@ public class UseCaseHandler extends GenericHandler
 		else if (tag.equals("method") || tag.equals("action"))
 		{
 			method = null;
+		}
+		else if (tag.equals("variable"))
+		{
+			table = null;
 		}
 		else if (tag.equals("return"))
 		{
@@ -358,6 +374,17 @@ public class UseCaseHandler extends GenericHandler
 						else if (tagName.equals("name"))
 						{
 							method.setName(valueNode);
+						}
+					}
+					else if (table != null)
+					{
+						if (tagName.equals("name"))
+						{
+							table.setName(valueNode);
+						}
+						else if (tagName.equals("column"))
+						{
+							table.addColumn(valueNode);
 						}
 					}
 					else if (tagName.equals("name"))

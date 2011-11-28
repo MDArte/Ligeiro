@@ -1,7 +1,11 @@
 package br.ufrj.cos.pinel.ligeiro.data;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+
+import br.ufrj.cos.pinel.ligeiro.common.Util;
 
 /**
  * @author Roque Pinel
@@ -32,6 +36,8 @@ public class View extends BaseClass
 
 	private boolean first;
 
+	private Collection<Table> tables;
+
 	/**
 	 * Default constructor.
 	 */
@@ -46,6 +52,8 @@ public class View extends BaseClass
 		this.numberButtons = 0;
 
 		this.first = false;
+
+		this.tables = new ArrayList<Table>();
 	}
 
 	/**
@@ -240,5 +248,36 @@ public class View extends BaseClass
 	public void setAsFirst()
 	{
 		this.first = true;
+	}
+
+	/**
+	 * @return the tables
+	 */
+	public Collection<Table> getTables()
+	{
+		return tables;
+	}
+
+	/**
+	 * @param tables the table to be added
+	 */
+	public void addTable(Table table)
+	{
+		this.tables.add(table);
+	}
+
+	/**
+	 * @return The total of columns of all tables.
+	 */
+	public int getTotalColumns()
+	{
+		int total = 0;
+
+		for (Table table : this.getTables())
+		{
+			total += table.getColumns().size();
+		}
+
+		return total;
 	}
 }

@@ -867,7 +867,7 @@ public class Core
 					}
 					else if (view.isEO())
 					{
-						det = view.getNumberParameters() + view.getNumberButtons();
+						det = view.getNumberParameters() + view.getNumberButtons() + view.getTotalColumns();
 
 						reportResult.setElement(view.getName());
 						reportResult.setType(Constants.TF_EO);
@@ -884,7 +884,7 @@ public class Core
 						{
 							element.append(" / ");
 							element.append(view.getResultView().getName());
-							det += view.getResultView().getNumberParameters() + view.getResultView().getNumberButtons();
+							det += view.getResultView().getNumberParameters() + view.getResultView().getNumberButtons() + view.getResultView().getTotalColumns();
 						}
 
 						reportResult.setElement(element.toString());
