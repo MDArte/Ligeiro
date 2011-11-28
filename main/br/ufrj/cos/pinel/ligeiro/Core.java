@@ -261,13 +261,20 @@ public class Core
 			{
 				for (Dependency dependency : dependencyMethod.getDependencies())
 				{
-					Entity entity = entities.get(dependency.getValue());
+					String entityDependencyName = dependency.getValue();
+
+					Entity entity = entities.get(entityDependencyName);
+					if (entity == null)
+					{
+						entityDependencyName = Util.getMethodClassName(dependency.getValue());
+						entity = entities.get(entityDependencyName);
+					}
 
 					// if the dependency is an entity
 					if (entity != null)
 					{
 						String entityName = entity.getName();
-						if (dependency.getValue().equals(entity.getImplementationName()))
+						if (entityDependencyName.equals(entity.getImplementationName()))
 							entityName = entity.getImplementationName();
 
 						for (Method entityMethod : entity.getMethods())
@@ -281,7 +288,6 @@ public class Core
 									return true;
 								}
 							}
-							
 						}
 					}
 					else
