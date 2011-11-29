@@ -330,70 +330,87 @@ public class Core
 							String methodClassName = Util.getMethodClassName(dependency.getValue());
 							if (methodClassName != null)
 							{
-								// if the method is from the own class
-								if (dependencyClass.getName().equals(methodClassName))
+								IBaseClass clazz = allClasses.get(methodClassName);
+
+								if (clazz != null)
 								{
-									if (doesMethodChangeDataOrBehavior(dependencyClass, dependency.getValue()))
+									Set<String> methodSignatures = clazz.getMethodsSignatures();
+
+									BaseClass newDependencyClass = dependencyClasses.get(clazz.getImplementationName());
+
+									boolean foundMethod = false;
+
+									if (newDependencyClass != null)
 									{
-										return true;
-									}
-								}
-								else
-								{
-									IBaseClass clazz = allClasses.get(methodClassName);
-		
-									// if the dependency is a method of a common class, service or controller
-									if (clazz != null)
-									{
-										BaseClass newDependencyClass = dependencyClasses.get(clazz.getImplementationName());
-		
-										if (newDependencyClass != null)
+										String methodName = Util.getMethodName(dependency.getValue());
+
+										String[] params = Util.getMethodParameters(dependency.getValue());
+
+										boolean foundBestMatch = false;
+										Method methodMatched = null;
+
+										// looking for the method to get the right signature
+										for (Method method : clazz.getMethods())
 										{
-											String methodName = Util.getMethodName(dependency.getValue());
-		
-											String[] params = Util.getMethodParameters(dependency.getValue());
-		
-											boolean foundBestMatch = false;
-											Method methodMatched = null;
-		
-											// looking for the method to get the right signature
-											for (Method method : clazz.getMethods())
+											// found a method with the same name,
+											// but it necessary to verify each parameter
+											if (methodName.equals(method.getName())
+												|| (method.getImplementationName() != null && methodName.equals(method.getImplementationName())))
 											{
-												// found a method with the same name,
-												// but it necessary to verify each parameter
-												if (methodName.equals(method.getName())
-													|| (method.getImplementationName() != null && methodName.equals(method.getImplementationName())))
+												boolean match = true;
+
+												int i = 0;
+												for (Parameter param : method.getParameters())
 												{
-													boolean match = true;
-		
-													int i = 0;
-													for (Parameter param : method.getParameters())
+													if (i < params.length && !param.getType().equals(params[i]))
 													{
-														if (i < params.length && !param.getType().equals(params[i]))
-														{
-															match = false;
-															break;
-														}
-														i++;
+														match = false;
+														break;
 													}
-		
-													if (match)
-													{
-														methodMatched = method;
-		
-														// matchs all parameters
-														if (i >= params.length)
-															foundBestMatch = true;
-													}
+													i++;
 												}
-												// if the best match was found, then stop search
-												if (foundBestMatch)
-													break;
+
+												if (match)
+												{
+													methodMatched = method;
+
+													// matchs all parameters
+													if (i >= params.length)
+														foundBestMatch = true;
+												}
 											}
-		
-											if (methodMatched != null
-												&& doesMethodChangeDataOrBehavior(newDependencyClass,
-													clazz.getImplementationName() + "." + methodMatched.getSignature()))
+											// if the best match was found, then stop search
+											if (foundBestMatch)
+												break;
+										}
+
+										if (methodMatched != null)
+										{
+											foundMethod = true;
+
+											if (doesMethodChangeDataOrBehavior(newDependencyClass,
+												clazz.getImplementationName() + "." + methodMatched.getSignature()))
+											{
+												return true;
+											}
+										}
+									}
+
+									if (!foundMethod)
+									{
+										// if the method is from the own class
+										if (dependencyClass.getName().equals(methodClassName))
+										{
+											if (doesMethodChangeDataOrBehavior(dependencyClass, dependency.getValue()))
+											{
+												return true;
+											}
+										}
+										else
+										{
+											newDependencyClass = dependencyClasses.get(methodClassName);
+	
+											if (doesMethodChangeDataOrBehavior(newDependencyClass, dependency.getValue()))
 											{
 												return true;
 											}
