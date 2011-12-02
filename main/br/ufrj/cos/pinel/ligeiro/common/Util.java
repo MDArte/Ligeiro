@@ -130,6 +130,13 @@ public class Util
 			clazz = clazz.getExtendsClass() == null ? null : entities.get(clazz.getExtendsClass());
 		}
 
+		// counting associations
+		for (Association association : entity.getAssociations())
+		{
+			if (association.isManyToOne())
+				counter++;
+		}
+
 		return counter;
 	}
 

@@ -118,10 +118,10 @@ public class EntityHandler extends GenericHandler
 			typeStr = attributes.getValue("oneToMany");
 			if (typeStr != null && Boolean.valueOf(typeStr))
 				association.setAsOneToMany();
-			typeStr = attributes.getValue("ManyToOne");
+			typeStr = attributes.getValue("manyToOne");
 			if (typeStr != null && Boolean.valueOf(typeStr))
 				association.setAsManyToOne();
-			typeStr = attributes.getValue("ManyToMany");
+			typeStr = attributes.getValue("manyToMany");
 			if (typeStr != null && Boolean.valueOf(typeStr))
 				association.setAsManyToMany();
 		}
