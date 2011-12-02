@@ -12,6 +12,7 @@ import br.ufrj.cos.pinel.ligeiro.data.DAOMethod;
 import br.ufrj.cos.pinel.ligeiro.data.Entity;
 import br.ufrj.cos.pinel.ligeiro.data.Method;
 import br.ufrj.cos.pinel.ligeiro.data.Parameter;
+import br.ufrj.cos.pinel.ligeiro.data.Association;
 
 /**
  * The listener used to read entities from a XML.
@@ -35,6 +36,8 @@ public class EntityHandler extends GenericHandler
 
 	private DAO dao = null;
 	private DAOMethod daoMethod = null;
+
+	private Association association = null;
 
 	/**
 	 * @return the entities read.
@@ -103,6 +106,25 @@ public class EntityHandler extends GenericHandler
 			if (deleteStr != null && Boolean.valueOf(deleteStr))
 				daoMethod.setAsDelete();
 		}
+		else if (entity != null && tagName.equals("association"))
+		{
+			association = new Association();
+
+			entity.addAssociation(association);
+
+			String typeStr = attributes.getValue("oneToOne");
+			if (typeStr != null && Boolean.valueOf(typeStr))
+				association.setAsOneToOne();
+			typeStr = attributes.getValue("oneToMany");
+			if (typeStr != null && Boolean.valueOf(typeStr))
+				association.setAsOneToMany();
+			typeStr = attributes.getValue("ManyToOne");
+			if (typeStr != null && Boolean.valueOf(typeStr))
+				association.setAsManyToOne();
+			typeStr = attributes.getValue("ManyToMany");
+			if (typeStr != null && Boolean.valueOf(typeStr))
+				association.setAsManyToMany();
+		}
 	}
 
 	/**
@@ -140,6 +162,10 @@ public class EntityHandler extends GenericHandler
 		else if (tag.equals("methodName"))
 		{
 			daoMethod = null;
+		}
+		else if (tag.equals("association"))
+		{
+			association = null;
 		}
 	}
 
@@ -214,6 +240,13 @@ public class EntityHandler extends GenericHandler
 					dao.setImplementationName(valueNode);
 				}
 				
+			}
+			else if (association != null)
+			{
+				if (tagName.equals("association"))
+				{
+					association.setName(valueNode);
+				}
 			}
 			else if (tagName.equals("name"))
 			{

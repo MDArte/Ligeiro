@@ -25,6 +25,8 @@ public class BaseClass implements IBaseClass
 
 	private Collection<Method> methods;
 
+	private Collection<Association> associations;
+
 	/**
 	 * Default constructor.
 	 */
@@ -32,6 +34,7 @@ public class BaseClass implements IBaseClass
 	{
 		attributes = new ArrayList<Attribute>();
 		methods = new ArrayList<Method>();
+		associations = new ArrayList<Association>();
 	}
 
 	/**
@@ -133,14 +136,6 @@ public class BaseClass implements IBaseClass
 	}
 
 	/**
-	 * @param attributes
-	 */
-	public void setAttributes(Collection<Attribute> attributes)
-	{
-		this.attributes = attributes;
-	}
-
-	/**
 	 * @see br.ufrj.cos.pinel.ligeiro.data.IBaseClass#addAttribute(br.ufrj.cos.pinel.ligeiro.data.Attribute)
 	 */
 	public void addAttribute(Attribute attribute)
@@ -157,19 +152,27 @@ public class BaseClass implements IBaseClass
 	}
 
 	/**
-	 * @param methods
-	 */
-	public void setMethods(Collection<Method> methods)
-	{
-		this.methods = methods;
-	}
-
-	/**
 	 * @see br.ufrj.cos.pinel.ligeiro.data.IBaseClass#addMethod(br.ufrj.cos.pinel.ligeiro.data.Method)
 	 */
 	public void addMethod(Method method)
 	{
 		methods.add(method);
+	}
+
+	/**
+	 * @see br.ufrj.cos.pinel.ligeiro.data.IBaseClass#getAssociations()
+	 */
+	public Collection<Association> getAssociations()
+	{
+		return associations;
+	}
+
+	/**
+	 * @see br.ufrj.cos.pinel.ligeiro.data.IBaseClass#addAssociation(br.ufrj.cos.pinel.ligeiro.data.Association)
+	 */
+	public void addAssociation(Association association)
+	{
+		associations.add(association);
 	}
 
 	/**

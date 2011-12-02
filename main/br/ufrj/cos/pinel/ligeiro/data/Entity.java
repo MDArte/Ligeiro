@@ -1,5 +1,7 @@
 package br.ufrj.cos.pinel.ligeiro.data;
 
+import java.util.Collection;
+
 /**
  * @author Roque Pinel
  *

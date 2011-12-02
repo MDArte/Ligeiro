@@ -80,6 +80,16 @@ public interface IBaseClass
 	public void addMethod(Method method);
 
 	/**
+	 * @return the associations
+	 */
+	public Collection<Association> getAssociations();
+
+	/**
+	 * @param association the association to add
+	 */
+	public void addAssociation(Association association);
+
+	/**
 	 * @return the <code>Set</code> of methods' signatures
 	 */
 	public Set<String> getMethodsSignatures();

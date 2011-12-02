@@ -3,6 +3,7 @@ package br.ufrj.cos.pinel.ligeiro.common;
 import java.util.Collection;
 import java.util.Map;
 
+import br.ufrj.cos.pinel.ligeiro.data.Association;
 import br.ufrj.cos.pinel.ligeiro.data.Attribute;
 import br.ufrj.cos.pinel.ligeiro.data.Entity;
 import br.ufrj.cos.pinel.ligeiro.data.Event;
@@ -96,6 +97,12 @@ public class Util
 		{
 			Util.println("\t\tName: " + attribute.getName());
 			Util.println("\t\t\tType: " + attribute.getType());
+		}
+
+		Util.println("\tAssociations:");
+		for (Association association : clazz.getAssociations())
+		{
+			Util.println("\t\tName: " + association.getName());
 		}
 	}
 
