@@ -7,6 +7,8 @@ package br.ufrj.cos.pinel.ligeiro.report;
  */
 public class ReportResult
 {
+	private String namespace;
+
 	private String element;
 
 	private String type;
@@ -25,6 +27,22 @@ public class ReportResult
 	public ReportResult()
 	{
 		// empty
+	}
+
+	/**
+	 * @return the namespace
+	 */
+	public String getNamespace()
+	{
+		return namespace;
+	}
+
+	/**
+	 * @param namespace the namespace to set
+	 */
+	public void setNamespace(String namespace)
+	{
+		this.namespace = namespace;
 	}
 
 	/**

@@ -582,6 +582,7 @@ public class Core
 			if (key.equals(entity.getName()))
 			{
 				ReportResult reportResult = new ReportResult();
+				reportResult.setNamespace("");
 				reportResult.setElement(entity.getName());
 
 				reportResult.setRet_ftr(Constants.DF_DEFAULT_RET);
@@ -928,6 +929,7 @@ public class Core
 				if (!view.isEQ2())
 				{
 					ReportResult reportResult = new ReportResult();
+					reportResult.setNamespace(useCase.getName());
 
 					reportResult.setRet_ftr(Constants.TF_DEFAULT_FTR);
 
@@ -1003,6 +1005,7 @@ public class Core
 				for (Method method : service.getMethods())
 				{
 					ReportResult reportResult = new ReportResult();
+					reportResult.setNamespace(service.getName());
 
 					reportResult.setElement(Util.getClassName(service.getName()) + "." + method.getName());
 					reportResult.setRet_ftr(Constants.TF_DEFAULT_FTR);
