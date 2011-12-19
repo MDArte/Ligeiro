@@ -264,6 +264,13 @@ public class Core
 	// avoing method stack, so local instance
 	private Set<String> visitedMethods = null;
 
+	/**
+	 * Verifies if a method changes data or the system's behavior.
+	 * 
+	 * @param dependencyClass The dependency class that contains the method.
+	 * @param methodSignature The method signature to retrieve the dependencies.
+	 * @return The result will be <code>true</code> if the method changes data or the system's behavior
+	 */
 	private boolean doesMethodChangeDataOrBehavior(IBaseClass dependencyClass, String methodSignature)
 	{
 		// avoiding an infinite loop
@@ -430,7 +437,11 @@ public class Core
 		return false;
 	}
 
-	// TODO: the methods extended should be analyzed
+	/**
+	 * Starts the Function Point Analysis for Data Functions.
+	 * 
+	 * TODO: the methods extended should be analyzed
+	 */
 	public void startFunctionPointAnalysisDF()
 	{
 		Map<String, Entity> tempEntities = new HashMap<String, Entity>();
@@ -548,6 +559,12 @@ public class Core
 		}
 	}
 
+	/**
+	 * Builds the report for Data Functions.
+	 * 
+	 * @param fpaConfig The configuration to be used.
+	 * @return the report
+	 */
 	public FPAReport startFunctionPointAnalysisDFReport(FPAConfig fpaConfig)
 	{
 		if (fpaReport == null)
@@ -600,6 +617,9 @@ public class Core
 		return fpaReport;
 	}
 
+	/**
+	 * Starts the Function Point Analysis for Transaction Functions.
+	 */
 	public void startFunctionPointAnalysisTF()
 	{
 		Util.println("\n-- TRANSACTION FUNCTION --");
@@ -609,6 +629,11 @@ public class Core
 		startFunctionPointAnalysisTF_WebServices();
 	}
 
+	/**
+	 * Starts the Function Point Analysis for Transaction Functions.
+	 * 
+	 * Looks for Use Cases.
+	 */
 	private void startFunctionPointAnalysisTF_UseCases()
 	{
 		Util.println("\n-- TRANSACTION FUNCTION --");
@@ -811,6 +836,11 @@ public class Core
 		}
 	}
 
+	/**
+	 * Starts the Function Point Analysis for Transaction Functions.
+	 * 
+	 * Looks for Web Services.
+	 */
 	private void startFunctionPointAnalysisTF_WebServices()
 	{
 		for (Service service : services)
@@ -862,6 +892,12 @@ public class Core
 		}
 	}
 
+	/**
+	 * Builds the report for Transaction Functions.
+	 * 
+	 * @param fpaConfig The configuration to be used.
+	 * @return the report
+	 */
 	public FPAReport startFunctionPointAnalysisTFReport(FPAConfig fpaConfig)
 	{
 		if (fpaReport == null)
