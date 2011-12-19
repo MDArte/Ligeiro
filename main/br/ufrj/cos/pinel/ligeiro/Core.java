@@ -245,18 +245,21 @@ public class Core
 
 		Collection<BaseClass> classes = XMLUtil.readDependencies(fileName);
 
+		int counter = 0;
+
 		for (BaseClass baseClass: classes)
 		{
 			// check if it's a know class, then store for future analysis
 			if (this.allClasses.containsKey(baseClass.getName()))
 			{
 				dependencyClasses.put(baseClass.getName(), baseClass);
+				counter++;
 			}
 		}
 
-		loadReport.setElementsRead(classes.size());
+		loadReport.setElementsRead(counter);
 
-		Util.println("Number of dependencies after cleaning: " + dependencyClasses.size());
+		Util.println("Number of dependencies after cleaning: " + counter);
 
 		return loadReport;
 	}
@@ -721,6 +724,13 @@ public class Core
 										Util.println("\t\t\t\t<Action>");
 
 										BaseClass dependencyClass = dependencyClasses.get(useCase.getController().getImplementationName());
+
+										if (dependencyClass == null)
+										{
+											Util.println("[ERROR] Could not find the dependency class: " + useCase.getController().getImplementationName());
+											continue;
+										}
+
 										if (useCase.getController() != null && dependencyClass != null)
 										{
 											IBaseClass controllerClass = useCase.getController();
@@ -849,6 +859,12 @@ public class Core
 			{
 				BaseClass dependencyClass = dependencyClasses.get(service.getImplementationName());
 
+				if (dependencyClass == null)
+				{
+					Util.println("[ERROR] Could not find the dependency class: " + service.getImplementationName());
+					continue;
+				}
+
 				Util.println("Service: " + service.getName());
 				Util.println("  Impl: " + service.getImplementationName());
 
@@ -958,6 +974,8 @@ public class Core
 					else
 					{
 						Util.println("\t[ERROR] Transaction Function Report.");
+						Util.println("\t\tModule: " + useCase.getModuleName());
+						Util.println("\t\tUseCase: " + useCase.getName());
 						Util.println("\t\tView: " + view.getName());
 						continue;
 					}
