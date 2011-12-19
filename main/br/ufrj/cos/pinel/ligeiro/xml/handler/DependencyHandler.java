@@ -77,15 +77,15 @@ public class DependencyHandler extends GenericHandler
 	 */
 	public void endElement(String uri, String localName, String tag)
 	{
-		tagName = null;
+		tagName = tag.trim();
 		tagType = null;
 		valueNode = null;
 
-		if (tag.equals("class"))
+		if (tagName.equals("class"))
 		{
 			baseClass = null;
 		}
-		else if (tag.equals("feature"))
+		else if (tagName.equals("feature"))
 		{
 			method = null;
 			hasMethod = false;

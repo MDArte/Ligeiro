@@ -86,31 +86,31 @@ public class ServiceHandler extends GenericHandler
 	 */
 	public void endElement(String uri, String localName, String tag)
 	{
-		tagName = null;
+		tagName = tag.trim();
 		valueNode = null;
 
-		if (tag.equals("module"))
+		if (tagName.equals("module"))
 		{
 			moduleName = null;
 		}
-		else if (tag.equals("service"))
+		else if (tagName.equals("service"))
 		{
 			service.setModuleName(moduleName);
 			service = null;
 		}
-		else if (tag.equals("method"))
+		else if (tagName.equals("method"))
 		{
 			method = null;
 		}
-		else if (tag.equals("return"))
+		else if (tagName.equals("return"))
 		{
 			hasMethodReturn = false;
 		}
-		else if (tag.equals("parameter"))
+		else if (tagName.equals("parameter"))
 		{
 			parameter = null;
 		}
-		else if (tag.equals("otherNames"))
+		else if (tagName.equals("otherNames"))
 		{
 			hasOtherNames = false;
 		}

@@ -86,26 +86,26 @@ public class ClassHandler extends GenericHandler
 	 */
 	public void endElement(String uri, String localName, String tag)
 	{
-		tagName = null;
+		tagName = tag.trim();
 		valueNode = null;
 
-		if (tag.equals("class"))
+		if (tagName.equals("class"))
 		{
 			baseClass = null;
 		}
-		else if (tag.equals("method"))
+		else if (tagName.equals("method"))
 		{
 			method = null;
 		}
-		else if (tag.equals("return"))
+		else if (tagName.equals("return"))
 		{
 			hasMethodReturn = false;
 		}
-		else if (tag.equals("parameter"))
+		else if (tagName.equals("parameter"))
 		{
 			parameter = null;
 		}
-		else if (tag.equals("attribute"))
+		else if (tagName.equals("attribute"))
 		{
 			attribute = null;
 		}

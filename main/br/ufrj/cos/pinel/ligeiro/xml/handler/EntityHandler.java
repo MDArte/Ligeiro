@@ -132,38 +132,38 @@ public class EntityHandler extends GenericHandler
 	 */
 	public void endElement(String uri, String localName, String tag)
 	{
-		tagName = null;
+		tagName = tag.trim();
 		valueNode = null;
 
-		if (tag.equals("entity"))
+		if (tagName.equals("entity"))
 		{
 			entity = null;
 		}
-		else if (tag.equals("method"))
+		else if (tagName.equals("method"))
 		{
 			method = null;
 		}
-		else if (tag.equals("return"))
+		else if (tagName.equals("return"))
 		{
 			hasMethodReturn = false;
 		}
-		else if (tag.equals("parameter"))
+		else if (tagName.equals("parameter"))
 		{
 			parameter = null;
 		}
-		else if (tag.equals("attribute"))
+		else if (tagName.equals("attribute"))
 		{
 			attribute = null;
 		}
-		else if (tag.equals("dao"))
+		else if (tagName.equals("dao"))
 		{
 			dao = null;
 		}
-		else if (tag.equals("methodName"))
+		else if (tagName.equals("methodName"))
 		{
 			daoMethod = null;
 		}
-		else if (tag.equals("association"))
+		else if (tagName.equals("association"))
 		{
 			association = null;
 		}

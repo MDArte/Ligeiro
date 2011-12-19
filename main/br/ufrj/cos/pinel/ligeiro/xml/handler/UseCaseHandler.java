@@ -225,51 +225,51 @@ public class UseCaseHandler extends GenericHandler
 	 */
 	public void endElement(String uri, String localName, String tag)
 	{
-		tagName = null;
+		tagName = tag.trim();
 		valueNode = null;
 
-		if (tag.equals("module")) 
+		if (tagName.equals("module")) 
 		{
 			moduleName = null;
 		}
-		else if (tag.equals("useCase"))
+		else if (tagName.equals("useCase"))
 		{
 			useCase.setModuleName(moduleName);
 			useCase = null;
 		}
-		else if (tag.equals("view"))
+		else if (tagName.equals("view"))
 		{
 			view = null;
 		}
-		else if (tag.equals("state"))
+		else if (tagName.equals("state"))
 		{
 			state = null;
 		}
-		else if (tag.equals("controller"))
+		else if (tagName.equals("controller"))
 		{
 			controller = null;
 		}
-		else if (tag.equals("method") || tag.equals("action"))
+		else if (tagName.equals("method") || tagName.equals("action"))
 		{
 			method = null;
 		}
-		else if (tag.equals("variable"))
+		else if (tagName.equals("variable"))
 		{
 			table = null;
 		}
-		else if (tag.equals("return"))
+		else if (tagName.equals("return"))
 		{
 			hasMethodReturn = false;
 		}
-		else if (tag.equals("parameter"))
+		else if (tagName.equals("parameter"))
 		{
 			parameter = null;
 		}
-		else if (tag.equals("target"))
+		else if (tagName.equals("target"))
 		{
 			target = null;
 		}
-		else if (tag.equals("event"))
+		else if (tagName.equals("event"))
 		{
 			event = null;
 		}
