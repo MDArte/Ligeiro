@@ -52,5 +52,4 @@ public class Constants
 	public static String TF_EI = "EI";
 	public static String TF_EO = "EO";
 	public static String TF_EQ = "EQ";
-	public static int TF_DEFAULT_FTR = 1;
 }

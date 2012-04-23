@@ -266,6 +266,7 @@ public class Core
 
 	// avoing method stack, so local instance
 	private Set<String> visitedMethods = null;
+	private Set<String> countedEntities = null;
 
 	/**
 	 * Verifies if a method changes data or the system's behavior.
@@ -276,9 +277,11 @@ public class Core
 	 */
 	private boolean doesMethodChangeDataOrBehavior(IBaseClass dependencyClass, String methodSignature)
 	{
+		boolean ret = false;
+
 		// avoiding an infinite loop
 		if (visitedMethods != null && visitedMethods.contains(methodSignature))
-			return false;
+			return ret;
 		visitedMethods.add(methodSignature);
 
 		for (Method dependencyMethod : dependencyClass.getMethods())
@@ -299,6 +302,10 @@ public class Core
 					if (entity != null)
 					{
 						String entityName = entity.getName();
+
+						if (countedEntities != null && entityName != null)
+							countedEntities.add(entityName);
+
 						if (dependencyElementName.equals(entity.getImplementationName()))
 							entityName = entity.getImplementationName();
 
@@ -308,7 +315,8 @@ public class Core
 		
 							if (dependency.getValue().equals(signature) && entityMethod.isModifier())
 							{
-								return true;
+								ret = true;
+								break;
 							}
 						}
 					}
@@ -319,6 +327,11 @@ public class Core
 						// if the dependency is a DAO
 						if (dao != null)
 						{
+							Entity daoEntity = dao.getEntity();
+
+							if (countedEntities != null && daoEntity != null && daoEntity.getName() != null)
+								countedEntities.add(daoEntity.getName());
+
 							String daoName = dao.getName();
 
 							// if the dependency is related to the implementation name, then use it 
@@ -331,7 +344,8 @@ public class Core
 
 								if (daoMethod.isDelete() && dependency.getValue().equals(signature))
 								{
-									return true;
+									ret = true;
+									break;
 								}
 							}
 						}
@@ -401,7 +415,7 @@ public class Core
 											if (doesMethodChangeDataOrBehavior(newDependencyClass,
 												clazz.getImplementationName() + "." + methodMatched.getSignature()))
 											{
-												return true;
+												ret = true;
 											}
 										}
 									}
@@ -413,7 +427,7 @@ public class Core
 										{
 											if (doesMethodChangeDataOrBehavior(dependencyClass, dependency.getValue()))
 											{
-												return true;
+												ret = true;
 											}
 										}
 										else
@@ -422,7 +436,7 @@ public class Core
 	
 											if (doesMethodChangeDataOrBehavior(newDependencyClass, dependency.getValue()))
 											{
-												return true;
+												ret = true;
 											}
 										}
 									}
@@ -437,7 +451,7 @@ public class Core
 			}
 		}
 
-		return false;
+		return ret;
 	}
 
 	/**
@@ -752,11 +766,13 @@ public class Core
 													break;
 											}
 
-											// avoiding an infinite loop
+											// used to avoid an infinite loop
 											if (visitedMethods == null)
 												visitedMethods = new HashSet<String>();
 											else
 												visitedMethods.clear();
+
+											countedEntities = new HashSet<String>();
 
 											// calling
 											boolean ret = doesMethodChangeDataOrBehavior(dependencyClass, methodSignature);
@@ -771,6 +787,8 @@ public class Core
 												Util.println("\t\t\t\t  Is an EQ1");
 												view.setAsEQ1();
 											}
+
+											view.setCountedEntities(countedEntities);
 										}
 									}
 								}
@@ -875,11 +893,13 @@ public class Core
 
 					Util.println("\t " + method.getName());
 
-					// avoiding an infinite loop
+					// used to avoid an infinite loop
 					if (visitedMethods == null)
 						visitedMethods = new HashSet<String>();
 					else
 						visitedMethods.clear();
+
+					countedEntities = new HashSet<String>();
 
 					// calling
 					boolean ret = doesMethodChangeDataOrBehavior(dependencyClass, methodSignature);
@@ -904,6 +924,8 @@ public class Core
 						Util.println("\t\t  Is an EQ");
 						method.setAsEQ1();
 					}
+
+					method.setCountedEntities(countedEntities);
 				}
 			}
 		}
@@ -931,29 +953,30 @@ public class Core
 					ReportResult reportResult = new ReportResult();
 					reportResult.setNamespace(useCase.getName());
 
-					reportResult.setRet_ftr(Constants.TF_DEFAULT_FTR);
-
 					int det = 0;
+					int ftr = 0;
 					int value = 0;
 					String complexity = null;
 
 					if (view.isEI())
 					{
 						det = view.getNumberInputParameters() + view.getNumberButtons();
+						ftr = view.getCountedEntities().size();
 
 						reportResult.setElement(view.getName());
 						reportResult.setType(Constants.TF_EI);
-						complexity = fpaConfig.getEIComplexity(reportResult.getRet_ftr(), det);
-						value = fpaConfig.getEIComplexityValue(reportResult.getRet_ftr(), det);
+						complexity = fpaConfig.getEIComplexity(ftr, det);
+						value = fpaConfig.getEIComplexityValue(ftr, det);
 					}
 					else if (view.isEO())
 					{
 						det = view.getNumberParameters() + view.getNumberButtons() + view.getTotalColumns();
+						ftr = view.getCountedEntities().size();
 
 						reportResult.setElement(view.getName());
 						reportResult.setType(Constants.TF_EO);
-						complexity = fpaConfig.getEOComplexity(reportResult.getRet_ftr(), det);
-						value = fpaConfig.getEOComplexityValue(reportResult.getRet_ftr(), det);
+						complexity = fpaConfig.getEOComplexity(ftr, det);
+						value = fpaConfig.getEOComplexityValue(ftr, det);
 					}
 					else if (view.isEQ1())
 					{
@@ -966,12 +989,16 @@ public class Core
 							element.append(" / ");
 							element.append(view.getResultView().getName());
 							det += view.getResultView().getNumberParameters() + view.getResultView().getNumberButtons() + view.getResultView().getTotalColumns();
+
+							view.getCountedEntities().addAll(view.getResultView().getCountedEntities());
 						}
+
+						ftr = view.getCountedEntities().size();
 
 						reportResult.setElement(element.toString());
 						reportResult.setType(Constants.TF_EQ);
-						complexity = fpaConfig.getEQComplexity(reportResult.getRet_ftr(), det);
-						value = fpaConfig.getEQComplexityValue(reportResult.getRet_ftr(), det);
+						complexity = fpaConfig.getEQComplexity(ftr, det);
+						value = fpaConfig.getEQComplexityValue(ftr, det);
 					}
 					else
 					{
@@ -983,6 +1010,7 @@ public class Core
 					}
 
 					reportResult.setDet(det);
+					reportResult.setRet_ftr(ftr);
 					reportResult.setComplexity(complexity);
 					reportResult.setComplexityValue(value);
 
@@ -990,8 +1018,8 @@ public class Core
 					fpaReport.addTFReportTotal(value);
 
 					Util.println("\t" + reportResult.getType() + ": " + reportResult.getElement());
-					Util.println("\t\tRET: " + reportResult.getRet_ftr());
-					Util.println("\t\tFTR: " + reportResult.getDet());
+					Util.println("\t\tFTR: " + reportResult.getRet_ftr());
+					Util.println("\t\tDET: " + reportResult.getDet());
 					Util.println("\t\tComplexity: " + reportResult.getComplexity());
 					Util.println("\t\tComplexity Value: " + reportResult.getComplexityValue());
 				}
@@ -1008,9 +1036,9 @@ public class Core
 					reportResult.setNamespace(service.getName());
 
 					reportResult.setElement(Util.getClassName(service.getName()) + "." + method.getName());
-					reportResult.setRet_ftr(Constants.TF_DEFAULT_FTR);
 
 					int det = method.getParameters().size();
+					int ftr = 0;
 					int value = 0;
 					String complexity = null;
 
@@ -1019,18 +1047,21 @@ public class Core
 						reportResult.setType(Constants.TF_EI);
 						complexity = fpaConfig.getEIComplexity(reportResult.getRet_ftr(), det);
 						value = fpaConfig.getEIComplexityValue(reportResult.getRet_ftr(), det);
+						ftr = method.getCountedEntities().size();
 					}
 					else if (method.isEO())
 					{
 						reportResult.setType(Constants.TF_EO);
 						complexity = fpaConfig.getEOComplexity(reportResult.getRet_ftr(), det);
 						value = fpaConfig.getEOComplexityValue(reportResult.getRet_ftr(), det);
+						ftr = method.getCountedEntities().size();
 					}
 					else if (method.isEQ1())
 					{
 						reportResult.setType(Constants.TF_EQ);
 						complexity = fpaConfig.getEQComplexity(reportResult.getRet_ftr(), det);
 						value = fpaConfig.getEQComplexityValue(reportResult.getRet_ftr(), det);
+						ftr = method.getCountedEntities().size();
 					}
 					else
 					{
@@ -1041,6 +1072,7 @@ public class Core
 					}
 
 					reportResult.setDet(det);
+					reportResult.setRet_ftr(ftr);
 					reportResult.setComplexity(complexity);
 					reportResult.setComplexityValue(value);
 
@@ -1048,8 +1080,8 @@ public class Core
 					fpaReport.addTFReportTotal(value);
 
 					Util.println("\t" + reportResult.getType() + ": " + reportResult.getElement());
-					Util.println("\t\tRET: " + reportResult.getRet_ftr());
-					Util.println("\t\tFTR: " + reportResult.getDet());
+					Util.println("\t\tFTR: " + reportResult.getRet_ftr());
+					Util.println("\t\tDET: " + reportResult.getDet());
 					Util.println("\t\tComplexity: " + reportResult.getComplexity());
 					Util.println("\t\tComplexity Value: " + reportResult.getComplexityValue());
 				}

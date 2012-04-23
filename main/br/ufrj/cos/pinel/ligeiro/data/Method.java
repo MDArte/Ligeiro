@@ -2,6 +2,8 @@ package br.ufrj.cos.pinel.ligeiro.data;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author Roque Pinel
@@ -37,6 +39,8 @@ public class Method
 
 	private int fpType;
 
+	private Set<String> countedEntities;
+
 	/**
 	 * Default constructor.
 	 */
@@ -48,6 +52,8 @@ public class Method
 		dependencies = new ArrayList<Dependency>();
 
 		this.fpType = FP_TYPE.NONE;
+
+		this.countedEntities = new HashSet<String>();
 	}
 
 	/**
@@ -308,5 +314,21 @@ public class Method
 	public boolean isEQ()
 	{
 		return this.fpType == FP_TYPE.EQ1 || this.fpType == FP_TYPE.EQ2;
+	}
+
+	/**
+	 * @return the countedEntities
+	 */
+	public Set<String> getCountedEntities()
+	{
+		return countedEntities;
+	}
+
+	/**
+	 * @param countedEntities the countedEntities to set
+	 */
+	public void setCountedEntities(Set<String> countedEntities)
+	{
+		this.countedEntities = countedEntities;
 	}
 }

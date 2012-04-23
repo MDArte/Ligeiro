@@ -5,8 +5,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import br.ufrj.cos.pinel.ligeiro.common.Util;
-
 /**
  * @author Roque Pinel
  *
@@ -38,6 +36,8 @@ public class View extends BaseClass
 
 	private Collection<Table> tables;
 
+	private Set<String> countedEntities;
+
 	/**
 	 * Default constructor.
 	 */
@@ -54,6 +54,8 @@ public class View extends BaseClass
 		this.first = false;
 
 		this.tables = new ArrayList<Table>();
+
+		this.countedEntities = new HashSet<String>();
 	}
 
 	/**
@@ -279,5 +281,21 @@ public class View extends BaseClass
 		}
 
 		return total;
+	}
+
+	/**
+	 * @return the countedEntities
+	 */
+	public Set<String> getCountedEntities()
+	{
+		return countedEntities;
+	}
+
+	/**
+	 * @param countedEntities the countedEntities to set
+	 */
+	public void setCountedEntities(Set<String> countedEntities)
+	{
+		this.countedEntities = countedEntities;
 	}
 }
