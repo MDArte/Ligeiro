@@ -291,58 +291,41 @@ public class Core
 			{
 				for (Dependency dependency : dependencyMethod.getDependencies())
 				{
-					if (!dependency.isFeature())
-						continue;
-
-					String dependencyElementName = Util.getMethodClassName(dependency.getValue());
-
-					Entity entity = entities.get(dependencyElementName);
-
-					// if the dependency is an entity
-					if (entity != null)
+					if (dependency.isClass())
 					{
-						String entityName = entity.getName();
+						Entity entity = entities.get(dependency.getValue());
 
-						if (countedEntities != null && entityName != null)
-							countedEntities.add(entityName);
-
-						if (dependencyElementName.equals(entity.getImplementationName()))
-							entityName = entity.getImplementationName();
-
-						for (Method entityMethod : entity.getMethods())
+						// if the dependency is an entity
+						if (entity != null)
 						{
-							String signature = entityName + "." + entityMethod.getSignature();
-		
-							if (dependency.getValue().equals(signature) && entityMethod.isModifier())
-							{
-								ret = true;
-								break;
-							}
+							String entityName = entity.getName();
+	
+							if (countedEntities != null && entityName != null)
+								countedEntities.add(entityName);
 						}
 					}
 					else
 					{
-						DAO dao = daos.get(dependencyElementName);
-
-						// if the dependency is a DAO
-						if (dao != null)
+						String dependencyElementName = Util.getMethodClassName(dependency.getValue());
+	
+						Entity entity = entities.get(dependencyElementName);
+	
+						// if the dependency is an entity
+						if (entity != null)
 						{
-							Entity daoEntity = dao.getEntity();
-
-							if (countedEntities != null && daoEntity != null && daoEntity.getName() != null)
-								countedEntities.add(daoEntity.getName());
-
-							String daoName = dao.getName();
-
-							// if the dependency is related to the implementation name, then use it 
-							if (dependencyElementName.equals(dao.getImplementationName()))
-								daoName = dao.getImplementationName();
-
-							for (DAOMethod daoMethod : dao.getMethods())
+							String entityName = entity.getName();
+	
+							if (countedEntities != null && entityName != null)
+								countedEntities.add(entityName);
+	
+							if (dependencyElementName.equals(entity.getImplementationName()))
+								entityName = entity.getImplementationName();
+	
+							for (Method entityMethod : entity.getMethods())
 							{
-								String signature = daoName + "." + daoMethod.getName();
-
-								if (daoMethod.isDelete() && dependency.getValue().equals(signature))
+								String signature = entityName + "." + entityMethod.getSignature();
+			
+								if (dependency.getValue().equals(signature) && entityMethod.isModifier())
 								{
 									ret = true;
 									break;
@@ -351,92 +334,122 @@ public class Core
 						}
 						else
 						{
-							String methodClassName = Util.getMethodClassName(dependency.getValue());
-							if (methodClassName != null)
-							{
-								IBaseClass clazz = allClasses.get(methodClassName);
-
-								if (clazz != null)
-								{
-									Set<String> methodSignatures = clazz.getMethodsSignatures();
-
-									BaseClass newDependencyClass = dependencyClasses.get(clazz.getImplementationName());
-
-									boolean foundMethod = false;
-
-									if (newDependencyClass != null)
-									{
-										String methodName = Util.getMethodName(dependency.getValue());
-
-										String[] params = Util.getMethodParameters(dependency.getValue());
-
-										boolean foundBestMatch = false;
-										Method methodMatched = null;
-
-										// looking for the method to get the right signature
-										for (Method method : clazz.getMethods())
-										{
-											// found a method with the same name,
-											// but it necessary to verify each parameter
-											if (methodName.equals(method.getName())
-												|| (method.getImplementationName() != null && methodName.equals(method.getImplementationName())))
-											{
-												boolean match = true;
-
-												int i = 0;
-												for (Parameter param : method.getParameters())
-												{
-													if (i < params.length && !param.getType().equals(params[i]))
-													{
-														match = false;
-														break;
-													}
-													i++;
-												}
-
-												if (match)
-												{
-													methodMatched = method;
-
-													// matchs all parameters
-													if (i >= params.length)
-														foundBestMatch = true;
-												}
-											}
-											// if the best match was found, then stop search
-											if (foundBestMatch)
-												break;
-										}
-
-										if (methodMatched != null)
-										{
-											foundMethod = true;
-
-											if (doesMethodChangeDataOrBehavior(newDependencyClass,
-												clazz.getImplementationName() + "." + methodMatched.getSignature()))
-											{
-												ret = true;
-											}
-										}
-									}
-
-									if (!foundMethod)
-									{
-										// if the method is from the own class
-										if (dependencyClass.getName().equals(methodClassName))
-										{
-											if (doesMethodChangeDataOrBehavior(dependencyClass, dependency.getValue()))
-											{
-												ret = true;
-											}
-										}
-										else
-										{
-											newDependencyClass = dependencyClasses.get(methodClassName);
+							DAO dao = daos.get(dependencyElementName);
 	
-											if (doesMethodChangeDataOrBehavior(newDependencyClass, dependency.getValue()))
+							// if the dependency is a DAO
+							if (dao != null)
+							{
+								Entity daoEntity = dao.getEntity();
+	
+								if (countedEntities != null && daoEntity != null && daoEntity.getName() != null)
+									countedEntities.add(daoEntity.getName());
+	
+								String daoName = dao.getName();
+	
+								// if the dependency is related to the implementation name, then use it 
+								if (dependencyElementName.equals(dao.getImplementationName()))
+									daoName = dao.getImplementationName();
+	
+								for (DAOMethod daoMethod : dao.getMethods())
+								{
+									String signature = daoName + "." + daoMethod.getName();
+	
+									if (daoMethod.isDelete() && dependency.getValue().equals(signature))
+									{
+										ret = true;
+										break;
+									}
+								}
+							}
+							else
+							{
+								String methodClassName = Util.getMethodClassName(dependency.getValue());
+								if (methodClassName != null)
+								{
+									IBaseClass clazz = allClasses.get(methodClassName);
+	
+									if (clazz != null)
+									{
+										Set<String> methodSignatures = clazz.getMethodsSignatures();
+	
+										BaseClass newDependencyClass = dependencyClasses.get(clazz.getImplementationName());
+	
+										boolean foundMethod = false;
+	
+										if (newDependencyClass != null)
+										{
+											String methodName = Util.getMethodName(dependency.getValue());
+	
+											String[] params = Util.getMethodParameters(dependency.getValue());
+	
+											boolean foundBestMatch = false;
+											Method methodMatched = null;
+	
+											// looking for the method to get the right signature
+											for (Method method : clazz.getMethods())
 											{
-												ret = true;
+												// found a method with the same name,
+												// but it necessary to verify each parameter
+												if (methodName.equals(method.getName())
+													|| (method.getImplementationName() != null && methodName.equals(method.getImplementationName())))
+												{
+													boolean match = true;
+	
+													int i = 0;
+													for (Parameter param : method.getParameters())
+													{
+														if (i < params.length && !param.getType().equals(params[i]))
+														{
+															match = false;
+															break;
+														}
+														i++;
+													}
+	
+													if (match)
+													{
+														methodMatched = method;
+	
+														// matchs all parameters
+														if (i >= params.length)
+															foundBestMatch = true;
+													}
+												}
+												// if the best match was found, then stop search
+												if (foundBestMatch)
+													break;
+											}
+	
+											if (methodMatched != null)
+											{
+												foundMethod = true;
+	
+												if (doesMethodChangeDataOrBehavior(newDependencyClass,
+													clazz.getImplementationName() + "." + methodMatched.getSignature()))
+												{
+													ret = true;
+												}
+											}
+										}
+	
+										if (!foundMethod)
+										{
+											// if the method is from the own class
+											if (dependencyClass.getName().equals(methodClassName))
+											{
+												if (doesMethodChangeDataOrBehavior(dependencyClass, dependency.getValue()))
+												{
+													ret = true;
+												}
+											}
+											else
+											{
+												newDependencyClass = dependencyClasses.get(methodClassName);
+		
+												if (doesMethodChangeDataOrBehavior(newDependencyClass, dependency.getValue()))
+												{
+													ret = true;
+												}
 											}
 										}
 									}
@@ -677,6 +690,11 @@ public class Core
 							// increasing the counter
 							view.addNumberParameters();
 
+							if (!param.isPlainText() && !param.isReadOnly())
+							{
+								view.addNumberInputHiddenParameters();
+							}
+
 							// if the parameter is an input field
 							if (!param.isPlainText() && !param.isReadOnly() && !param.isHiddenField())
 							{
@@ -799,7 +817,7 @@ public class Core
 					}
 				}
 
-				Util.println("\t\tParameters: " + view.getNumberInputParameters() + " - Buttons: " + view.getNumberButtons());
+				Util.println("\t\tInput Parameters: " + view.getNumberInputParameters() + " - Buttons: " + view.getNumberButtons());
 			}
 
 			Util.println("  Second steps...");
@@ -960,7 +978,7 @@ public class Core
 
 					if (view.isEI())
 					{
-						det = view.getNumberInputParameters() + view.getNumberButtons();
+						det = view.getNumberInputHiddenParameters() + view.getNumberButtons();
 						ftr = view.getCountedEntities().size();
 
 						reportResult.setElement(view.getName());
@@ -980,7 +998,7 @@ public class Core
 					}
 					else if (view.isEQ1())
 					{
-						det = view.getNumberParameters() + view.getNumberButtons();
+						det = view.getNumberInputHiddenParameters() + view.getNumberButtons();
 
 						StringBuilder element = new StringBuilder(view.getName());
 

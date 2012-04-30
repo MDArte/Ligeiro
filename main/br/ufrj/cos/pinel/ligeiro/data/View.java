@@ -28,6 +28,8 @@ public class View extends BaseClass
 
 	private int numberInputParameters;
 
+	private int numberInputHiddenParameters;
+
 	private int numberButtons;
 
 	private View resultView;
@@ -49,6 +51,7 @@ public class View extends BaseClass
 
 		this.numberParameters = 0;
 		this.numberInputParameters = 0;
+		this.numberInputHiddenParameters = 0;
 		this.numberButtons = 0;
 
 		this.first = false;
@@ -185,6 +188,30 @@ public class View extends BaseClass
 	public void addNumberInputParameters()
 	{
 		this.numberInputParameters++;
+	}
+
+	/**
+	 * @return the numberInputHiddenParameters
+	 */
+	public int getNumberInputHiddenParameters()
+	{
+		return numberInputHiddenParameters;
+	}
+
+	/**
+	 * @param numberInputHiddenParameters the numberInputHiddenParameters to set
+	 */
+	public void setNumberInputHiddenParameters(int numberInputHiddenParameters)
+	{
+		this.numberInputHiddenParameters = numberInputHiddenParameters;
+	}
+
+	/**
+	 * numberInputHiddenParameters incremental.
+	 */
+	public void addNumberInputHiddenParameters()
+	{
+		this.numberInputHiddenParameters++;
 	}
 
 	/**
