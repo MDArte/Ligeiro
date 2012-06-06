@@ -678,6 +678,8 @@ public class Core
 			{
 				Util.println("\t" + view.getName());
 
+				Set<String> parameters = new HashSet<String>();
+
 				// for View, actions are methods
 				for (Method action : view.getMethods())
 				{
@@ -700,114 +702,129 @@ public class Core
 							{
 								Util.println("\t\t\tINPUT");
 
-								// increasing the counter
-								view.addNumberInputParameters();
-
-								// if the view wasn't already classified as an EI, verify the right type
-								// if the action has a target, where to go
-								if (!view.isEI() && action.getTarget() != null)
+								if (!parameters.contains(param.getName()))
 								{
-									// if it is a final state, then
-									// is necessary to check the use case that is being pointed
-									if (action.getTarget().isFinalState())
-									{
-										Util.println("\t\t\t\t<FinalState>");
-										// TODO: is it really necessary to verify a final state?
+									// increasing the counter
+									view.addNumberInputParameters();
+									parameters.add(param.getName());
+								}
+							}
+						}
+					}
+				}
 
+				// for View, actions are methods
+				for (Method action : view.getMethods())
+				{
+					if (!action.isTableLink())
+					{
+						// if there is an input field
+						if (view.getNumberInputParameters() > 0)
+						{
+							// if the view wasn't already classified as an EI, verify the right type
+							// if the action has a target, where to go
+							if (!view.isEI() && action.getTarget() != null)
+							{
+								// if it is a final state, then
+								// is necessary to check the use case that is being pointed
+								if (action.getTarget().isFinalState())
+								{
+									Util.println("\t\t\t\t<FinalState>");
+									// TODO: is it really necessary to verify a final state?
+
+									/*
+									 * Transitions between use cases using the name of a final state can only be
+									 * used when linking use cases of the same web module. In order to link use
+									 * cases of different web modules please use the tagged values for external hyperlinks.
+									 */
+//									if (action.getTarget().getName() != null)
+//									{
 										/*
-										 * Transitions between use cases using the name of a final state can only be
-										 * used when linking use cases of the same web module. In order to link use
-										 * cases of different web modules please use the tagged values for external hyperlinks.
+										 * Each use-case must have a non-empty name that is unique among all use-cases.
+										 * So it's possible to find the use case just by the name, disregarding the package.
+										 * Considering the same module.
 										 */
-//										if (action.getTarget().getName() != null)
+//										for (UseCase otherUseCase : useCases)
 //										{
-											/*
-											 * Each use-case must have a non-empty name that is unique among all use-cases.
-											 * So it's possible to find the use case just by the name, disregarding the package.
-											 * Considering the same module.
-											 */
-//											for (UseCase otherUseCase : useCases)
+//											String otherUseCaseName = Util.getClassName(otherUseCase.getName());
+//
+//											if (otherUseCase.getModuleName().equals(useCase.getModuleName())
+//												&& otherUseCaseName.equals(action.getTarget().getName()))
 //											{
-//												String otherUseCaseName = Util.getClassName(otherUseCase.getName());
-//
-//												if (otherUseCase.getModuleName().equals(useCase.getModuleName())
-//													&& otherUseCaseName.equals(action.getTarget().getName()))
+//												if (otherUseCase.isFirstState())
 //												{
-//													if (otherUseCase.isFirstState())
+//													State otherFirstState = (State) otherUseCase.getFirst();
+//													if (!otherFirstState.isFinalState())
 //													{
-//														State otherFirstState = (State) otherUseCase.getFirst();
-//														if (!otherFirstState.isFinalState())
-//														{
-//															classifyTF(otherUseCase, view, otherFirstState);
-//														}
+//														classifyTF(otherUseCase, view, otherFirstState);
 //													}
-//
-//													break;
 //												}
+//
+//												break;
 //											}
 //										}
-//										else
-//										{
-											// verificar as validacoes de estados finais para saber quais
-											// tags devem estar preenchidas.
-//										}
-									}
-									else
+//									}
+//									else
+//									{
+										// verificar as validacoes de estados finais para saber quais
+										// tags devem estar preenchidas.
+//									}
+								}
+								else
+								{
+									Util.println("\t\t\t\t<Action>");
+
+									BaseClass dependencyClass = dependencyClasses.get(useCase.getController().getImplementationName());
+
+									if (dependencyClass == null)
 									{
-										Util.println("\t\t\t\t<Action>");
+										Util.println("[ERROR] Could not find the dependency class: " + useCase.getController().getImplementationName());
+										continue;
+									}
 
-										BaseClass dependencyClass = dependencyClasses.get(useCase.getController().getImplementationName());
+									if (useCase.getController() != null && dependencyClass != null)
+									{
+										IBaseClass controllerClass = useCase.getController();
 
-										if (dependencyClass == null)
+										String methodSignature = null;
+
+										for (Method controllerMethod : controllerClass.getMethods())
 										{
-											Util.println("[ERROR] Could not find the dependency class: " + useCase.getController().getImplementationName());
-											continue;
-										}
-
-										if (useCase.getController() != null && dependencyClass != null)
-										{
-											IBaseClass controllerClass = useCase.getController();
-
-											String methodSignature = null;
-
-											for (Method controllerMethod : controllerClass.getMethods())
+											for (Event event : action.getTarget().getEvents())
 											{
-												for (Event event : action.getTarget().getEvents())
+												if (controllerMethod.getName().equals(event.getName()))
 												{
-													if (controllerMethod.getName().equals(event.getName()))
-													{
-														methodSignature = controllerClass.getImplementationName() + "." + controllerMethod.getSignature();
-														break;
-													}
-												}
-												if (methodSignature != null)
+													methodSignature = controllerClass.getImplementationName() + "." + controllerMethod.getSignature();
 													break;
+												}
 											}
-
-											// used to avoid an infinite loop
-											if (visitedMethods == null)
-												visitedMethods = new HashSet<String>();
-											else
-												visitedMethods.clear();
-
-											countedEntities = new HashSet<String>();
-
-											// calling
-											boolean ret = doesMethodChangeDataOrBehavior(dependencyClass, methodSignature);
-
-											if (ret)
-											{
-												Util.println("\t\t\t\t  Is an EI");
-												view.setAsEI();
-											}
-											else
-											{
-												Util.println("\t\t\t\t  Is an EQ1");
-												view.setAsEQ1();
-											}
-
-											view.setCountedEntities(countedEntities);
+											if (methodSignature != null)
+												break;
 										}
+
+										// used to avoid an infinite loop
+										if (visitedMethods == null)
+											visitedMethods = new HashSet<String>();
+										else
+											visitedMethods.clear();
+
+										countedEntities = new HashSet<String>();
+
+										// calling
+										boolean ret = doesMethodChangeDataOrBehavior(dependencyClass, methodSignature);
+
+										if (ret)
+										{
+											Util.println("\t\t\t\t  Is an EI");
+											view.setAsEI();
+										}
+										else
+										{
+											Util.println("\t\t\t\t  Is an EQ1");
+											view.setAsEQ1();
+										}
+
+										view.setCountedEntities(countedEntities);
 									}
 								}
 							}
@@ -830,6 +847,9 @@ public class Core
 					// for View, actions are methods
 					for (Method action : view.getMethods())
 					{
+						if (view.getResultView() != null)
+							break;
+
 						if (!action.isTableLink() && action.getTarget() != null)
 						{
 							// if it is a final state, then
@@ -859,6 +879,16 @@ public class Core
 											Util.println("\t\t\t\t\t\t\tIs an EQ2");
 											targetView.setAsEQ2();
 											view.setResultView(targetView);
+
+//											Set<String> parameters = new HashSet<String>();
+//
+//											for (Parameter param : action.getParameters())
+//											{
+//												if (!param.isPlainText() && !param.isReadOnly() && !param.isHiddenField())
+//													parameters.add(param.getName());
+//											}
+
+											break;
 										}
 									}
 								}
@@ -976,9 +1006,15 @@ public class Core
 					int value = 0;
 					String complexity = null;
 
+					int buttons = 0;
+
+					// just need to count one button...
+					if (view.getNumberButtons() > 0)
+						buttons = 1;
+
 					if (view.isEI())
 					{
-						det = view.getNumberInputHiddenParameters() + view.getNumberButtons();
+						det = view.getNumberInputParameters() + buttons;
 						ftr = view.getCountedEntities().size();
 
 						reportResult.setElement(view.getName());
@@ -988,7 +1024,7 @@ public class Core
 					}
 					else if (view.isEO())
 					{
-						det = view.getNumberParameters() + view.getNumberButtons() + view.getTotalColumns();
+						det = (view.getNumberParameters() - view.getNumberInputHiddenParameters()) + buttons + view.getTotalColumns();
 						ftr = view.getCountedEntities().size();
 
 						reportResult.setElement(view.getName());
@@ -998,7 +1034,7 @@ public class Core
 					}
 					else if (view.isEQ1())
 					{
-						det = view.getNumberInputHiddenParameters() + view.getNumberButtons();
+						det = view.getNumberInputParameters() + buttons;
 
 						StringBuilder element = new StringBuilder(view.getName());
 
@@ -1006,7 +1042,9 @@ public class Core
 						{
 							element.append(" / ");
 							element.append(view.getResultView().getName());
-							det += view.getResultView().getNumberParameters() + view.getResultView().getNumberButtons() + view.getResultView().getTotalColumns();
+
+							det += (view.getResultView().getNumberParameters() - view.getResultView().getNumberInputHiddenParameters())
+									+ view.getResultView().getTotalColumns();
 
 							view.getCountedEntities().addAll(view.getResultView().getCountedEntities());
 						}
