@@ -716,117 +716,115 @@ public class Core
 				// for View, actions are methods
 				for (Method action : view.getMethods())
 				{
-					if (!action.isTableLink())
+					// if the view wasn't already classified as an EI, verify the right type
+					// if the action has a target, where to go
+					if (!action.isTableLink() && !view.isEI() && action.getTarget() != null)
 					{
-						// if there is an input field
-						if (view.getNumberInputParameters() > 0)
+						// if it is a final state, then
+						// is necessary to check the use case that is being pointed
+						if (action.getTarget().isFinalState())
 						{
-							// if the view wasn't already classified as an EI, verify the right type
-							// if the action has a target, where to go
-							if (!view.isEI() && action.getTarget() != null)
-							{
-								// if it is a final state, then
-								// is necessary to check the use case that is being pointed
-								if (action.getTarget().isFinalState())
-								{
-									Util.println("\t\t\t\t<FinalState>");
-									// TODO: is it really necessary to verify a final state?
+							Util.println("\t\t\t\t<FinalState>");
+							// TODO: is it really necessary to verify a final state?
 
-									/*
-									 * Transitions between use cases using the name of a final state can only be
-									 * used when linking use cases of the same web module. In order to link use
-									 * cases of different web modules please use the tagged values for external hyperlinks.
-									 */
-//									if (action.getTarget().getName() != null)
+							/*
+							 * Transitions between use cases using the name of a final state can only be
+							 * used when linking use cases of the same web module. In order to link use
+							 * cases of different web modules please use the tagged values for external hyperlinks.
+							 */
+//							if (action.getTarget().getName() != null)
+//							{
+								/*
+								 * Each use-case must have a non-empty name that is unique among all use-cases.
+								 * So it's possible to find the use case just by the name, disregarding the package.
+								 * Considering the same module.
+								 */
+//								for (UseCase otherUseCase : useCases)
+//								{
+//									String otherUseCaseName = Util.getClassName(otherUseCase.getName());
+//
+//									if (otherUseCase.getModuleName().equals(useCase.getModuleName())
+//										&& otherUseCaseName.equals(action.getTarget().getName()))
 //									{
-										/*
-										 * Each use-case must have a non-empty name that is unique among all use-cases.
-										 * So it's possible to find the use case just by the name, disregarding the package.
-										 * Considering the same module.
-										 */
-//										for (UseCase otherUseCase : useCases)
+//										if (otherUseCase.isFirstState())
 //										{
-//											String otherUseCaseName = Util.getClassName(otherUseCase.getName());
-//
-//											if (otherUseCase.getModuleName().equals(useCase.getModuleName())
-//												&& otherUseCaseName.equals(action.getTarget().getName()))
+//											State otherFirstState = (State) otherUseCase.getFirst();
+//											if (!otherFirstState.isFinalState())
 //											{
-//												if (otherUseCase.isFirstState())
-//												{
-//													State otherFirstState = (State) otherUseCase.getFirst();
-//													if (!otherFirstState.isFinalState())
-//													{
-//														classifyTF(otherUseCase, view, otherFirstState);
-//													}
-//												}
-//
-//												break;
+//												classifyTF(otherUseCase, view, otherFirstState);
 //											}
 //										}
+//
+//										break;
 //									}
-//									else
-//									{
-										// verificar as validacoes de estados finais para saber quais
-										// tags devem estar preenchidas.
-//									}
-								}
-								else
+//								}
+//							}
+//							else
+//							{
+								// verificar as validacoes de estados finais para saber quais
+								// tags devem estar preenchidas.
+//							}
+						}
+						else
+						{
+							Util.println("\t\t\t\t<Action>");
+
+							BaseClass dependencyClass = dependencyClasses.get(useCase.getController().getImplementationName());
+
+							if (dependencyClass == null)
+							{
+								Util.println("[ERROR] Could not find the dependency class: " + useCase.getController().getImplementationName());
+								continue;
+							}
+
+							if (useCase.getController() != null && dependencyClass != null)
+							{
+								IBaseClass controllerClass = useCase.getController();
+
+								String methodSignature = null;
+
+								for (Method controllerMethod : controllerClass.getMethods())
 								{
-									Util.println("\t\t\t\t<Action>");
-
-									BaseClass dependencyClass = dependencyClasses.get(useCase.getController().getImplementationName());
-
-									if (dependencyClass == null)
+									for (Event event : action.getTarget().getEvents())
 									{
-										Util.println("[ERROR] Could not find the dependency class: " + useCase.getController().getImplementationName());
-										continue;
+										if (controllerMethod.getName().equals(event.getName()))
+										{
+											methodSignature = controllerClass.getImplementationName() + "." + controllerMethod.getSignature();
+											break;
+										}
 									}
+									if (methodSignature != null)
+										break;
+								}
 
-									if (useCase.getController() != null && dependencyClass != null)
+								// used to avoid an infinite loop
+								if (visitedMethods == null)
+									visitedMethods = new HashSet<String>();
+								else
+									visitedMethods.clear();
+
+								countedEntities = new HashSet<String>();
+
+								// calling
+								boolean ret = doesMethodChangeDataOrBehavior(dependencyClass, methodSignature);
+
+								// if there is an input field
+								if (view.getNumberInputParameters() > 0
+									|| (ret && view.getNumberInputParameters() == 0 && (view.getNumberParameters() - view.getNumberInputHiddenParameters() == 0)))
+								{
+									if (ret)
 									{
-										IBaseClass controllerClass = useCase.getController();
-
-										String methodSignature = null;
-
-										for (Method controllerMethod : controllerClass.getMethods())
-										{
-											for (Event event : action.getTarget().getEvents())
-											{
-												if (controllerMethod.getName().equals(event.getName()))
-												{
-													methodSignature = controllerClass.getImplementationName() + "." + controllerMethod.getSignature();
-													break;
-												}
-											}
-											if (methodSignature != null)
-												break;
-										}
-
-										// used to avoid an infinite loop
-										if (visitedMethods == null)
-											visitedMethods = new HashSet<String>();
-										else
-											visitedMethods.clear();
-
-										countedEntities = new HashSet<String>();
-
-										// calling
-										boolean ret = doesMethodChangeDataOrBehavior(dependencyClass, methodSignature);
-
-										if (ret)
-										{
-											Util.println("\t\t\t\t  Is an EI");
-											view.setAsEI();
-										}
-										else
-										{
-											Util.println("\t\t\t\t  Is an EQ1");
-											view.setAsEQ1();
-										}
-
-										view.setCountedEntities(countedEntities);
+										Util.println("\t\t\t\t  Is an EI");
+										view.setAsEI();
+									}
+									else
+									{
+										Util.println("\t\t\t\t  Is an EQ1");
+										view.setAsEQ1();
 									}
 								}
+
+								view.setCountedEntities(countedEntities);
 							}
 						}
 
