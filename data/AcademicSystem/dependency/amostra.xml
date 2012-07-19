@@ -1,0 +1,463 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+
+
+<dependencies>
+    <package confirmed="yes">
+        <name>br.ufrj.coppe.system.uc.system.student.search</name>
+        <class confirmed="yes">
+            <name>br.ufrj.coppe.system.uc.system.student.search.SearchStudentControllerImpl</name>
+            <feature confirmed="yes">
+                <name>br.ufrj.coppe.system.uc.system.student.search.SearchStudentControllerImpl.searchStudent(org.apache.struts.action.ActionMapping, br.ufrj.coppe.system.uc.system.student.search.SearchStudentForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)</name>
+                <outbound type="class" confirmed="no">br.ufrj.coppe.system.cs.student.StudentHandlerBI</outbound>
+                <outbound type="feature" confirmed="no">br.ufrj.coppe.system.cs.student.StudentHandlerBI.listStudents(br.ufrj.coppe.system.vo.StudentVO, java.lang.Integer)</outbound>
+                <outbound type="feature" confirmed="no">br.ufrj.coppe.system.uc.system.student.search.SearchStudentControllerImpl.getService(java.lang.Class)</outbound>
+                <outbound type="class" confirmed="yes">br.ufrj.coppe.system.uc.system.student.search.SearchStudentForm</outbound>
+                <outbound type="feature" confirmed="yes">br.ufrj.coppe.system.uc.system.student.search.SearchStudentForm.getName()</outbound>
+                <outbound type="feature" confirmed="yes">br.ufrj.coppe.system.uc.system.student.search.SearchStudentForm.getRegistration()</outbound>
+                <outbound type="feature" confirmed="yes">br.ufrj.coppe.system.uc.system.student.search.SearchStudentForm.setStudents(java.util.Collection)</outbound>
+                <outbound type="class" confirmed="no">br.ufrj.coppe.system.vo.StudentVO</outbound>
+                <outbound type="feature" confirmed="no">br.ufrj.coppe.system.vo.StudentVO.StudentVO()</outbound>
+                <outbound type="feature" confirmed="no">br.ufrj.coppe.system.vo.StudentVO.setEnrollmentNumber(java.lang.String)</outbound>
+                <outbound type="feature" confirmed="no">br.ufrj.coppe.system.vo.StudentVO.setName(java.lang.String)</outbound>
+                <outbound type="class" confirmed="no">java.lang.Class</outbound>
+                <outbound type="class" confirmed="no">java.lang.Exception</outbound>
+                <outbound type="class" confirmed="no">java.lang.Integer</outbound>
+                <outbound type="class" confirmed="no">java.lang.Object</outbound>
+                <outbound type="class" confirmed="no">java.lang.String</outbound>
+                <outbound type="class" confirmed="no">java.util.Collection</outbound>
+                <outbound type="class" confirmed="no">javax.servlet.http.HttpServletRequest</outbound>
+                <outbound type="feature" confirmed="no">javax.servlet.http.HttpServletRequest.getAttribute(java.lang.String)</outbound>
+                <outbound type="class" confirmed="no">javax.servlet.http.HttpServletResponse</outbound>
+                <outbound type="class" confirmed="no">org.apache.struts.action.ActionMapping</outbound>
+            </feature>
+        </class>
+    </package>
+    <package confirmed="yes">
+        <name>br.ufrj.coppe.system.uc.system.student.update</name>
+        <class confirmed="yes">
+            <name>br.ufrj.coppe.system.uc.system.student.update.UpdateStudentControllerImpl</name>
+            <feature confirmed="yes">
+                <name>br.ufrj.coppe.system.uc.system.student.update.UpdateStudentControllerImpl.loadValues(org.apache.struts.action.ActionMapping, br.ufrj.coppe.system.uc.system.student.update.LoadValuesForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)</name>
+                <outbound type="class" confirmed="no">br.ufrj.coppe.system.cd.Student</outbound>
+                <outbound type="feature" confirmed="no">br.ufrj.coppe.system.cd.Student.getName()</outbound>
+                <outbound type="feature" confirmed="no">br.ufrj.coppe.system.cd.Student.getRegistration()</outbound>
+                <outbound type="feature" confirmed="no">br.ufrj.coppe.system.cd.StudentDAO.select(long)</outbound>
+                <outbound type="feature" confirmed="no">br.ufrj.coppe.system.cd.StudentDAOImpl.StudentDAOImpl()</outbound>
+                <outbound type="class" confirmed="yes">br.ufrj.coppe.system.uc.system.student.update.LoadValuesForm</outbound>
+                <outbound type="feature" confirmed="yes">br.ufrj.coppe.system.uc.system.student.update.LoadValuesForm.getId()</outbound>
+                <outbound type="feature" confirmed="yes">br.ufrj.coppe.system.uc.system.student.update.LoadValuesForm.setName(java.lang.String)</outbound>
+                <outbound type="feature" confirmed="yes">br.ufrj.coppe.system.uc.system.student.update.LoadValuesForm.setRegistration(java.lang.String)</outbound>
+                <outbound type="class" confirmed="no">java.lang.Exception</outbound>
+                <outbound type="class" confirmed="no">java.lang.Long</outbound>
+                <outbound type="feature" confirmed="no">java.lang.Long.longValue()</outbound>
+                <outbound type="class" confirmed="no">java.lang.Object</outbound>
+                <outbound type="class" confirmed="no">java.lang.String</outbound>
+                <outbound type="feature" confirmed="no">java.util.Collection.isEmpty()</outbound>
+                <outbound type="feature" confirmed="no">java.util.Collection.iterator()</outbound>
+                <outbound type="class" confirmed="no">java.util.Iterator</outbound>
+                <outbound type="feature" confirmed="no">java.util.Iterator.next()</outbound>
+                <outbound type="class" confirmed="no">java.util.List</outbound>
+                <outbound type="class" confirmed="no">javax.servlet.http.HttpServletRequest</outbound>
+                <outbound type="class" confirmed="no">javax.servlet.http.HttpServletResponse</outbound>
+                <outbound type="class" confirmed="no">org.apache.struts.action.ActionMapping</outbound>
+            </feature>
+            <feature confirmed="yes">
+                <name>br.ufrj.coppe.system.uc.system.student.update.UpdateStudentControllerImpl.updateStudent(org.apache.struts.action.ActionMapping, br.ufrj.coppe.system.uc.system.student.update.UpdateStudentForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)</name>
+                <outbound type="class" confirmed="no">br.ufrj.coppe.system.cs.student.StudentHandlerBI</outbound>
+                <outbound type="feature" confirmed="no">br.ufrj.coppe.system.cs.student.StudentHandlerBI.updateStudent(br.ufrj.coppe.system.vo.StudentVO)</outbound>
+                <outbound type="feature" confirmed="no">br.ufrj.coppe.system.uc.system.student.update.UpdateStudentControllerImpl.getService(java.lang.Class)</outbound>
+                <outbound type="class" confirmed="yes">br.ufrj.coppe.system.uc.system.student.update.UpdateStudentForm</outbound>
+                <outbound type="feature" confirmed="yes">br.ufrj.coppe.system.uc.system.student.update.UpdateStudentForm.getId()</outbound>
+                <outbound type="feature" confirmed="yes">br.ufrj.coppe.system.uc.system.student.update.UpdateStudentForm.getName()</outbound>
+                <outbound type="feature" confirmed="yes">br.ufrj.coppe.system.uc.system.student.update.UpdateStudentForm.getRegistration()</outbound>
+                <outbound type="class" confirmed="no">br.ufrj.coppe.system.vo.StudentVO</outbound>
+                <outbound type="feature" confirmed="no">br.ufrj.coppe.system.vo.StudentVO.StudentVO()</outbound>
+                <outbound type="feature" confirmed="no">br.ufrj.coppe.system.vo.StudentVO.setEnrollmentNumber(java.lang.String)</outbound>
+                <outbound type="feature" confirmed="no">br.ufrj.coppe.system.vo.StudentVO.setId(java.lang.Long)</outbound>
+                <outbound type="feature" confirmed="no">br.ufrj.coppe.system.vo.StudentVO.setName(java.lang.String)</outbound>
+                <outbound type="class" confirmed="no">java.lang.Class</outbound>
+                <outbound type="class" confirmed="no">java.lang.Exception</outbound>
+                <outbound type="class" confirmed="no">java.lang.Long</outbound>
+                <outbound type="class" confirmed="no">java.lang.Object</outbound>
+                <outbound type="class" confirmed="no">java.lang.String</outbound>
+                <outbound type="class" confirmed="no">javax.servlet.http.HttpServletRequest</outbound>
+                <outbound type="class" confirmed="no">javax.servlet.http.HttpServletResponse</outbound>
+                <outbound type="class" confirmed="no">org.apache.struts.action.ActionMapping</outbound>
+            </feature>
+        </class>
+    </package>
+    <package confirmed="yes">
+        <name>br.ufrj.coppe.system.uc.system.student.insert</name>
+        <class confirmed="yes">
+            <name>br.ufrj.coppe.system.uc.system.student.insert.InsertStudentControllerImpl</name>
+            <feature confirmed="yes">
+                <name>br.ufrj.coppe.system.uc.system.student.insert.InsertStudentControllerImpl.insertStudent(org.apache.struts.action.ActionMapping, br.ufrj.coppe.system.uc.system.student.insert.InsertStudentForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)</name>
+                <outbound type="class" confirmed="no">br.ufrj.coppe.system.cd.Student</outbound>
+                <outbound type="feature" confirmed="no">br.ufrj.coppe.system.cd.Student.getId()</outbound>
+                <outbound type="class" confirmed="no">br.ufrj.coppe.system.cs.student.StudentHandlerBI</outbound>
+                <outbound type="feature" confirmed="no">br.ufrj.coppe.system.cs.student.StudentHandlerBI.insertStudent(br.ufrj.coppe.system.vo.StudentVO)</outbound>
+                <outbound type="feature" confirmed="no">br.ufrj.coppe.system.uc.system.student.insert.InsertStudentControllerImpl.getService(java.lang.Class)</outbound>
+                <outbound type="class" confirmed="yes">br.ufrj.coppe.system.uc.system.student.insert.InsertStudentForm</outbound>
+                <outbound type="feature" confirmed="yes">br.ufrj.coppe.system.uc.system.student.insert.InsertStudentForm.getName()</outbound>
+                <outbound type="feature" confirmed="yes">br.ufrj.coppe.system.uc.system.student.insert.InsertStudentForm.getRegistration()</outbound>
+                <outbound type="feature" confirmed="yes">br.ufrj.coppe.system.uc.system.student.insert.InsertStudentForm.setId(java.lang.Long)</outbound>
+                <outbound type="class" confirmed="no">br.ufrj.coppe.system.vo.StudentVO</outbound>
+                <outbound type="feature" confirmed="no">br.ufrj.coppe.system.vo.StudentVO.StudentVO()</outbound>
+                <outbound type="feature" confirmed="no">br.ufrj.coppe.system.vo.StudentVO.setEnrollmentNumber(java.lang.String)</outbound>
+                <outbound type="feature" confirmed="no">br.ufrj.coppe.system.vo.StudentVO.setName(java.lang.String)</outbound>
+                <outbound type="class" confirmed="no">java.lang.Class</outbound>
+                <outbound type="class" confirmed="no">java.lang.Exception</outbound>
+                <outbound type="class" confirmed="no">java.lang.Long</outbound>
+                <outbound type="class" confirmed="no">java.lang.Object</outbound>
+                <outbound type="class" confirmed="no">java.lang.String</outbound>
+                <outbound type="class" confirmed="no">javax.servlet.http.HttpServletRequest</outbound>
+                <outbound type="class" confirmed="no">javax.servlet.http.HttpServletResponse</outbound>
+                <outbound type="class" confirmed="no">org.apache.struts.action.ActionMapping</outbound>
+            </feature>
+        </class>
+    </package>
+    <package confirmed="yes">
+        <name>br.ufrj.coppe.system.uc.system.student.read</name>
+        <class confirmed="yes">
+            <name>br.ufrj.coppe.system.uc.system.student.read.ReadStudentControllerImpl</name>
+            <feature confirmed="yes">
+                <name>br.ufrj.coppe.system.uc.system.student.read.ReadStudentControllerImpl.loadValues(org.apache.struts.action.ActionMapping, br.ufrj.coppe.system.uc.system.student.read.LoadValuesForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)</name>
+                <outbound type="class" confirmed="no">br.ufrj.coppe.system.cd.Student</outbound>
+                <outbound type="feature" confirmed="no">br.ufrj.coppe.system.cd.Student.getEnrollmentNumber()</outbound>
+                <outbound type="feature" confirmed="no">br.ufrj.coppe.system.cd.Student.getName()</outbound>
+                <outbound type="feature" confirmed="no">br.ufrj.coppe.system.cd.StudentDAO.select(long)</outbound>
+                <outbound type="feature" confirmed="no">br.ufrj.coppe.system.cd.StudentDAOImpl.StudentDAOImpl()</outbound>
+                <outbound type="class" confirmed="yes">br.ufrj.coppe.system.uc.system.student.read.LoadValuesForm</outbound>
+                <outbound type="feature" confirmed="yes">br.ufrj.coppe.system.uc.system.student.read.LoadValuesForm.getId()</outbound>
+                <outbound type="feature" confirmed="yes">br.ufrj.coppe.system.uc.system.student.read.LoadValuesForm.setName(java.lang.String)</outbound>
+                <outbound type="feature" confirmed="yes">br.ufrj.coppe.system.uc.system.student.read.LoadValuesForm.setRegistration(java.lang.String)</outbound>
+                <outbound type="class" confirmed="no">java.lang.Exception</outbound>
+                <outbound type="class" confirmed="no">java.lang.Long</outbound>
+                <outbound type="feature" confirmed="no">java.lang.Long.longValue()</outbound>
+                <outbound type="class" confirmed="no">java.lang.Object</outbound>
+                <outbound type="class" confirmed="no">java.lang.String</outbound>
+                <outbound type="feature" confirmed="no">java.util.Collection.isEmpty()</outbound>
+                <outbound type="feature" confirmed="no">java.util.Collection.iterator()</outbound>
+                <outbound type="class" confirmed="no">java.util.Iterator</outbound>
+                <outbound type="feature" confirmed="no">java.util.Iterator.next()</outbound>
+                <outbound type="class" confirmed="no">java.util.List</outbound>
+                <outbound type="class" confirmed="no">javax.servlet.http.HttpServletRequest</outbound>
+                <outbound type="class" confirmed="no">javax.servlet.http.HttpServletResponse</outbound>
+                <outbound type="class" confirmed="no">org.apache.struts.action.ActionMapping</outbound>
+            </feature>
+        </class>
+    </package>
+    <package confirmed="yes">
+        <name>br.ufrj.coppe.system.cs.student</name>
+        <class confirmed="yes">
+            <name>br.ufrj.coppe.system.cs.student.StudentHandlerBI</name>
+            <feature confirmed="yes">
+                <name>br.ufrj.coppe.system.cs.student.StudentHandlerBI.insertStudent(br.ufrj.coppe.system.cd.Student)</name>
+                <outbound type="class" confirmed="no">br.ufrj.coppe.system.cd.Student</outbound>
+                <outbound type="class" confirmed="no">br.ufrj.coppe.system.cs.student.StudentHandlerException</outbound>
+                <outbound type="class" confirmed="no">java.lang.Exception</outbound>
+            </feature>
+            <feature confirmed="yes">
+                <name>br.ufrj.coppe.system.cs.student.StudentHandlerBI.insertStudent(br.ufrj.coppe.system.vo.StudentVO)</name>
+                <outbound type="class" confirmed="no">br.ufrj.coppe.system.cd.Student</outbound>
+                <outbound type="class" confirmed="no">br.ufrj.coppe.system.cs.student.StudentHandlerException</outbound>
+                <outbound type="class" confirmed="no">br.ufrj.coppe.system.vo.StudentVO</outbound>
+                <outbound type="class" confirmed="no">java.lang.Exception</outbound>
+            </feature>
+            <feature confirmed="yes">
+                <name>br.ufrj.coppe.system.cs.student.StudentHandlerBI.listStudents(br.ufrj.coppe.system.vo.StudentVO)</name>
+                <outbound type="class" confirmed="no">br.ufrj.coppe.system.cs.student.StudentHandlerException</outbound>
+                <outbound type="class" confirmed="no">br.ufrj.coppe.system.vo.StudentVO</outbound>
+                <outbound type="class" confirmed="no">java.lang.Exception</outbound>
+                <outbound type="class" confirmed="no">java.util.Collection</outbound>
+            </feature>
+            <feature confirmed="yes">
+                <name>br.ufrj.coppe.system.cs.student.StudentHandlerBI.listStudents(br.ufrj.coppe.system.vo.StudentVO, java.lang.Integer)</name>
+                <outbound type="class" confirmed="no">br.ufrj.coppe.system.cs.student.StudentHandlerException</outbound>
+                <outbound type="class" confirmed="no">br.ufrj.coppe.system.vo.StudentVO</outbound>
+                <outbound type="class" confirmed="no">java.lang.Exception</outbound>
+                <outbound type="class" confirmed="no">java.lang.Integer</outbound>
+                <outbound type="class" confirmed="no">java.util.Collection</outbound>
+            </feature>
+            <feature confirmed="yes">
+                <name>br.ufrj.coppe.system.cs.student.StudentHandlerBI.updateStudent(br.ufrj.coppe.system.vo.StudentVO)</name>
+                <outbound type="class" confirmed="no">br.ufrj.coppe.system.cs.student.StudentHandlerException</outbound>
+                <outbound type="class" confirmed="no">br.ufrj.coppe.system.vo.StudentVO</outbound>
+                <outbound type="class" confirmed="no">java.lang.Exception</outbound>
+            </feature>
+        </class>
+    </package>
+    <package confirmed="yes">
+        <name>br.ufrj.coppe.system.cs.student</name>
+        <class confirmed="yes">
+            <name>br.ufrj.coppe.system.cs.student.StudentHandlerBeanImpl</name>
+            <feature confirmed="yes">
+                <name>br.ufrj.coppe.system.cs.student.StudentHandlerBeanImpl.handleInsertStudent(br.ufrj.coppe.system.cd.Student)</name>
+                <outbound type="class" confirmed="no">br.ufrj.coppe.system.cd.AbstractEntity</outbound>
+                <outbound type="class" confirmed="no">br.ufrj.coppe.system.cd.DAOException</outbound>
+                <outbound type="class" confirmed="no">br.ufrj.coppe.system.cd.Student</outbound>
+                <outbound type="feature" confirmed="no">br.ufrj.coppe.system.cd.StudentDAO.insert(br.ufrj.coppe.system.cd.AbstractEntity)</outbound>
+                <outbound type="feature" confirmed="no">br.ufrj.coppe.system.cd.StudentDAOImpl.StudentDAOImpl()</outbound>
+                <outbound type="class" confirmed="no">br.ufrj.coppe.system.cd.StudentImpl</outbound>
+                <outbound type="feature" confirmed="no">br.ufrj.coppe.system.cs.student.StudentHandlerException.StudentHandlerException(java.lang.String, java.lang.Exception)</outbound>
+                <outbound type="class" confirmed="no">java.lang.Exception</outbound>
+                <outbound type="class" confirmed="no">java.lang.Object</outbound>
+                <outbound type="class" confirmed="no">java.lang.String</outbound>
+                <outbound type="feature" confirmed="no">java.util.Collection.iterator()</outbound>
+                <outbound type="class" confirmed="no">java.util.Iterator</outbound>
+                <outbound type="feature" confirmed="no">java.util.Iterator.next()</outbound>
+                <outbound type="class" confirmed="no">java.util.List</outbound>
+            </feature>
+            <feature confirmed="yes">
+                <name>br.ufrj.coppe.system.cs.student.StudentHandlerBeanImpl.handleInsertStudent(br.ufrj.coppe.system.vo.StudentVO)</name>
+                <outbound type="class" confirmed="no">br.ufrj.coppe.system.cd.Student</outbound>
+                <outbound type="feature" confirmed="no">br.ufrj.coppe.system.cd.Student.setEnrollmentNumber(java.lang.String)</outbound>
+                <outbound type="feature" confirmed="no">br.ufrj.coppe.system.cd.Student.setName(java.lang.String)</outbound>
+                <outbound type="feature" confirmed="no">br.ufrj.coppe.system.cd.StudentImpl.StudentImpl()</outbound>
+                <outbound type="feature" confirmed="no">br.ufrj.coppe.system.cs.student.StudentHandlerBeanImpl.insertStudent(br.ufrj.coppe.system.cd.Student)</outbound>
+                <outbound type="class" confirmed="no">br.ufrj.coppe.system.vo.StudentVO</outbound>
+                <outbound type="feature" confirmed="no">br.ufrj.coppe.system.vo.StudentVO.getEnrollmentNumber()</outbound>
+                <outbound type="feature" confirmed="no">br.ufrj.coppe.system.vo.StudentVO.getName()</outbound>
+                <outbound type="class" confirmed="no">java.lang.String</outbound>
+            </feature>
+            <feature confirmed="yes">
+                <name>br.ufrj.coppe.system.cs.student.StudentHandlerBeanImpl.handleListStudents(br.ufrj.coppe.system.vo.StudentVO, java.lang.Integer)</name>
+                <outbound type="class" confirmed="no">br.ufrj.coppe.system.cd.DAOException</outbound>
+                <outbound type="feature" confirmed="no">br.ufrj.coppe.system.cd.StudentDAO.filter(br.ufrj.coppetec.DataObject, java.lang.Integer)</outbound>
+                <outbound type="feature" confirmed="no">br.ufrj.coppe.system.cd.StudentDAOImpl.StudentDAOImpl()</outbound>
+                <outbound type="feature" confirmed="no">br.ufrj.coppe.system.cs.student.StudentHandlerException.StudentHandlerException(java.lang.String, java.lang.Exception)</outbound>
+                <outbound type="class" confirmed="no">br.ufrj.coppe.system.vo.StudentVO</outbound>
+                <outbound type="class" confirmed="no">br.ufrj.coppetec.DataObject</outbound>
+                <outbound type="class" confirmed="no">java.lang.Exception</outbound>
+                <outbound type="class" confirmed="no">java.lang.Integer</outbound>
+                <outbound type="class" confirmed="no">java.lang.String</outbound>
+                <outbound type="class" confirmed="no">java.util.Collection</outbound>
+                <outbound type="class" confirmed="no">java.util.List</outbound>
+            </feature>
+            <feature confirmed="yes">
+                <name>br.ufrj.coppe.system.cs.student.StudentHandlerBeanImpl.handleUpdateStudent(br.ufrj.coppe.system.vo.StudentVO)</name>
+                <outbound type="class" confirmed="no">br.ufrj.coppe.system.cd.DAOException</outbound>
+                <outbound type="feature" confirmed="no">br.ufrj.coppe.system.cd.StudentDAO.select(long)</outbound>
+                <outbound type="feature" confirmed="no">br.ufrj.coppe.system.cd.StudentDAOImpl.StudentDAOImpl()</outbound>
+                <outbound type="class" confirmed="no">br.ufrj.coppe.system.cd.StudentImpl</outbound>
+                <outbound type="feature" confirmed="no">br.ufrj.coppe.system.cd.StudentImpl.setEnrollmentNumber(java.lang.String)</outbound>
+                <outbound type="feature" confirmed="no">br.ufrj.coppe.system.cd.StudentImpl.setName(java.lang.String)</outbound>
+                <outbound type="feature" confirmed="no">br.ufrj.coppe.system.cs.student.StudentHandlerException.StudentHandlerException(java.lang.String)</outbound>
+                <outbound type="feature" confirmed="no">br.ufrj.coppe.system.cs.student.StudentHandlerException.StudentHandlerException(java.lang.String, java.lang.Exception)</outbound>
+                <outbound type="class" confirmed="no">br.ufrj.coppe.system.vo.StudentVO</outbound>
+                <outbound type="feature" confirmed="no">br.ufrj.coppe.system.vo.StudentVO.getEnrollmentNumber()</outbound>
+                <outbound type="feature" confirmed="no">br.ufrj.coppe.system.vo.StudentVO.getId()</outbound>
+                <outbound type="feature" confirmed="no">br.ufrj.coppe.system.vo.StudentVO.getName()</outbound>
+                <outbound type="class" confirmed="no">java.lang.Exception</outbound>
+                <outbound type="class" confirmed="no">java.lang.Long</outbound>
+                <outbound type="feature" confirmed="no">java.lang.Long.longValue()</outbound>
+                <outbound type="class" confirmed="no">java.lang.Object</outbound>
+                <outbound type="class" confirmed="no">java.lang.String</outbound>
+                <outbound type="feature" confirmed="no">java.util.Collection.isEmpty()</outbound>
+                <outbound type="feature" confirmed="no">java.util.Collection.iterator()</outbound>
+                <outbound type="class" confirmed="no">java.util.Iterator</outbound>
+                <outbound type="feature" confirmed="no">java.util.Iterator.next()</outbound>
+                <outbound type="class" confirmed="no">java.util.List</outbound>
+            </feature>
+            <feature confirmed="no">
+                <name>br.ufrj.coppe.system.cs.student.StudentHandlerBeanImpl.insertStudent(br.ufrj.coppe.system.cd.Student)</name>
+                <inbound type="feature" confirmed="yes">br.ufrj.coppe.system.cs.student.StudentHandlerBeanImpl.handleInsertStudent(br.ufrj.coppe.system.vo.StudentVO)</inbound>
+            </feature>
+        </class>
+    </package>
+    <package confirmed="yes">
+        <name>br.ufrj.coppe.system.cs.ws</name>
+        <class confirmed="yes">
+            <name>br.ufrj.coppe.system.cs.ws.InterfaceHandlerBI</name>
+            <outbound type="class" confirmed="no">java.lang.Object</outbound>
+            <inbound type="feature" confirmed="yes">br.ufrj.coppe.system.ServiceLocator.getInterfaceHandlerBI()</inbound>
+            <inbound type="class" confirmed="yes">br.ufrj.coppe.system.cs.ws.InterfaceHandler</inbound>
+            <inbound type="class" confirmed="yes">br.ufrj.coppe.system.cs.ws.InterfaceHandlerLocal</inbound>
+            <feature confirmed="yes">
+                <name>br.ufrj.coppe.system.cs.ws.InterfaceHandlerBI.getStudentGrades(java.lang.String)</name>
+                <outbound type="class" confirmed="no">java.lang.Exception</outbound>
+                <outbound type="class" confirmed="no">java.lang.String</outbound>
+                <outbound type="class" confirmed="no">java.util.Collection</outbound>
+            </feature>
+            <feature confirmed="yes">
+                <name>br.ufrj.coppe.system.cs.ws.InterfaceHandlerBI.getStudentGrades(java.lang.String, java.lang.Integer)</name>
+                <outbound type="class" confirmed="no">java.lang.Exception</outbound>
+                <outbound type="class" confirmed="no">java.lang.Integer</outbound>
+                <outbound type="class" confirmed="no">java.lang.String</outbound>
+                <outbound type="class" confirmed="no">java.util.Collection</outbound>
+            </feature>
+        </class>
+        <class confirmed="yes">
+            <name>br.ufrj.coppe.system.cs.ws.InterfaceHandlerBeanImpl</name>
+            <outbound type="class" confirmed="yes">br.ufrj.coppe.system.cs.ws.InterfaceHandlerBean</outbound>
+            <outbound type="class" confirmed="no">javax.ejb.SessionBean</outbound>
+            <feature confirmed="yes">
+                <name>br.ufrj.coppe.system.cs.ws.InterfaceHandlerBeanImpl.InterfaceHandlerBeanImpl()</name>
+                <outbound type="feature" confirmed="yes">br.ufrj.coppe.system.cs.ws.InterfaceHandlerBean.InterfaceHandlerBean()</outbound>
+            </feature>
+            <feature confirmed="yes">
+                <name>br.ufrj.coppe.system.cs.ws.InterfaceHandlerBeanImpl.handleGetStudentGrades(java.lang.String, java.lang.Integer)</name>
+                <outbound type="class" confirmed="no">java.lang.Integer</outbound>
+                <outbound type="class" confirmed="no">java.lang.String</outbound>
+                <outbound type="class" confirmed="no">java.util.Collection</outbound>
+            </feature>
+        </class>
+    </package>
+    <package confirmed="yes">
+        <name>accessControl</name>
+        <class confirmed="yes">
+            <name>accessControl.ControleAcessoImpl</name>
+            <feature confirmed="yes">
+                <name>accessControl.ControleAcessoImpl.ControleAcessoImpl()</name>
+                <outbound type="feature" confirmed="no">accessControl.ControleAcesso.ControleAcesso()</outbound>
+                <inbound type="feature" confirmed="yes">accessControl.ControleAcessoUtil.getRestricoesServico(java.lang.String)</inbound>
+                <inbound type="feature" confirmed="yes">accessControl.LoginModuleImpl.getRoleSets()</inbound>
+                <inbound type="feature" confirmed="yes">br.ufrj.coppe.system.UtilServiceHandlerBeanImpl.reloadAccessControl()</inbound>
+            </feature>
+            <feature confirmed="yes">
+                <name>accessControl.ControleAcessoImpl.adicionaPerfisListaServicos(br.gov.controleacesso.cd.ServicoCaImpl, java.util.HashMap, java.util.ArrayList)</name>
+                <outbound type="class" confirmed="no">br.gov.controleacesso.cd.ServicoCaImpl</outbound>
+                <outbound type="feature" confirmed="no">br.gov.controleacesso.cd.ServicoCaImpl.getCodigo()</outbound>
+                <outbound type="feature" confirmed="no">br.gov.controleacesso.cd.ServicoCaImpl.getEAgrupadoPor()</outbound>
+                <outbound type="class" confirmed="no">java.lang.Object</outbound>
+                <outbound type="class" confirmed="no">java.lang.String</outbound>
+                <outbound type="class" confirmed="no">java.util.ArrayList</outbound>
+                <outbound type="feature" confirmed="no">java.util.ArrayList.ArrayList()</outbound>
+                <outbound type="feature" confirmed="no">java.util.ArrayList.addAll(java.util.Collection)</outbound>
+                <outbound type="feature" confirmed="no">java.util.ArrayList.removeAll(java.util.Collection)</outbound>
+                <outbound type="class" confirmed="no">java.util.Collection</outbound>
+                <outbound type="feature" confirmed="no">java.util.Collection.isEmpty()</outbound>
+                <outbound type="feature" confirmed="no">java.util.Collection.iterator()</outbound>
+                <outbound type="class" confirmed="no">java.util.HashMap</outbound>
+                <outbound type="feature" confirmed="no">java.util.HashMap.get(java.lang.Object)</outbound>
+                <outbound type="feature" confirmed="no">java.util.HashMap.put(java.lang.Object, java.lang.Object)</outbound>
+                <outbound type="class" confirmed="no">java.util.Iterator</outbound>
+                <outbound type="feature" confirmed="no">java.util.Iterator.hasNext()</outbound>
+                <outbound type="feature" confirmed="no">java.util.Iterator.next()</outbound>
+                <inbound type="feature" confirmed="yes">accessControl.ControleAcessoImpl.listaServicos()</inbound>
+            </feature>
+            <feature confirmed="yes">
+                <name>accessControl.ControleAcessoImpl.agendaTarefas()</name>
+            </feature>
+            <feature confirmed="yes">
+                <name>accessControl.ControleAcessoImpl.bloqueiaUsuario(java.lang.String)</name>
+                <outbound type="class" confirmed="no">java.lang.String</outbound>
+            </feature>
+            <feature confirmed="yes">
+                <name>accessControl.ControleAcessoImpl.buscaPerfisServico(accessControl.Servico)</name>
+                <outbound type="class" confirmed="no">accessControl.Servico</outbound>
+                <outbound type="class" confirmed="no">accessControl.exception.ControleAcessoException</outbound>
+                <outbound type="class" confirmed="no">java.util.Collection</outbound>
+            </feature>
+            <feature confirmed="no">
+                <name>accessControl.ControleAcessoImpl.getCallerPrincipal(javax.security.auth.Subject)</name>
+                <inbound type="feature" confirmed="yes">accessControl.ControleAcessoUtil.getPrincipal()</inbound>
+            </feature>
+            <feature confirmed="yes">
+                <name>accessControl.ControleAcessoImpl.getOperador(java.lang.String)</name>
+                <outbound type="class" confirmed="no">accessControl.Operador</outbound>
+                <outbound type="class" confirmed="no">accessControl.exception.ControleAcessoException</outbound>
+                <outbound type="feature" confirmed="no">accessControl.exception.ControleAcessoException.ControleAcessoException(java.lang.String)</outbound>
+                <outbound type="class" confirmed="no">br.gov.controleacesso.cd.OperadorCa</outbound>
+                <outbound type="feature" confirmed="no">br.gov.controleacesso.cd.OperadorCaDAOImpl.OperadorCaDAOImpl()</outbound>
+                <outbound type="feature" confirmed="no">br.gov.controleacesso.cd.OperadorCaDAOImpl.findByParameter(br.gov.controleacesso.cd.OperadorCa, java.lang.Integer)</outbound>
+                <outbound type="class" confirmed="no">br.gov.controleacesso.cd.OperadorCaImpl</outbound>
+                <outbound type="feature" confirmed="no">br.gov.controleacesso.cd.OperadorCaImpl.OperadorCaImpl()</outbound>
+                <outbound type="feature" confirmed="no">br.gov.controleacesso.cd.OperadorCaImpl.setLogin(java.lang.String)</outbound>
+                <outbound type="class" confirmed="no">br.ufrj.coppe.system.cd.DAOException</outbound>
+                <outbound type="feature" confirmed="no">br.ufrj.coppe.system.cd.DAOException.getMessage()</outbound>
+                <outbound type="class" confirmed="no">java.lang.Integer</outbound>
+                <outbound type="class" confirmed="no">java.lang.Object</outbound>
+                <outbound type="class" confirmed="no">java.lang.String</outbound>
+                <outbound type="class" confirmed="no">java.util.Collection</outbound>
+                <outbound type="feature" confirmed="no">java.util.Collection.toArray()</outbound>
+                <inbound type="feature" confirmed="yes">accessControl.ControleAcessoImpl.trocaSenha(accessControl.Operador, java.lang.String, java.lang.String)</inbound>
+                <inbound type="feature" confirmed="yes">accessControl.LoginModuleImpl.getRoleSets()</inbound>
+            </feature>
+            <feature confirmed="yes">
+                <name>accessControl.ControleAcessoImpl.getRestricoes(accessControl.Operador, accessControl.Servico)</name>
+                <outbound type="class" confirmed="no">accessControl.Operador</outbound>
+                <outbound type="class" confirmed="no">accessControl.Servico</outbound>
+                <outbound type="class" confirmed="no">accessControl.exception.ControleAcessoException</outbound>
+                <outbound type="class" confirmed="no">java.util.HashMap</outbound>
+                <inbound type="feature" confirmed="yes">accessControl.ControleAcessoUtil.getRestricoesServico(java.lang.String)</inbound>
+            </feature>
+            <feature confirmed="yes">
+                <name>accessControl.ControleAcessoImpl.listaServicos()</name>
+                <outbound type="feature" confirmed="yes">accessControl.ControleAcessoImpl.adicionaPerfisListaServicos(br.gov.controleacesso.cd.ServicoCaImpl, java.util.HashMap, java.util.ArrayList)</outbound>
+                <outbound type="class" confirmed="no">accessControl.Perfil</outbound>
+                <outbound type="feature" confirmed="no">accessControl.Perfil.Perfil(java.lang.String)</outbound>
+                <outbound type="class" confirmed="no">accessControl.exception.ControleAcessoException</outbound>
+                <outbound type="feature" confirmed="no">accessControl.exception.ControleAcessoException.ControleAcessoException(java.lang.String)</outbound>
+                <outbound type="class" confirmed="no">br.gov.controleacesso.cd.PerfilOperadorCa</outbound>
+                <outbound type="feature" confirmed="no">br.gov.controleacesso.cd.PerfilOperadorCa.getId()</outbound>
+                <outbound type="class" confirmed="no">br.gov.controleacesso.cd.PerfilOperadorServicoPerfilOrgaoCaImpl</outbound>
+                <outbound type="feature" confirmed="no">br.gov.controleacesso.cd.PerfilOperadorServicoPerfilOrgaoCaImpl.getPerfilOperadorCa()</outbound>
+                <outbound type="feature" confirmed="no">br.gov.controleacesso.cd.ServicoCaDAOImpl.ServicoCaDAOImpl()</outbound>
+                <outbound type="feature" confirmed="no">br.gov.controleacesso.cd.ServicoCaDAOImpl.list()</outbound>
+                <outbound type="class" confirmed="no">br.gov.controleacesso.cd.ServicoCaImpl</outbound>
+                <outbound type="feature" confirmed="no">br.gov.controleacesso.cd.ServicoCaImpl.getServicoPerfilOrgaoCas()</outbound>
+                <outbound type="class" confirmed="no">br.gov.controleacesso.cd.ServicoPerfilOrgaoCaImpl</outbound>
+                <outbound type="feature" confirmed="no">br.gov.controleacesso.cd.ServicoPerfilOrgaoCaImpl.getPerfilOperadorServicoPerfilOrgaoCas()</outbound>
+                <outbound type="class" confirmed="no">br.ufrj.coppe.system.cd.DAOException</outbound>
+                <outbound type="feature" confirmed="no">br.ufrj.coppe.system.cd.DAOException.getMessage()</outbound>
+                <outbound type="class" confirmed="no">java.lang.Long</outbound>
+                <outbound type="feature" confirmed="no">java.lang.Long.toString()</outbound>
+                <outbound type="class" confirmed="no">java.lang.Object</outbound>
+                <outbound type="class" confirmed="no">java.lang.String</outbound>
+                <outbound type="class" confirmed="no">java.util.ArrayList</outbound>
+                <outbound type="feature" confirmed="no">java.util.ArrayList.ArrayList()</outbound>
+                <outbound type="feature" confirmed="no">java.util.ArrayList.add(java.lang.Object)</outbound>
+                <outbound type="class" confirmed="no">java.util.Collection</outbound>
+                <outbound type="feature" confirmed="no">java.util.Collection.iterator()</outbound>
+                <outbound type="class" confirmed="no">java.util.HashMap</outbound>
+                <outbound type="feature" confirmed="no">java.util.HashMap.HashMap()</outbound>
+                <outbound type="feature" confirmed="no">java.util.HashMap.get(java.lang.Object)</outbound>
+                <outbound type="feature" confirmed="no">java.util.HashMap.put(java.lang.Object, java.lang.Object)</outbound>
+                <outbound type="class" confirmed="no">java.util.Iterator</outbound>
+                <outbound type="feature" confirmed="no">java.util.Iterator.hasNext()</outbound>
+                <outbound type="feature" confirmed="no">java.util.Iterator.next()</outbound>
+                <outbound type="class" confirmed="no">java.util.List</outbound>
+                <inbound type="feature" confirmed="yes">br.ufrj.coppe.system.UtilServiceHandlerBeanImpl.reloadAccessControl()</inbound>
+            </feature>
+            <feature confirmed="yes">
+                <name>accessControl.ControleAcessoImpl.precisaTrocarSenha(accessControl.Operador)</name>
+                <outbound type="class" confirmed="no">accessControl.Operador</outbound>
+                <outbound type="class" confirmed="no">accessControl.exception.ControleAcessoException</outbound>
+            </feature>
+            <feature confirmed="yes">
+                <name>accessControl.ControleAcessoImpl.senhaFraca(java.lang.String)</name>
+                <outbound type="class" confirmed="no">java.lang.String</outbound>
+            </feature>
+            <feature confirmed="yes">
+                <name>accessControl.ControleAcessoImpl.trocaSenha(accessControl.Operador, java.lang.String, java.lang.String)</name>
+                <outbound type="feature" confirmed="yes">accessControl.ControleAcessoImpl.getOperador(java.lang.String)</outbound>
+                <outbound type="class" confirmed="no">accessControl.Operador</outbound>
+                <outbound type="class" confirmed="no">accessControl.exception.ControleAcessoException</outbound>
+                <outbound type="feature" confirmed="no">br.gov.controleacesso.cd.OperadorCaDAOImpl.OperadorCaDAOImpl()</outbound>
+                <outbound type="feature" confirmed="no">br.gov.controleacesso.cd.OperadorCaDAOImpl.update(br.ufrj.coppe.system.cd.AbstractEntity)</outbound>
+                <outbound type="class" confirmed="no">br.gov.controleacesso.cd.OperadorCaImpl</outbound>
+                <outbound type="feature" confirmed="no">br.gov.controleacesso.cd.OperadorCaImpl.getLogin()</outbound>
+                <outbound type="feature" confirmed="no">br.gov.controleacesso.cd.OperadorCaImpl.getSenha()</outbound>
+                <outbound type="feature" confirmed="no">br.gov.controleacesso.cd.OperadorCaImpl.setDataValidadeSenha(java.util.Date)</outbound>
+                <outbound type="feature" confirmed="no">br.gov.controleacesso.cd.OperadorCaImpl.setSenha(java.lang.String)</outbound>
+                <outbound type="class" confirmed="no">br.ufrj.coppe.system.cd.AbstractEntity</outbound>
+                <outbound type="class" confirmed="no">br.ufrj.coppe.system.cd.DAOException</outbound>
+                <outbound type="feature" confirmed="no">br.ufrj.coppe.system.cd.DAOException.printStackTrace()</outbound>
+                <outbound type="class" confirmed="no">java.lang.Object</outbound>
+                <outbound type="class" confirmed="no">java.lang.String</outbound>
+                <outbound type="feature" confirmed="no">java.lang.String.equals(java.lang.Object)</outbound>
+                <outbound type="feature" confirmed="no">java.util.Calendar.add(int, int)</outbound>
+                <outbound type="feature" confirmed="no">java.util.Calendar.getTime()</outbound>
+                <outbound type="class" confirmed="no">java.util.Date</outbound>
+                <outbound type="feature" confirmed="no">java.util.GregorianCalendar.GregorianCalendar()</outbound>
+                <outbound type="class" confirmed="no">java.util.List</outbound>
+            </feature>
+            <feature confirmed="yes">
+                <name>accessControl.ControleAcessoImpl.usuarioBloqueado(java.lang.String)</name>
+                <outbound type="class" confirmed="no">java.lang.String</outbound>
+            </feature>
+        </class>
+    </package>
+</dependencies>

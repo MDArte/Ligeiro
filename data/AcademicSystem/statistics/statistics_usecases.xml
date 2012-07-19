@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<statistics>
+	<application>AcademicSystem</application>
+	<type>usecases</type>
+	<modules>
+		<module>
+			<name>system</name>
+			<useCases>
+				<size>4</size>
+				<useCase>
+					<name>br.ufrj.coppe.system.uc.system.student.insert.InsertStudent</name>
+					<views>
+						<view first="true">
+							<name>Insert Student</name>
+							<actions>
+								<action >
+									<name>Insert</name>
+									<target>
+										<name>insert student</name>
+									</target>
+									<parameters>
+										<parameter   hiddenField="true">
+											<name>id</name>
+											<type>java.lang.Long</type>
+										</parameter>
+										<parameter  >
+											<name>name</name>
+											<type>java.lang.String</type>
+										</parameter>
+										<parameter  >
+											<name>registration</name>
+											<type>java.lang.String</type>
+										</parameter>
+									</parameters>
+								</action>
+							</actions>
+						</view>
+					</views>
+					<states>
+						<state>
+							<name>insert student</name>
+							<target finalState="true">
+								<name>UpdateStudent</name>
+							</target>
+							<events>
+								<event>
+									<name>insertStudent</name>
+								</event>
+							</events>
+						</state>
+					</states>
+					<controller>
+						<name>br.ufrj.coppe.system.uc.system.student.insert.InsertStudentController</name>
+						<implementationName>br.ufrj.coppe.system.uc.system.student.insert.InsertStudentControllerImpl</implementationName>
+						<methods>
+							<size>1</size>
+							<method>
+								<name>insertStudent</name>
+								<return>
+									<type>void</type>
+								</return>
+								<parameters>
+									<size>4</size>
+									<parameter>
+										<name>mapping</name>
+										<type>org.apache.struts.action.ActionMapping</type>
+									</parameter>
+									<parameter>
+										<name>form</name>
+										<type>br.ufrj.coppe.system.uc.system.student.insert.InsertStudentForm</type>
+									</parameter>
+									<parameter>
+										<name>request</name>
+										<type>javax.servlet.http.HttpServletRequest</type>
+									</parameter>
+									<parameter>
+										<name>response</name>
+										<type>javax.servlet.http.HttpServletResponse</type>
+									</parameter>
+								</parameters>
+							</method>
+						</methods>
+					</controller>
+				</useCase>
+				<useCase>
+					<name>br.ufrj.coppe.system.uc.system.student.read.ReadStudent</name>
+					<views>
+						<view>
+							<name>Read Student</name>
+							<actions>
+								<action >
+									<name>New Search</name>
+									<target finalState="true">
+										<name>SearchStudent</name>
+									</target>
+									<parameters>
+										<parameter   hiddenField="true">
+											<name>id</name>
+											<type>java.lang.Long</type>
+										</parameter>
+										<parameter plainText="true"  >
+											<name>registration</name>
+											<type>java.lang.String</type>
+										</parameter>
+										<parameter plainText="true"  >
+											<name>name</name>
+											<type>java.lang.String</type>
+										</parameter>
+									</parameters>
+								</action>
+							</actions>
+						</view>
+					</views>
+					<states>
+						<state first="true">
+							<name>load values</name>
+							<target>
+								<name>Read Student</name>
+							</target>
+							<events>
+								<event>
+									<name>loadValues</name>
+								</event>
+							</events>
+						</state>
+					</states>
+					<controller>
+						<name>br.ufrj.coppe.system.uc.system.student.read.ReadStudentController</name>
+						<implementationName>br.ufrj.coppe.system.uc.system.student.read.ReadStudentControllerImpl</implementationName>
+						<methods>
+							<size>1</size>
+							<method>
+								<name>loadValues</name>
+								<return>
+									<type>void</type>
+								</return>
+								<parameters>
+									<size>4</size>
+									<parameter>
+										<name>mapping</name>
+										<type>org.apache.struts.action.ActionMapping</type>
+									</parameter>
+									<parameter>
+										<name>form</name>
+										<type>br.ufrj.coppe.system.uc.system.student.read.LoadValuesForm</type>
+									</parameter>
+									<parameter>
+										<name>request</name>
+										<type>javax.servlet.http.HttpServletRequest</type>
+									</parameter>
+									<parameter>
+										<name>response</name>
+										<type>javax.servlet.http.HttpServletResponse</type>
+									</parameter>
+								</parameters>
+							</method>
+						</methods>
+					</controller>
+				</useCase>
+				<useCase>
+					<name>br.ufrj.coppe.system.uc.system.student.search.SearchStudent</name>
+					<views>
+						<view first="true">
+							<name>Search Student</name>
+							<actions>
+								<action >
+									<name>Search</name>
+									<target>
+										<name>search student</name>
+									</target>
+									<parameters>
+										<parameter  >
+											<name>registration</name>
+											<type>java.lang.String</type>
+										</parameter>
+										<parameter  >
+											<name>name</name>
+											<type>java.lang.String</type>
+										</parameter>
+									</parameters>
+								</action>
+								<action >
+									<name>Insert Student</name>
+									<target finalState="true">
+										<name>InsertStudent</name>
+									</target>
+								</action>
+							</actions>
+						</view>
+						<view>
+							<name>Search Result</name>
+							<actions>
+								<action >
+									<name>Back</name>
+									<target finalState="true">
+										<name>SearchStudent</name>
+									</target>
+								</action>
+								<action  tableLink="true">
+									<name>View</name>
+									<target finalState="true">
+										<name>ReadStudent</name>
+									</target>
+									<parameters>
+										<parameter plainText="true"  >
+											<name>id</name>
+											<type>java.lang.Long</type>
+										</parameter>
+									</parameters>
+								</action>
+							</actions>
+						</view>
+					</views>
+					<states>
+						<state>
+							<name>search student</name>
+							<target>
+								<name>Search Result</name>
+							</target>
+							<events>
+								<event>
+									<name>searchStudent</name>
+								</event>
+							</events>
+						</state>
+					</states>
+					<controller>
+						<name>br.ufrj.coppe.system.uc.system.student.search.SearchStudentController</name>
+						<implementationName>br.ufrj.coppe.system.uc.system.student.search.SearchStudentControllerImpl</implementationName>
+						<methods>
+							<size>1</size>
+							<method>
+								<name>searchStudent</name>
+								<return>
+									<type>void</type>
+								</return>
+								<parameters>
+									<size>4</size>
+									<parameter>
+										<name>mapping</name>
+										<type>org.apache.struts.action.ActionMapping</type>
+									</parameter>
+									<parameter>
+										<name>form</name>
+										<type>br.ufrj.coppe.system.uc.system.student.search.SearchStudentForm</type>
+									</parameter>
+									<parameter>
+										<name>request</name>
+										<type>javax.servlet.http.HttpServletRequest</type>
+									</parameter>
+									<parameter>
+										<name>response</name>
+										<type>javax.servlet.http.HttpServletResponse</type>
+									</parameter>
+								</parameters>
+							</method>
+						</methods>
+					</controller>
+				</useCase>
+				<useCase>
+					<name>br.ufrj.coppe.system.uc.system.student.update.UpdateStudent</name>
+					<views>
+						<view>
+							<name>Update Student</name>
+							<actions>
+								<action >
+									<name>Update</name>
+									<target>
+										<name>update student</name>
+									</target>
+									<parameters>
+										<parameter   hiddenField="true">
+											<name>id</name>
+											<type>java.lang.Long</type>
+										</parameter>
+										<parameter  >
+											<name>registration</name>
+											<type>java.lang.String</type>
+										</parameter>
+										<parameter  >
+											<name>name</name>
+											<type>java.lang.String</type>
+										</parameter>
+									</parameters>
+								</action>
+							</actions>
+						</view>
+					</views>
+					<states>
+						<state first="true">
+							<name>load values</name>
+							<target>
+								<name>Update Student</name>
+							</target>
+							<events>
+								<event>
+									<name>loadValues</name>
+								</event>
+							</events>
+						</state>
+						<state>
+							<name>update student</name>
+							<target finalState="true">
+								<name>UpdateStudent</name>
+							</target>
+							<events>
+								<event>
+									<name>updateStudent</name>
+								</event>
+							</events>
+						</state>
+					</states>
+					<controller>
+						<name>br.ufrj.coppe.system.uc.system.student.update.UpdateStudentController</name>
+						<implementationName>br.ufrj.coppe.system.uc.system.student.update.UpdateStudentControllerImpl</implementationName>
+						<methods>
+							<size>2</size>
+							<method>
+								<name>loadValues</name>
+								<return>
+									<type>void</type>
+								</return>
+								<parameters>
+									<size>4</size>
+									<parameter>
+										<name>mapping</name>
+										<type>org.apache.struts.action.ActionMapping</type>
+									</parameter>
+									<parameter>
+										<name>form</name>
+										<type>br.ufrj.coppe.system.uc.system.student.update.LoadValuesForm</type>
+									</parameter>
+									<parameter>
+										<name>request</name>
+										<type>javax.servlet.http.HttpServletRequest</type>
+									</parameter>
+									<parameter>
+										<name>response</name>
+										<type>javax.servlet.http.HttpServletResponse</type>
+									</parameter>
+								</parameters>
+							</method>
+							<method>
+								<name>updateStudent</name>
+								<return>
+									<type>void</type>
+								</return>
+								<parameters>
+									<size>4</size>
+									<parameter>
+										<name>mapping</name>
+										<type>org.apache.struts.action.ActionMapping</type>
+									</parameter>
+									<parameter>
+										<name>form</name>
+										<type>br.ufrj.coppe.system.uc.system.student.update.UpdateStudentForm</type>
+									</parameter>
+									<parameter>
+										<name>request</name>
+										<type>javax.servlet.http.HttpServletRequest</type>
+									</parameter>
+									<parameter>
+										<name>response</name>
+										<type>javax.servlet.http.HttpServletResponse</type>
+									</parameter>
+								</parameters>
+							</method>
+						</methods>
+					</controller>
+				</useCase>
+			</useCases>
+		</module>
+	</modules>
+	<useCasesTotal>4</useCasesTotal>
+</statistics>

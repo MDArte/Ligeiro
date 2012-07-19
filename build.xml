@@ -1,0 +1,167 @@
+<project name="Ligeiro" default="copy-classes-plugin" basedir=".">
+
+	<property environment="env"/>
+	<property name="project.version" value="1.0"/>
+	<property name="copyright.msg" value="Roque Pinel"/>
+	<property name="target.folder" value="${basedir}"/>
+
+	<!-- ================== Common Targets ==================== -->
+
+	<!-- ****************************************************** -->
+	<!-- Set Properties                                         -->
+	<!-- ****************************************************** -->
+	<target name="set-properties" description="Set properties">
+		<!-- Project paths -->
+		<property name="src.java.dir" location="main"/>
+		<property name="src.test.java.dir" location="test"/>
+		<property name="etc.dir" location="etc"/>
+		<property name="lib.dir" location="lib"/>
+
+		<property name="ligeiro.jar.plugin" value="${target.folder}/../br.ufrj.cos.pinel.ligeiro/"/>
+
+		<!-- Build paths -->
+		<property name="compile.src" value="${src.java.dir}"/>
+		<property name="build.dir" location="build"/>
+		<property name="resources.temp.dir" location="build/resources_temp"/>
+		<property name="compile.dest.dir" location="build/tmp"/>
+
+		<!-- Source compliance -->
+		<property name="source.jdk" value="1.5"/>
+		<property name="target.jdk" value="1.5"/>
+
+		<!-- Filenames -->
+		<property name="jarfile.name" value="${ant.project.name}-${project.version}.jar" />
+		
+		<!-- Timestamp -->
+		<tstamp>
+			<format property="build.time" pattern="yyyy.MM.dd HH:mm:ss" />
+		</tstamp>
+
+		<!-- Classpath -->
+		<path id="compile.classpath">
+			<fileset dir="${lib.dir}">
+				<include name="**/*.jar"/>
+			</fileset>
+			<pathelement path="${classpath}"/>
+		</path>
+
+		<echo message="set-properties done"/>
+	</target>
+
+	<!-- ****************************************************** -->
+	<!-- Print Properties                                       -->
+	<!-- ****************************************************** -->
+	<target name="print-properties" depends="set-properties" description="Display properties">
+
+		<echo message="target.folder: ${target.folder}"/>
+		<echo message="project.name: ${ant.project.name}"/>
+		<echo message="project.version: ${project.version}"/>
+		<echo message=" "/>
+
+		<echo message="ligeiro.jar.plugin: ${ligeiro.jar.plugin}"/>
+		<echo message=" "/>
+
+		<echo message="java.version: ${java.version}"/>
+		<echo message="java.home: ${java.home}"/>
+		<echo message="java.class.path: ${java.class.path}"/>
+		<echo message=" "/>
+
+		<echo message="src.java.dir: ${src.java.dir}"/>
+		<echo message=" "/>
+
+		<echo message="compile.src: ${compile.src}"/>
+		<echo message="compile.dest.dir: ${compile.dest.dir}"/>
+		<echo message="resources.temp.dir: ${resources.temp.dir}"/>
+		<echo message=" "/>
+		
+		<echo message="source.jdk: ${source.jdk}"/>
+		<echo message="target.jdk: ${target.jdk}"/>
+		<echo message=" "/>
+
+		<echo message="jarfile.name: ${jarfile.name}"/>
+		<echo message=" "/>
+
+		<echo message=""/>
+		<echo message="build.time: ${build.time}"/>
+
+		<echo message="print-properties done"/>
+	</target>
+
+	<!-- ****************************************************** -->
+	<!-- Build Classes                                          -->
+	<!-- ****************************************************** -->
+	<target name="build-classes" depends="print-properties" description="Compile classes (javac)">
+		<mkdir dir="${compile.dest.dir}"/>
+
+		<javac 
+			srcdir="${compile.src}"
+			destdir="${compile.dest.dir}"
+			debug="on"
+			optimize="on"
+			deprecation="off"
+			source="${source.jdk}"
+			target="${target.jdk}">
+
+			<classpath refid="compile.classpath"/>
+			<compilerarg line="-source 1.5"/>
+		</javac>
+
+		<echo message="build-classes done"/>
+	</target>
+
+	<!-- ****************************************************** -->
+	<!-- Build JAR                                              -->
+	<!-- ****************************************************** -->
+	<target name="build-jar" depends="build-classes"
+		description="Packages the application's jar archive file from already compiled project bin">
+
+		<delete file="${jarfile.name}.jar"/>
+
+		<jar
+			destfile="${jarfile.name}"
+			basedir="${compile.dest.dir}">
+			<manifest>
+				<attribute name="Built-On"  value="${build.time}"/>
+				<attribute name="Build-Jdk" value="${java.version}"/>
+				<attribute name="Application-Name" value="${ant.project.name}"/>
+				<attribute name="Application-Version" value="${project.version}"/>
+				<attribute name="Copyright" value="${copyright.msg}"/>
+			</manifest>
+			<metainf file="${taglib.definition}"/> 
+		</jar>
+
+		<echo message="build-jar done"/>
+
+		
+	</target>
+
+	<!-- ****************************************************** -->
+	<!-- Copy Classes for Plugin                                -->
+	<!-- ****************************************************** -->
+	<target name="copy-classes-plugin" depends="build-classes" description="Compile classes (javac)">
+		<delete dir="${ligeiro.jar.plugin}/br"/>
+
+		<copy todir="${ligeiro.jar.plugin}">
+			<fileset dir="${compile.dest.dir}">
+				<include name="**/*" />
+			</fileset>
+		</copy>
+
+		<echo message="copy-classes-plugin done"/>
+	</target>
+
+	<!--  ******************************************************  -->
+	<!--  Clear                                                   -->
+	<!--  ******************************************************  -->
+	<target name="clear" depends="set-properties" description="Deletes all generated files and directories">
+		<delete dir="${build.dir}"/>
+		<delete>
+			<fileset dir="${basedir}" includes="*.jar"/>
+		</delete>
+		<delete>
+			<fileset dir="${src.java.dir}" includes="*.xml"/>
+		</delete>
+		<delete file="${src.java.dir}/version.properties"/>
+	</target>
+
+</project>

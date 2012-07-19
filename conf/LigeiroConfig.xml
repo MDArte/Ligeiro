@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ligeiro>
+	<fpa>
+		<internalLogicalFile>
+			<complexity rows="3" columns="3">
+				<value retMin="1" retMax="1" detMin="*" detMax="19">low</value>
+				<value retMin="1" retMax="1" detMin="20" detMax="50">low</value>
+				<value retMin="1" retMax="1" detMin="51" detMax="*">average</value>
+
+				<value retMin="2" retMax="5" detMin="*" detMax="19">low</value>
+				<value retMin="2" retMax="5" detMin="20" detMax="50">average</value>
+				<value retMin="2" retMax="5" detMin="51" detMax="*">high</value>
+
+				<value retMin="6" retMax="*" detMin="*" detMax="19">average</value>
+				<value retMin="6" retMax="*" detMin="20" detMax="50">high</value>
+				<value retMin="6" retMax="*" detMin="51" detMax="*">high</value>
+			</complexity>
+			<complexityValues size="3">
+				<value type="low">7</value>
+				<value type="average">10</value>
+				<value type="high">15</value>
+			</complexityValues>
+		</internalLogicalFile>
+		<externalInterfaceFile>
+			<complexity rows="3" columns="3">
+				<value retMin="1" retMax="1" detMin="*" detMax="19">low</value>
+				<value retMin="1" retMax="1" detMin="20" detMax="50">low</value>
+				<value retMin="1" retMax="1" detMin="51" detMax="*">average</value>
+
+				<value retMin="2" retMax="5" detMin="*" detMax="19">low</value>
+				<value retMin="2" retMax="5" detMin="20" detMax="50">average</value>
+				<value retMin="2" retMax="5" detMin="51" detMax="*">high</value>
+
+				<value retMin="6" retMax="*" detMin="*" detMax="19">average</value>
+				<value retMin="6" retMax="*" detMin="20" detMax="50">high</value>
+				<value retMin="6" retMax="*" detMin="51" detMax="*">high</value>
+			</complexity>
+			<complexityValues size="3">
+				<value type="low">5</value>
+				<value type="average">7</value>
+				<value type="high">10</value>
+			</complexityValues>
+		</externalInterfaceFile>
+		<externalInput>
+			<complexity rows="3" columns="3">
+				<value ftrMin="0" ftrMax="1" detMin="*" detMax="4">low</value>
+				<value ftrMin="0" ftrMax="1" detMin="5" detMax="15">low</value>
+				<value ftrMin="0" ftrMax="1" detMin="16" detMax="*">average</value>
+
+				<value ftrMin="2" ftrMax="2" detMin="*" detMax="4">low</value>
+				<value ftrMin="2" ftrMax="2" detMin="5" detMax="15">average</value>
+				<value ftrMin="2" ftrMax="2" detMin="16" detMax="*">high</value>
+
+				<value ftrMin="3" ftrMax="*" detMin="*" detMax="4">average</value>
+				<value ftrMin="3" ftrMax="*" detMin="5" detMax="15">high</value>
+				<value ftrMin="3" ftrMax="*" detMin="16" detMax="*">high</value>
+			</complexity>
+			<complexityValues size="3">
+				<value type="low">3</value>
+				<value type="average">4</value>
+				<value type="high">6</value>
+			</complexityValues>
+		</externalInput>
+		<externalOutput>
+			<complexity rows="3" columns="3">
+				<value ftrMin="0" ftrMax="1" detMin="*" detMax="5">low</value>
+				<value ftrMin="0" ftrMax="1" detMin="6" detMax="19">low</value>
+				<value ftrMin="0" ftrMax="1" detMin="20" detMax="*">average</value>
+
+				<value ftrMin="2" ftrMax="3" detMin="*" detMax="5">low</value>
+				<value ftrMin="2" ftrMax="3" detMin="6" detMax="19">average</value>
+				<value ftrMin="2" ftrMax="3" detMin="20" detMax="*">high</value>
+
+				<value ftrMin="4" ftrMax="*" detMin="*" detMax="5">average</value>
+				<value ftrMin="4" ftrMax="*" detMin="6" detMax="19">high</value>
+				<value ftrMin="4" ftrMax="*" detMin="20" detMax="*">high</value>
+			</complexity>
+			<complexityValues size="3">
+				<value type="low">4</value>
+				<value type="average">5</value>
+				<value type="high">7</value>
+			</complexityValues>
+		</externalOutput>
+		<externalInquiry>
+			<complexity rows="3" columns="3">
+				<value ftrMin="0" ftrMax="1" detMin="*" detMax="5">low</value>
+				<value ftrMin="0" ftrMax="1" detMin="6" detMax="19">low</value>
+				<value ftrMin="0" ftrMax="1" detMin="20" detMax="*">average</value>
+
+				<value ftrMin="2" ftrMax="3" detMin="*" detMax="5">low</value>
+				<value ftrMin="2" ftrMax="3" detMin="6" detMax="19">average</value>
+				<value ftrMin="2" ftrMax="3" detMin="20" detMax="*">high</value>
+
+				<value ftrMin="4" ftrMax="*" detMin="*" detMax="5">average</value>
+				<value ftrMin="4" ftrMax="*" detMin="6" detMax="19">high</value>
+				<value ftrMin="4" ftrMax="*" detMin="20" detMax="*">high</value>
+			</complexity>
+			<complexityValues size="3">
+				<value type="low">3</value>
+				<value type="average">4</value>
+				<value type="high">6</value>
+			</complexityValues>
+		</externalInquiry>
+		<vaf>0.65</vaf>
+	</fpa>
+</ligeiro>
