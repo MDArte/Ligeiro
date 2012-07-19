@@ -24,7 +24,7 @@ import br.ufrj.cos.pinel.ligeiro.data.Parameter;
 import br.ufrj.cos.pinel.ligeiro.data.Service;
 import br.ufrj.cos.pinel.ligeiro.data.UseCase;
 import br.ufrj.cos.pinel.ligeiro.data.View;
-import br.ufrj.cos.pinel.ligeiro.exception.ExpressFPAException;
+import br.ufrj.cos.pinel.ligeiro.exception.LigeiroException;
 import br.ufrj.cos.pinel.ligeiro.graph.ClassUsageGraph;
 import br.ufrj.cos.pinel.ligeiro.report.FPAReport;
 import br.ufrj.cos.pinel.ligeiro.report.LoadReport;
@@ -1176,12 +1176,12 @@ public class Core
 	 * Checks which services and entities a service used.
 	 * 
 	 * @param fileName the report's file name
-	 * @throws ExpressFPAException 
+	 * @throws LigeiroException 
 	 */
-	public void createClassUsageReport(String fileName) throws ExpressFPAException
+	public void createClassUsageReport(String fileName) throws LigeiroException
 	{
 		if (classUsages == null)
-			throw new ExpressFPAException("Must load the Class Usage Report.");
+			throw new LigeiroException("Must load the Class Usage Report.");
 
 		ClassUsageReport classUsageReport = new ClassUsageReport(fileName, classUsages);
 
@@ -1194,9 +1194,9 @@ public class Core
 	 * The informations loaded is not complete, but it is useful
 	 * for generating graphs.
 	 * 
-	 * @throws ExpressFPAException
+	 * @throws LigeiroException
 	 */
-	public void loadClassUsageReport() throws ExpressFPAException
+	public void loadClassUsageReport() throws LigeiroException
 	{
 		loadClassUsageReport(null);
 	}
@@ -1208,9 +1208,9 @@ public class Core
 	 * for generating graphs.
 	 * 
 	 * @param fileName the report's file name
-	 * @throws ExpressFPAException
+	 * @throws LigeiroException
 	 */
-	public void loadClassUsageReport(String fileName) throws ExpressFPAException
+	public void loadClassUsageReport(String fileName) throws LigeiroException
 	{
 		ClassUsageReport classUsageReport = new ClassUsageReport(fileName);
 
@@ -1220,7 +1220,7 @@ public class Core
 			classUsages = classUsageReport.loadCSV();
 	}
 
-	public void generateClassUsageGraph() throws ExpressFPAException
+	public void generateClassUsageGraph() throws LigeiroException
 	{
 		ClassUsageGraph.generate(classUsages);
 	}

@@ -22,7 +22,7 @@ import br.ufrj.cos.pinel.ligeiro.data.Entity;
 import br.ufrj.cos.pinel.ligeiro.data.IBaseClass;
 import br.ufrj.cos.pinel.ligeiro.data.Method;
 import br.ufrj.cos.pinel.ligeiro.data.Service;
-import br.ufrj.cos.pinel.ligeiro.exception.ExpressFPAException;
+import br.ufrj.cos.pinel.ligeiro.exception.LigeiroException;
 
 /**
  * @author Roque Pinel
@@ -67,9 +67,9 @@ public class ClassUsageReport
 	 * @param allClasses
 	 * @param dependencyClasses
 	 * @return the class usages
-	 * @throws ExpressFPAException
+	 * @throws LigeiroException
 	 */
-	public Collection<ClassUsage> loadClassUsage(Map<String, Entity> entities, Map<String, IBaseClass> allClasses, Map<String, BaseClass> dependencyClasses) throws ExpressFPAException
+	public Collection<ClassUsage> loadClassUsage(Map<String, Entity> entities, Map<String, IBaseClass> allClasses, Map<String, BaseClass> dependencyClasses) throws LigeiroException
 	{
 		for (BaseClass dependencyClass : dependencyClasses.values())
 		{
@@ -90,7 +90,7 @@ public class ClassUsageReport
 			else if (clazz1 instanceof BaseClass)
 				type = ClassUsage.CLASS;
 			else
-				throw new ExpressFPAException("Could not find class's type.");
+				throw new LigeiroException("Could not find class's type.");
 
 			for (Method method : dependencyClass.getMethods())
 			{
@@ -156,9 +156,9 @@ public class ClassUsageReport
 	 * Load the class usages from the CSV.
 	 * 
 	 * @return the class usages
-	 * @throws ExpressFPAException
+	 * @throws LigeiroException
 	 */
-	public Collection<ClassUsage> loadCSV() throws ExpressFPAException
+	public Collection<ClassUsage> loadCSV() throws LigeiroException
 	{
 		try
 		{
@@ -186,11 +186,11 @@ public class ClassUsageReport
 		}
 		catch (FileNotFoundException e)
 		{
-			throw new ExpressFPAException("Could not find file: " + fileName, e);
+			throw new LigeiroException("Could not find file: " + fileName, e);
 		}
 		catch (IOException e)
 		{
-			throw new ExpressFPAException("Could not read file: " + fileName, e);
+			throw new LigeiroException("Could not read file: " + fileName, e);
 		}
 
 		return classUsages;
@@ -199,9 +199,9 @@ public class ClassUsageReport
 	/**
 	 * Creates the CSV report.
 	 * 
-	 * @throws ExpressFPAException
+	 * @throws LigeiroException
 	 */
-	public void createCSV() throws ExpressFPAException
+	public void createCSV() throws LigeiroException
 	{
 		try
 		{
@@ -228,7 +228,7 @@ public class ClassUsageReport
 		}
 		catch (IOException e)
 		{
-			throw new ExpressFPAException("Could not write file: " + fileName, e);
+			throw new LigeiroException("Could not write file: " + fileName, e);
 		}
 	}
 }

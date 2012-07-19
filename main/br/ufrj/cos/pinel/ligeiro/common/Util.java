@@ -13,7 +13,7 @@ import br.ufrj.cos.pinel.ligeiro.data.Event;
 import br.ufrj.cos.pinel.ligeiro.data.IBaseClass;
 import br.ufrj.cos.pinel.ligeiro.data.Method;
 import br.ufrj.cos.pinel.ligeiro.data.Parameter;
-import br.ufrj.cos.pinel.ligeiro.exception.ExpressFPAException;
+import br.ufrj.cos.pinel.ligeiro.exception.LigeiroException;
 import br.ufrj.cos.pinel.ligeiro.report.FPAReport;
 import br.ufrj.cos.pinel.ligeiro.report.ReportResult;
 
@@ -239,7 +239,7 @@ public class Util
 		return params;
 	}
 
-	public static void writeCSVReport(FPAReport fpaReport, String filename) throws ExpressFPAException
+	public static void writeCSVReport(FPAReport fpaReport, String filename) throws LigeiroException
 	{
 		try
 		{
@@ -281,7 +281,7 @@ public class Util
 		}
 		catch (IOException e)
 		{
-			throw new ExpressFPAException(e.getMessage());
+			throw new LigeiroException(e.getMessage());
 		}
 	}
 }
