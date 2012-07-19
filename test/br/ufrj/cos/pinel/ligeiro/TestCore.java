@@ -9,7 +9,7 @@ import br.ufrj.cos.pinel.ligeiro.report.FPAReport;
  * @author Roque Pinel
  *
  */
-public class TestCore
+public class TestCore extends Test
 {
 	/**
 	 * @param args

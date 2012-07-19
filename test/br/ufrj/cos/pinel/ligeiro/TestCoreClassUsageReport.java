@@ -9,7 +9,7 @@ import br.ufrj.cos.pinel.ligeiro.common.Util;
  * @author Roque Pinel
  *
  */
-public class TestCoreClassUsageReport
+public class TestCoreClassUsageReport extends Test
 {
 	/**
 	 * @param args

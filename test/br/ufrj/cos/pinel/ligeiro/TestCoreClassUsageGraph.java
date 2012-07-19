@@ -8,7 +8,7 @@ import br.ufrj.cos.pinel.ligeiro.Core;
  * @author Roque Pinel
  *
  */
-public class TestCoreClassUsageGraph
+public class TestCoreClassUsageGraph extends Test
 {
 	/**
 	 * @param args
