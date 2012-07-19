@@ -1,5 +1,8 @@
 package br.ufrj.cos.pinel.ligeiro.common;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Map;
 
@@ -10,40 +13,43 @@ import br.ufrj.cos.pinel.ligeiro.data.Event;
 import br.ufrj.cos.pinel.ligeiro.data.IBaseClass;
 import br.ufrj.cos.pinel.ligeiro.data.Method;
 import br.ufrj.cos.pinel.ligeiro.data.Parameter;
+import br.ufrj.cos.pinel.ligeiro.exception.ExpressFPAException;
+import br.ufrj.cos.pinel.ligeiro.report.FPAReport;
+import br.ufrj.cos.pinel.ligeiro.report.ReportResult;
 
 /**
  * @author Roque Pinel
- *
+ * 
  */
 public class Util
 {
-//	private static Logger logger = Logger.getLogger(Util.class);
-//
-//	static {
-//		BasicConfigurator.configure();
-//		try
-//		{
-//			Appender fileAppender = new FileAppender(new PatternLayout(PatternLayout.TTCC_CONVERSION_PATTERN), "ExpressFPA.log");
-//			logger.addAppender(fileAppender);
-//		}
-//		catch (IOException e)
-//		{
-//			e.printStackTrace();
-//		}
-//	}
+	//	private static Logger logger = Logger.getLogger(Util.class);
+	//
+	//	static {
+	//		BasicConfigurator.configure();
+	//		try
+	//		{
+	//			Appender fileAppender = new FileAppender(new PatternLayout(PatternLayout.TTCC_CONVERSION_PATTERN), "ExpressFPA.log");
+	//			logger.addAppender(fileAppender);
+	//		}
+	//		catch (IOException e)
+	//		{
+	//			e.printStackTrace();
+	//		}
+	//	}
 
 	public static void print(String s)
 	{
 		if (Constants.DEBUG)
 			System.out.print(s);
-//			logger.debug(s);
+		//			logger.debug(s);
 	}
 
 	public static void println(String s)
 	{
 		if (Constants.DEBUG)
 			System.out.println(s);
-//			logger.debug(s);
+		//			logger.debug(s);
 	}
 
 	public static void printClasses(Collection<IBaseClass> classes)
@@ -231,5 +237,51 @@ public class Util
 		}
 
 		return params;
+	}
+
+	public static void writeCSVReport(FPAReport fpaReport, String filename) throws ExpressFPAException
+	{
+		try
+		{
+			BufferedWriter out = new BufferedWriter(new FileWriter(filename));
+
+			out.write("Namespace;DF / TF;Type;RET / FTR;DET;Complexity;PF\n");
+
+			out.write("Data Functions;;;;;;\n");
+
+			for (ReportResult reportResult : fpaReport.getDFReport())
+			{
+				out.write(reportResult.getNamespace() + ";");
+				out.write(reportResult.getElement() + ";");
+				out.write(reportResult.getType() + ";");
+				out.write(reportResult.getRet_ftr() + ";");
+				out.write(reportResult.getDet() + ";");
+				out.write(reportResult.getComplexity() + ";");
+				out.write(reportResult.getComplexityValue() + "\n");
+			}
+
+			out.write("Transaction Functions;;;;;;\n");
+
+			for (ReportResult reportResult : fpaReport.getTFReport())
+			{
+				out.write(reportResult.getNamespace() + ";");
+				out.write(reportResult.getElement() + ";");
+				out.write(reportResult.getType() + ";");
+				out.write(reportResult.getRet_ftr() + ";");
+				out.write(reportResult.getDet() + ";");
+				out.write(reportResult.getComplexity() + ";");
+				out.write(reportResult.getComplexityValue() + "\n");
+			}
+
+			out.write(";;;;;Total;");
+			out.write(Integer.toString(fpaReport.getReportTotal()));
+			out.write("\n");
+
+			out.close();
+		}
+		catch (IOException e)
+		{
+			throw new ExpressFPAException(e.getMessage());
+		}
 	}
 }

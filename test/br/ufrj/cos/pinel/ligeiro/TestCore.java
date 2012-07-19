@@ -1,9 +1,8 @@
 package br.ufrj.cos.pinel.ligeiro;
 
-import br.ufrj.cos.pinel.ligeiro.Core;
 import br.ufrj.cos.pinel.ligeiro.common.FPAConfig;
 import br.ufrj.cos.pinel.ligeiro.common.Util;
-import br.ufrj.cos.pinel.ligeiro.xml.exception.ReadXMLException;
+import br.ufrj.cos.pinel.ligeiro.report.FPAReport;
 
 /**
  * 
@@ -52,11 +51,11 @@ public class TestCore
 			FPAConfig fpaConfig = core.readFPAConfiguration("conf/LigeiroConfig.xml");
 
 			Util.println(">> Starting...");
-			core.startFunctionPointAnalysis(fpaConfig);
+			FPAReport fpaReport = core.startFunctionPointAnalysis(fpaConfig);
 
 			Util.println("Done.");
 		}
-		catch (ReadXMLException e)
+		catch (Exception e)
 		{
 			e.printStackTrace();
 		}
