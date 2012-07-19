@@ -13,8 +13,8 @@ public class TesteParseClass
 	 */
 	public static void main(String[] args)
 	{
-		System.out.println("ClassSignature: " + classSignature);
+		Util.println("ClassSignature: " + classSignature);
 
-		System.out.println("ClassName: " + Util.getClassName(classSignature));
+		Util.println("ClassName: " + Util.getClassName(classSignature));
 	}
 }

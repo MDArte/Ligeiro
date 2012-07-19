@@ -16,7 +16,7 @@ public class TestCoreClassUsageReport extends Test
 	 */
 	public static void main(String[] args)
 	{
-		System.out.println("-- TestCoreClassUsageReport --");
+		Util.println("-- TestCoreClassUsageReport --");
 
 		Core core = new Core();
 
@@ -47,13 +47,13 @@ public class TestCoreClassUsageReport extends Test
 //			core.readDependencies("data/AcademicSystem/dependency/as-web-system.xml");
 			core.readDependencies("data/AcademicSystem/dependency/amostra.xml");
 
-			System.out.println(">> Starting...");
+			Util.println(">> Starting...");
 
 			core.loadClassUsageReport();
 
 			core.createClassUsageReport("data/ClassUsageReport.csv");
 
-			System.out.println("Done.");
+			Util.println("Done.");
 		}
 		catch (Exception e)
 		{

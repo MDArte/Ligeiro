@@ -1,6 +1,7 @@
 package br.ufrj.cos.pinel.ligeiro;
 
 import br.ufrj.cos.pinel.ligeiro.Core;
+import br.ufrj.cos.pinel.ligeiro.common.Util;
 
 
 /**
@@ -15,20 +16,20 @@ public class TestCoreClassUsageGraph extends Test
 	 */
 	public static void main(String[] args)
 	{
-		System.out.println("-- TestCoreClassUsageGraph --");
+		Util.println("-- TestCoreClassUsageGraph --");
 
 		Core core = new Core();
 
 		try
 		{
-			System.out.println(">> Report");
+			Util.println(">> Report");
 			core.loadClassUsageReport("data/AcademicSystem/ClassUsageReport.csv");
 
-			System.out.println(">> Starting...");
+			Util.println(">> Starting...");
 
 			core.generateClassUsageGraph();
 
-			System.out.println("Done.");
+			Util.println("Done.");
 		}
 		catch (Exception e)
 		{
