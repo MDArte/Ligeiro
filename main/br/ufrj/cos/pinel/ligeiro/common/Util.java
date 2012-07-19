@@ -23,33 +23,25 @@ import br.ufrj.cos.pinel.ligeiro.report.ReportResult;
  */
 public class Util
 {
-	//	private static Logger logger = Logger.getLogger(Util.class);
-	//
-	//	static {
-	//		BasicConfigurator.configure();
-	//		try
-	//		{
-	//			Appender fileAppender = new FileAppender(new PatternLayout(PatternLayout.TTCC_CONVERSION_PATTERN), "ExpressFPA.log");
-	//			logger.addAppender(fileAppender);
-	//		}
-	//		catch (IOException e)
-	//		{
-	//			e.printStackTrace();
-	//		}
-	//	}
+//	private static Logger logger = Logger.getLogger(Util.class.getName());
+//
+//	static
+//	{
+//		BasicConfigurator.configure();
+//	}
 
 	public static void print(String s)
 	{
 		if (Constants.DEBUG)
 			System.out.print(s);
-		//			logger.debug(s);
+			//logger.info(s);
 	}
 
 	public static void println(String s)
 	{
 		if (Constants.DEBUG)
 			System.out.println(s);
-		//			logger.debug(s);
+			//logger.info(s);
 	}
 
 	public static void printClasses(Collection<IBaseClass> classes)
