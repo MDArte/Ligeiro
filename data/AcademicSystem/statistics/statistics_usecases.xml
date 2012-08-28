@@ -9,6 +9,7 @@
 				<size>4</size>
 				<useCase>
 					<name>br.ufrj.coppe.system.uc.system.student.insert.InsertStudent</name>
+					<activityDiagram>InsertStudentAD</activityDiagram>
 					<views>
 						<view first="true">
 							<name>Insert Student</name>
@@ -84,6 +85,7 @@
 				</useCase>
 				<useCase>
 					<name>br.ufrj.coppe.system.uc.system.student.read.ReadStudent</name>
+					<activityDiagram>ReadStudentAD</activityDiagram>
 					<views>
 						<view>
 							<name>Read Student</name>
@@ -159,6 +161,7 @@
 				</useCase>
 				<useCase>
 					<name>br.ufrj.coppe.system.uc.system.student.search.SearchStudent</name>
+					<activityDiagram>SearchStudentAD</activityDiagram>
 					<views>
 						<view first="true">
 							<name>Search Student</name>
@@ -259,6 +262,7 @@
 				</useCase>
 				<useCase>
 					<name>br.ufrj.coppe.system.uc.system.student.update.UpdateStudent</name>
+					<activityDiagram>UpdateStudentAD</activityDiagram>
 					<views>
 						<view>
 							<name>Update Student</name>

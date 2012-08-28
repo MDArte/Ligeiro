@@ -26,6 +26,7 @@ import br.ufrj.cos.pinel.ligeiro.data.UseCase;
 import br.ufrj.cos.pinel.ligeiro.data.View;
 import br.ufrj.cos.pinel.ligeiro.exception.LigeiroException;
 import br.ufrj.cos.pinel.ligeiro.graph.ClassUsageGraph;
+import br.ufrj.cos.pinel.ligeiro.graph.ComponentGraph;
 import br.ufrj.cos.pinel.ligeiro.report.FPAReport;
 import br.ufrj.cos.pinel.ligeiro.report.LoadReport;
 import br.ufrj.cos.pinel.ligeiro.report.ReportResult;
@@ -1220,8 +1221,23 @@ public class Core
 			classUsages = classUsageReport.loadCSV();
 	}
 
+	/**
+	 * Generate the Class Usage Graph based on the information previous loaded.
+	 * 
+	 * @throws LigeiroException
+	 */
 	public void generateClassUsageGraph() throws LigeiroException
 	{
 		ClassUsageGraph.generate(classUsages);
+	}
+
+	/**
+	 * Generate the Component Graph based on the information previous loaded.
+	 * 
+	 * @throws LigeiroException
+	 */
+	public void generateComponentGraph() throws LigeiroException
+	{
+		ComponentGraph.generate(useCases);
 	}
 }

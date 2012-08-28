@@ -425,6 +425,10 @@ public class UseCaseHandler extends GenericHandler
 						state.setName(valueNode);
 					}
 				}
+				else if (tagName.equals("activityDiagram"))
+				{
+					useCase.setActivityDiagram(valueNode);
+				}
 				else if (tagName.equals("name"))
 				{
 					useCase.setName(valueNode);
