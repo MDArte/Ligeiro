@@ -32,6 +32,8 @@ public class ClassUsageGraph extends GraphView
 {
 	private static final long serialVersionUID = 1L;
 
+	private static final String CUSTOM_LABEL = "Class Usage Graph";
+
 	private static JFrame staticFrame;
 
 	private static Collection<ClassUsage> classUsages;
@@ -67,24 +69,6 @@ public class ClassUsageGraph extends GraphView
 		}
 	}
 
-	public void updateElementsCombo()
-	{
-		elementsCombo.removeAllItems();
-
-		elementsCombo.addItem("");
-
-		Set<String> elements = new HashSet<String>();
-
-		for (ClassUsage classUsage : classUsages)
-		{
-			if (!elements.contains(classUsage.getElement()))
-			{
-				elementsCombo.addItem(classUsage.getElement());
-				elements.add(classUsage.getElement());
-			}
-		}
-	}
-
 	@Override
 	public void createElementGraph(String elementName)
 	{
@@ -105,6 +89,24 @@ public class ClassUsageGraph extends GraphView
 	public void createMethodGraph(String methodName)
 	{
 		setGraph(getMethodUsageGraph(methodName), LABEL);
+	}
+
+	public void updateElementsCombo()
+	{
+		elementsCombo.removeAllItems();
+
+		elementsCombo.addItem("");
+
+		Set<String> elements = new HashSet<String>();
+
+		for (ClassUsage classUsage : classUsages)
+		{
+			if (!elements.contains(classUsage.getElement()))
+			{
+				elementsCombo.addItem(classUsage.getElement());
+				elements.add(classUsage.getElement());
+			}
+		}
 	}
 
 	// ------------------------------------------------------------------------
@@ -153,7 +155,7 @@ public class ClassUsageGraph extends GraphView
 
 		view.updateElementsCombo();
 
-		staticFrame = new JFrame("Class Usage Graph");
+		staticFrame = new JFrame(ClassUsageGraph.CUSTOM_LABEL);
 		prepareFrame(staticFrame, view);
 	}
 

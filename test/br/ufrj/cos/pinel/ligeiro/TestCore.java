@@ -9,7 +9,7 @@ import br.ufrj.cos.pinel.ligeiro.report.FPAReport;
  * @author Roque Pinel
  *
  */
-public class TestCore
+public class TestCore extends Test
 {
 	/**
 	 * @param args
@@ -23,29 +23,29 @@ public class TestCore
 		try
 		{
 			Util.println(">> Entities");
-			core.readStatistics("data/statistics/statistics_entities.xml");
+			core.readStatistics("data/AcademicSystem/statistics/statistics_entities.xml");
 
 			Util.println(">> Services");
-			core.readStatistics("data/statistics/statistics_services.xml");
+			core.readStatistics("data/AcademicSystem/statistics/statistics_services.xml");
 
 			Util.println(">> Controllers");
-			core.readStatistics("data/statistics/statistics_usecases.xml");
+			core.readStatistics("data/AcademicSystem/statistics/statistics_usecases.xml");
 
 			Util.println(">> ControleAcesso");
-			core.readStatistics("data/statistics/statistics_controleacesso.xml");
+			core.readStatistics("data/AcademicSystem/statistics/statistics_controleacesso.xml");
 
 			Util.println(">> Dependencies");
-//			core.readDependencies("data/dependency/as-common.xml");
-//			core.readDependencies("data/dependency/as-core-cd.xml");
-//			core.readDependencies("data/dependency/as-core-compartilhado.xml");
-//			core.readDependencies("data/dependency/as-core-controleacesso.xml");
-//			core.readDependencies("data/dependency/as-core-initial.xml");
-//			core.readDependencies("data/dependency/as-core-shared.xml");
-//			core.readDependencies("data/dependency/as-core-student.xml");
-//			core.readDependencies("data/dependency/as-web-help.xml");
-//			core.readDependencies("data/dependency/as-web-layout.xml");
-//			core.readDependencies("data/dependency/as-web-system.xml");
-			core.readDependencies("data/dependency/example.xml");
+//			core.readDependencies("data/AcademicSystem/dependency/as-common.xml");
+//			core.readDependencies("data/AcademicSystem/dependency/as-core-cd.xml");
+//			core.readDependencies("data/AcademicSystem/dependency/as-core-compartilhado.xml");
+//			core.readDependencies("data/AcademicSystem/dependency/as-core-controleacesso.xml");
+//			core.readDependencies("data/AcademicSystem/dependency/as-core-initial.xml");
+//			core.readDependencies("data/AcademicSystem/dependency/as-core-shared.xml");
+//			core.readDependencies("data/AcademicSystem/dependency/as-core-student.xml");
+//			core.readDependencies("data/AcademicSystem/dependency/as-web-help.xml");
+//			core.readDependencies("data/AcademicSystem/dependency/as-web-layout.xml");
+//			core.readDependencies("data/AcademicSystem/dependency/as-web-system.xml");
+			core.readDependencies("data/AcademicSystem/dependency/amostra.xml");
 
 			Util.println(">> Configuration...");
 			FPAConfig fpaConfig = core.readFPAConfiguration("conf/LigeiroConfig.xml");

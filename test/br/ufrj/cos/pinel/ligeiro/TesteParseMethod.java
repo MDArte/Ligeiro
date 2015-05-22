@@ -13,16 +13,16 @@ public class TesteParseMethod
 	 */
 	public static void main(String[] args)
 	{
-		System.out.println("MethodSignature: " + methodSignature);
+		Util.println("MethodSignature: " + methodSignature);
 
-		System.out.println("ClassName: " + Util.getMethodClassName(methodSignature));
+		Util.println("ClassName: " + Util.getMethodClassName(methodSignature));
 
-		System.out.println("MethodName: " + Util.getMethodName(methodSignature));
+		Util.println("MethodName: " + Util.getMethodName(methodSignature));
 
 		String[] params = Util.getMethodParameters(methodSignature);
 		for (int i = 0; i < params.length; i++)
 		{
-			System.out.println("\tParam: -" + params[i].trim() + "-");
+			Util.println("\tParam: -" + params[i].trim() + "-");
 		}
 	}
 }

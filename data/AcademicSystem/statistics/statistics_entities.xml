@@ -1,0 +1,1545 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<statistics>
+	<application>AcademicSystem</application>
+	<type>entities</type>
+	<entities>
+		<entity>
+			<name>br.gov.controleacesso.cd.ContextoCa</name>
+			<implementationName>br.gov.controleacesso.cd.ContextoCaImpl</implementationName>
+			<attributes>
+				<size>2</size>
+				<attribute identifier="false">
+					<name>contexto</name>
+					<type>java.lang.String</type>
+				</attribute>
+				<attribute identifier="true">
+					<name>id</name>
+					<type>java.lang.Long</type>
+				</attribute>
+			</attributes>
+			<methods>
+				<size>4</size>
+				<method modifier="true">
+					<name>setContexto</name>
+					<return>
+						<type>void</type>
+					</return>
+					<parameters>
+						<size>1</size>
+						<parameter>
+							<name>contexto</name>
+							<type>java.lang.String</type>
+						</parameter>
+					</parameters>
+				</method>
+				<method modifier="false">
+					<name>getContexto</name>
+					<return>
+						<type>java.lang.String</type>
+					</return>
+					<parameters>
+						<size>0</size>
+					</parameters>
+				</method>
+				<method modifier="true">
+					<name>setId</name>
+					<return>
+						<type>void</type>
+					</return>
+					<parameters>
+						<size>1</size>
+						<parameter>
+							<name>id</name>
+							<type>java.lang.Long</type>
+						</parameter>
+					</parameters>
+				</method>
+				<method modifier="false">
+					<name>getId</name>
+					<return>
+						<type>java.lang.Long</type>
+					</return>
+					<parameters>
+						<size>0</size>
+					</parameters>
+				</method>
+			</methods>
+		</entity>
+		<entity>
+			<name>br.gov.controleacesso.cd.MoldeRestricaoCa</name>
+			<implementationName>br.gov.controleacesso.cd.MoldeRestricaoCaImpl</implementationName>
+			<attributes>
+				<size>10</size>
+				<attribute identifier="true">
+					<name>id</name>
+					<type>java.lang.Long</type>
+				</attribute>
+				<attribute identifier="false">
+					<name>entidadeOrigem</name>
+					<type>java.lang.String</type>
+				</attribute>
+				<attribute identifier="false">
+					<name>expressao</name>
+					<type>java.lang.String</type>
+				</attribute>
+				<attribute identifier="false">
+					<name>entidadeOrigemRotulo</name>
+					<type>java.lang.String</type>
+				</attribute>
+				<attribute identifier="false">
+					<name>expressaoRotulo</name>
+					<type>java.lang.String</type>
+				</attribute>
+				<attribute identifier="false">
+					<name>entidadeDestino</name>
+					<type>java.lang.String</type>
+				</attribute>
+				<attribute identifier="false">
+					<name>atributoDestino</name>
+					<type>java.lang.String</type>
+				</attribute>
+				<attribute identifier="false">
+					<name>tipoAtributoDestino</name>
+					<type>java.lang.String</type>
+				</attribute>
+				<attribute identifier="false">
+					<name>atributoEntidadeDestinoRotulo</name>
+					<type>java.lang.String</type>
+				</attribute>
+				<attribute identifier="false">
+					<name>aplicabilidade</name>
+					<type>java.lang.String</type>
+				</attribute>
+			</attributes>
+			<methods>
+				<size>20</size>
+				<method modifier="true">
+					<name>setId</name>
+					<return>
+						<type>void</type>
+					</return>
+					<parameters>
+						<size>1</size>
+						<parameter>
+							<name>id</name>
+							<type>java.lang.Long</type>
+						</parameter>
+					</parameters>
+				</method>
+				<method modifier="false">
+					<name>getId</name>
+					<return>
+						<type>java.lang.Long</type>
+					</return>
+					<parameters>
+						<size>0</size>
+					</parameters>
+				</method>
+				<method modifier="true">
+					<name>setEntidadeOrigem</name>
+					<return>
+						<type>void</type>
+					</return>
+					<parameters>
+						<size>1</size>
+						<parameter>
+							<name>entidadeOrigem</name>
+							<type>java.lang.String</type>
+						</parameter>
+					</parameters>
+				</method>
+				<method modifier="false">
+					<name>getEntidadeOrigem</name>
+					<return>
+						<type>java.lang.String</type>
+					</return>
+					<parameters>
+						<size>0</size>
+					</parameters>
+				</method>
+				<method modifier="true">
+					<name>setExpressao</name>
+					<return>
+						<type>void</type>
+					</return>
+					<parameters>
+						<size>1</size>
+						<parameter>
+							<name>expressao</name>
+							<type>java.lang.String</type>
+						</parameter>
+					</parameters>
+				</method>
+				<method modifier="false">
+					<name>getExpressao</name>
+					<return>
+						<type>java.lang.String</type>
+					</return>
+					<parameters>
+						<size>0</size>
+					</parameters>
+				</method>
+				<method modifier="true">
+					<name>setEntidadeOrigemRotulo</name>
+					<return>
+						<type>void</type>
+					</return>
+					<parameters>
+						<size>1</size>
+						<parameter>
+							<name>entidadeOrigemRotulo</name>
+							<type>java.lang.String</type>
+						</parameter>
+					</parameters>
+				</method>
+				<method modifier="false">
+					<name>getEntidadeOrigemRotulo</name>
+					<return>
+						<type>java.lang.String</type>
+					</return>
+					<parameters>
+						<size>0</size>
+					</parameters>
+				</method>
+				<method modifier="true">
+					<name>setExpressaoRotulo</name>
+					<return>
+						<type>void</type>
+					</return>
+					<parameters>
+						<size>1</size>
+						<parameter>
+							<name>expressaoRotulo</name>
+							<type>java.lang.String</type>
+						</parameter>
+					</parameters>
+				</method>
+				<method modifier="false">
+					<name>getExpressaoRotulo</name>
+					<return>
+						<type>java.lang.String</type>
+					</return>
+					<parameters>
+						<size>0</size>
+					</parameters>
+				</method>
+				<method modifier="true">
+					<name>setEntidadeDestino</name>
+					<return>
+						<type>void</type>
+					</return>
+					<parameters>
+						<size>1</size>
+						<parameter>
+							<name>entidadeDestino</name>
+							<type>java.lang.String</type>
+						</parameter>
+					</parameters>
+				</method>
+				<method modifier="false">
+					<name>getEntidadeDestino</name>
+					<return>
+						<type>java.lang.String</type>
+					</return>
+					<parameters>
+						<size>0</size>
+					</parameters>
+				</method>
+				<method modifier="true">
+					<name>setAtributoDestino</name>
+					<return>
+						<type>void</type>
+					</return>
+					<parameters>
+						<size>1</size>
+						<parameter>
+							<name>atributoDestino</name>
+							<type>java.lang.String</type>
+						</parameter>
+					</parameters>
+				</method>
+				<method modifier="false">
+					<name>getAtributoDestino</name>
+					<return>
+						<type>java.lang.String</type>
+					</return>
+					<parameters>
+						<size>0</size>
+					</parameters>
+				</method>
+				<method modifier="true">
+					<name>setTipoAtributoDestino</name>
+					<return>
+						<type>void</type>
+					</return>
+					<parameters>
+						<size>1</size>
+						<parameter>
+							<name>tipoAtributoDestino</name>
+							<type>java.lang.String</type>
+						</parameter>
+					</parameters>
+				</method>
+				<method modifier="false">
+					<name>getTipoAtributoDestino</name>
+					<return>
+						<type>java.lang.String</type>
+					</return>
+					<parameters>
+						<size>0</size>
+					</parameters>
+				</method>
+				<method modifier="true">
+					<name>setAtributoEntidadeDestinoRotulo</name>
+					<return>
+						<type>void</type>
+					</return>
+					<parameters>
+						<size>1</size>
+						<parameter>
+							<name>atributoEntidadeDestinoRotulo</name>
+							<type>java.lang.String</type>
+						</parameter>
+					</parameters>
+				</method>
+				<method modifier="false">
+					<name>getAtributoEntidadeDestinoRotulo</name>
+					<return>
+						<type>java.lang.String</type>
+					</return>
+					<parameters>
+						<size>0</size>
+					</parameters>
+				</method>
+				<method modifier="true">
+					<name>setAplicabilidade</name>
+					<return>
+						<type>void</type>
+					</return>
+					<parameters>
+						<size>1</size>
+						<parameter>
+							<name>aplicabilidade</name>
+							<type>java.lang.String</type>
+						</parameter>
+					</parameters>
+				</method>
+				<method modifier="false">
+					<name>getAplicabilidade</name>
+					<return>
+						<type>java.lang.String</type>
+					</return>
+					<parameters>
+						<size>0</size>
+					</parameters>
+				</method>
+			</methods>
+		</entity>
+		<entity>
+			<name>br.gov.controleacesso.cd.OperadorCa</name>
+			<implementationName>br.gov.controleacesso.cd.OperadorCaImpl</implementationName>
+			<attributes>
+				<size>9</size>
+				<attribute identifier="true">
+					<name>id</name>
+					<type>java.lang.Long</type>
+				</attribute>
+				<attribute identifier="false">
+					<name>nome</name>
+					<type>java.lang.String</type>
+				</attribute>
+				<attribute identifier="false">
+					<name>login</name>
+					<type>java.lang.String</type>
+				</attribute>
+				<attribute identifier="false">
+					<name>senha</name>
+					<type>java.lang.String</type>
+				</attribute>
+				<attribute identifier="false">
+					<name>dataUltimoAcesso</name>
+					<type>java.util.Date</type>
+				</attribute>
+				<attribute identifier="false">
+					<name>dataValidadeSenha</name>
+					<type>java.util.Date</type>
+				</attribute>
+				<attribute identifier="false">
+					<name>apelido</name>
+					<type>java.lang.String</type>
+				</attribute>
+				<attribute identifier="false">
+					<name>email</name>
+					<type>java.lang.String</type>
+				</attribute>
+				<attribute identifier="false">
+					<name>situacao</name>
+					<type>java.lang.Integer</type>
+				</attribute>
+			</attributes>
+			<methods>
+				<size>18</size>
+				<method modifier="true">
+					<name>setId</name>
+					<return>
+						<type>void</type>
+					</return>
+					<parameters>
+						<size>1</size>
+						<parameter>
+							<name>id</name>
+							<type>java.lang.Long</type>
+						</parameter>
+					</parameters>
+				</method>
+				<method modifier="false">
+					<name>getId</name>
+					<return>
+						<type>java.lang.Long</type>
+					</return>
+					<parameters>
+						<size>0</size>
+					</parameters>
+				</method>
+				<method modifier="true">
+					<name>setNome</name>
+					<return>
+						<type>void</type>
+					</return>
+					<parameters>
+						<size>1</size>
+						<parameter>
+							<name>nome</name>
+							<type>java.lang.String</type>
+						</parameter>
+					</parameters>
+				</method>
+				<method modifier="false">
+					<name>getNome</name>
+					<return>
+						<type>java.lang.String</type>
+					</return>
+					<parameters>
+						<size>0</size>
+					</parameters>
+				</method>
+				<method modifier="true">
+					<name>setLogin</name>
+					<return>
+						<type>void</type>
+					</return>
+					<parameters>
+						<size>1</size>
+						<parameter>
+							<name>login</name>
+							<type>java.lang.String</type>
+						</parameter>
+					</parameters>
+				</method>
+				<method modifier="false">
+					<name>getLogin</name>
+					<return>
+						<type>java.lang.String</type>
+					</return>
+					<parameters>
+						<size>0</size>
+					</parameters>
+				</method>
+				<method modifier="true">
+					<name>setSenha</name>
+					<return>
+						<type>void</type>
+					</return>
+					<parameters>
+						<size>1</size>
+						<parameter>
+							<name>senha</name>
+							<type>java.lang.String</type>
+						</parameter>
+					</parameters>
+				</method>
+				<method modifier="false">
+					<name>getSenha</name>
+					<return>
+						<type>java.lang.String</type>
+					</return>
+					<parameters>
+						<size>0</size>
+					</parameters>
+				</method>
+				<method modifier="true">
+					<name>setDataUltimoAcesso</name>
+					<return>
+						<type>void</type>
+					</return>
+					<parameters>
+						<size>1</size>
+						<parameter>
+							<name>dataUltimoAcesso</name>
+							<type>java.util.Date</type>
+						</parameter>
+					</parameters>
+				</method>
+				<method modifier="false">
+					<name>getDataUltimoAcesso</name>
+					<return>
+						<type>java.util.Date</type>
+					</return>
+					<parameters>
+						<size>0</size>
+					</parameters>
+				</method>
+				<method modifier="true">
+					<name>setDataValidadeSenha</name>
+					<return>
+						<type>void</type>
+					</return>
+					<parameters>
+						<size>1</size>
+						<parameter>
+							<name>dataValidadeSenha</name>
+							<type>java.util.Date</type>
+						</parameter>
+					</parameters>
+				</method>
+				<method modifier="false">
+					<name>getDataValidadeSenha</name>
+					<return>
+						<type>java.util.Date</type>
+					</return>
+					<parameters>
+						<size>0</size>
+					</parameters>
+				</method>
+				<method modifier="true">
+					<name>setApelido</name>
+					<return>
+						<type>void</type>
+					</return>
+					<parameters>
+						<size>1</size>
+						<parameter>
+							<name>apelido</name>
+							<type>java.lang.String</type>
+						</parameter>
+					</parameters>
+				</method>
+				<method modifier="false">
+					<name>getApelido</name>
+					<return>
+						<type>java.lang.String</type>
+					</return>
+					<parameters>
+						<size>0</size>
+					</parameters>
+				</method>
+				<method modifier="true">
+					<name>setEmail</name>
+					<return>
+						<type>void</type>
+					</return>
+					<parameters>
+						<size>1</size>
+						<parameter>
+							<name>email</name>
+							<type>java.lang.String</type>
+						</parameter>
+					</parameters>
+				</method>
+				<method modifier="false">
+					<name>getEmail</name>
+					<return>
+						<type>java.lang.String</type>
+					</return>
+					<parameters>
+						<size>0</size>
+					</parameters>
+				</method>
+				<method modifier="true">
+					<name>setSituacao</name>
+					<return>
+						<type>void</type>
+					</return>
+					<parameters>
+						<size>1</size>
+						<parameter>
+							<name>situacao</name>
+							<type>java.lang.Integer</type>
+						</parameter>
+					</parameters>
+				</method>
+				<method modifier="false">
+					<name>getSituacao</name>
+					<return>
+						<type>java.lang.Integer</type>
+					</return>
+					<parameters>
+						<size>0</size>
+					</parameters>
+				</method>
+			</methods>
+		</entity>
+		<entity>
+			<name>br.gov.controleacesso.cd.OperadorRestricaoCa</name>
+			<implementationName>br.gov.controleacesso.cd.OperadorRestricaoCaImpl</implementationName>
+			<attributes>
+				<size>4</size>
+				<attribute identifier="true">
+					<name>id</name>
+					<type>java.lang.Long</type>
+				</attribute>
+				<attribute identifier="false">
+					<name>nome</name>
+					<type>java.lang.String</type>
+				</attribute>
+				<attribute identifier="false">
+					<name>codigo</name>
+					<type>java.lang.String</type>
+				</attribute>
+				<attribute identifier="false">
+					<name>permiteMultiplosValores</name>
+					<type>java.lang.Boolean</type>
+				</attribute>
+			</attributes>
+			<methods>
+				<size>8</size>
+				<method modifier="true">
+					<name>setId</name>
+					<return>
+						<type>void</type>
+					</return>
+					<parameters>
+						<size>1</size>
+						<parameter>
+							<name>id</name>
+							<type>java.lang.Long</type>
+						</parameter>
+					</parameters>
+				</method>
+				<method modifier="false">
+					<name>getId</name>
+					<return>
+						<type>java.lang.Long</type>
+					</return>
+					<parameters>
+						<size>0</size>
+					</parameters>
+				</method>
+				<method modifier="true">
+					<name>setNome</name>
+					<return>
+						<type>void</type>
+					</return>
+					<parameters>
+						<size>1</size>
+						<parameter>
+							<name>nome</name>
+							<type>java.lang.String</type>
+						</parameter>
+					</parameters>
+				</method>
+				<method modifier="false">
+					<name>getNome</name>
+					<return>
+						<type>java.lang.String</type>
+					</return>
+					<parameters>
+						<size>0</size>
+					</parameters>
+				</method>
+				<method modifier="true">
+					<name>setCodigo</name>
+					<return>
+						<type>void</type>
+					</return>
+					<parameters>
+						<size>1</size>
+						<parameter>
+							<name>codigo</name>
+							<type>java.lang.String</type>
+						</parameter>
+					</parameters>
+				</method>
+				<method modifier="false">
+					<name>getCodigo</name>
+					<return>
+						<type>java.lang.String</type>
+					</return>
+					<parameters>
+						<size>0</size>
+					</parameters>
+				</method>
+				<method modifier="true">
+					<name>setPermiteMultiplosValores</name>
+					<return>
+						<type>void</type>
+					</return>
+					<parameters>
+						<size>1</size>
+						<parameter>
+							<name>permiteMultiplosValores</name>
+							<type>java.lang.Boolean</type>
+						</parameter>
+					</parameters>
+				</method>
+				<method modifier="false">
+					<name>getPermiteMultiplosValores</name>
+					<return>
+						<type>java.lang.Boolean</type>
+					</return>
+					<parameters>
+						<size>0</size>
+					</parameters>
+				</method>
+			</methods>
+		</entity>
+		<entity>
+			<name>br.gov.controleacesso.cd.OrgaoCa</name>
+			<implementationName>br.gov.controleacesso.cd.OrgaoCaImpl</implementationName>
+			<attributes>
+				<size>3</size>
+				<attribute identifier="true">
+					<name>id</name>
+					<type>java.lang.Long</type>
+				</attribute>
+				<attribute identifier="false">
+					<name>nome</name>
+					<type>java.lang.String</type>
+				</attribute>
+				<attribute identifier="false">
+					<name>codigo</name>
+					<type>java.lang.String</type>
+				</attribute>
+			</attributes>
+			<methods>
+				<size>6</size>
+				<method modifier="true">
+					<name>setId</name>
+					<return>
+						<type>void</type>
+					</return>
+					<parameters>
+						<size>1</size>
+						<parameter>
+							<name>id</name>
+							<type>java.lang.Long</type>
+						</parameter>
+					</parameters>
+				</method>
+				<method modifier="false">
+					<name>getId</name>
+					<return>
+						<type>java.lang.Long</type>
+					</return>
+					<parameters>
+						<size>0</size>
+					</parameters>
+				</method>
+				<method modifier="true">
+					<name>setNome</name>
+					<return>
+						<type>void</type>
+					</return>
+					<parameters>
+						<size>1</size>
+						<parameter>
+							<name>nome</name>
+							<type>java.lang.String</type>
+						</parameter>
+					</parameters>
+				</method>
+				<method modifier="false">
+					<name>getNome</name>
+					<return>
+						<type>java.lang.String</type>
+					</return>
+					<parameters>
+						<size>0</size>
+					</parameters>
+				</method>
+				<method modifier="true">
+					<name>setCodigo</name>
+					<return>
+						<type>void</type>
+					</return>
+					<parameters>
+						<size>1</size>
+						<parameter>
+							<name>codigo</name>
+							<type>java.lang.String</type>
+						</parameter>
+					</parameters>
+				</method>
+				<method modifier="false">
+					<name>getCodigo</name>
+					<return>
+						<type>java.lang.String</type>
+					</return>
+					<parameters>
+						<size>0</size>
+					</parameters>
+				</method>
+			</methods>
+		</entity>
+		<entity>
+			<name>br.gov.controleacesso.cd.PerfilCa</name>
+			<implementationName>br.gov.controleacesso.cd.PerfilCaImpl</implementationName>
+			<attributes>
+				<size>3</size>
+				<attribute identifier="true">
+					<name>id</name>
+					<type>java.lang.Long</type>
+				</attribute>
+				<attribute identifier="false">
+					<name>nome</name>
+					<type>java.lang.String</type>
+				</attribute>
+				<attribute identifier="false">
+					<name>codigo</name>
+					<type>java.lang.String</type>
+				</attribute>
+			</attributes>
+			<methods>
+				<size>6</size>
+				<method modifier="true">
+					<name>setId</name>
+					<return>
+						<type>void</type>
+					</return>
+					<parameters>
+						<size>1</size>
+						<parameter>
+							<name>id</name>
+							<type>java.lang.Long</type>
+						</parameter>
+					</parameters>
+				</method>
+				<method modifier="false">
+					<name>getId</name>
+					<return>
+						<type>java.lang.Long</type>
+					</return>
+					<parameters>
+						<size>0</size>
+					</parameters>
+				</method>
+				<method modifier="true">
+					<name>setNome</name>
+					<return>
+						<type>void</type>
+					</return>
+					<parameters>
+						<size>1</size>
+						<parameter>
+							<name>nome</name>
+							<type>java.lang.String</type>
+						</parameter>
+					</parameters>
+				</method>
+				<method modifier="false">
+					<name>getNome</name>
+					<return>
+						<type>java.lang.String</type>
+					</return>
+					<parameters>
+						<size>0</size>
+					</parameters>
+				</method>
+				<method modifier="true">
+					<name>setCodigo</name>
+					<return>
+						<type>void</type>
+					</return>
+					<parameters>
+						<size>1</size>
+						<parameter>
+							<name>codigo</name>
+							<type>java.lang.String</type>
+						</parameter>
+					</parameters>
+				</method>
+				<method modifier="false">
+					<name>getCodigo</name>
+					<return>
+						<type>java.lang.String</type>
+					</return>
+					<parameters>
+						<size>0</size>
+					</parameters>
+				</method>
+			</methods>
+		</entity>
+		<entity>
+			<name>br.gov.controleacesso.cd.PerfilOperadorCa</name>
+			<implementationName>br.gov.controleacesso.cd.PerfilOperadorCaImpl</implementationName>
+			<extends>br.gov.controleacesso.cd.PerfilCa</extends>
+			<attributes>
+				<size>0</size>
+			</attributes>
+			<methods>
+				<size>0</size>
+			</methods>
+		</entity>
+		<entity>
+			<name>br.gov.controleacesso.cd.PerfilOperadorServicoPerfilOrgaoCa</name>
+			<implementationName>br.gov.controleacesso.cd.PerfilOperadorServicoPerfilOrgaoCaImpl</implementationName>
+			<attributes>
+				<size>1</size>
+				<attribute identifier="true">
+					<name>id</name>
+					<type>java.lang.Long</type>
+				</attribute>
+			</attributes>
+			<methods>
+				<size>2</size>
+				<method modifier="true">
+					<name>setId</name>
+					<return>
+						<type>void</type>
+					</return>
+					<parameters>
+						<size>1</size>
+						<parameter>
+							<name>id</name>
+							<type>java.lang.Long</type>
+						</parameter>
+					</parameters>
+				</method>
+				<method modifier="false">
+					<name>getId</name>
+					<return>
+						<type>java.lang.Long</type>
+					</return>
+					<parameters>
+						<size>0</size>
+					</parameters>
+				</method>
+			</methods>
+		</entity>
+		<entity>
+			<name>br.gov.controleacesso.cd.PerfilOrgaoCa</name>
+			<implementationName>br.gov.controleacesso.cd.PerfilOrgaoCaImpl</implementationName>
+			<extends>br.gov.controleacesso.cd.PerfilCa</extends>
+			<attributes>
+				<size>0</size>
+			</attributes>
+			<methods>
+				<size>0</size>
+			</methods>
+		</entity>
+		<entity>
+			<name>br.ufrj.coppe.system.cd.Person</name>
+			<implementationName>br.ufrj.coppe.system.cd.PersonImpl</implementationName>
+			<attributes>
+				<size>2</size>
+				<attribute identifier="false">
+					<name>name</name>
+					<type>java.lang.String</type>
+				</attribute>
+				<attribute identifier="true">
+					<name>id</name>
+					<type>java.lang.Long</type>
+				</attribute>
+			</attributes>
+			<methods>
+				<size>4</size>
+				<method modifier="true">
+					<name>setName</name>
+					<return>
+						<type>void</type>
+					</return>
+					<parameters>
+						<size>1</size>
+						<parameter>
+							<name>name</name>
+							<type>java.lang.String</type>
+						</parameter>
+					</parameters>
+				</method>
+				<method modifier="false">
+					<name>getName</name>
+					<return>
+						<type>java.lang.String</type>
+					</return>
+					<parameters>
+						<size>0</size>
+					</parameters>
+				</method>
+				<method modifier="true">
+					<name>setId</name>
+					<return>
+						<type>void</type>
+					</return>
+					<parameters>
+						<size>1</size>
+						<parameter>
+							<name>id</name>
+							<type>java.lang.Long</type>
+						</parameter>
+					</parameters>
+				</method>
+				<method modifier="false">
+					<name>getId</name>
+					<return>
+						<type>java.lang.Long</type>
+					</return>
+					<parameters>
+						<size>0</size>
+					</parameters>
+				</method>
+			</methods>
+		</entity>
+		<entity>
+			<name>br.gov.controleacesso.cd.RestricaoCa</name>
+			<implementationName>br.gov.controleacesso.cd.RestricaoCaImpl</implementationName>
+			<attributes>
+				<size>1</size>
+				<attribute identifier="true">
+					<name>id</name>
+					<type>java.lang.Long</type>
+				</attribute>
+			</attributes>
+			<methods>
+				<size>2</size>
+				<method modifier="true">
+					<name>setId</name>
+					<return>
+						<type>void</type>
+					</return>
+					<parameters>
+						<size>1</size>
+						<parameter>
+							<name>id</name>
+							<type>java.lang.Long</type>
+						</parameter>
+					</parameters>
+				</method>
+				<method modifier="false">
+					<name>getId</name>
+					<return>
+						<type>java.lang.Long</type>
+					</return>
+					<parameters>
+						<size>0</size>
+					</parameters>
+				</method>
+			</methods>
+		</entity>
+		<entity>
+			<name>br.gov.controleacesso.cd.ServicoCa</name>
+			<implementationName>br.gov.controleacesso.cd.ServicoCaImpl</implementationName>
+			<attributes>
+				<size>9</size>
+				<attribute identifier="true">
+					<name>id</name>
+					<type>java.lang.Long</type>
+				</attribute>
+				<attribute identifier="false">
+					<name>nome</name>
+					<type>java.lang.String</type>
+				</attribute>
+				<attribute identifier="false">
+					<name>nivelAprovacaoInicial</name>
+					<type>java.lang.Integer</type>
+				</attribute>
+				<attribute identifier="false">
+					<name>codigo</name>
+					<type>java.lang.String</type>
+				</attribute>
+				<attribute identifier="false">
+					<name>agendavel</name>
+					<type>java.lang.Boolean</type>
+				</attribute>
+				<attribute identifier="false">
+					<name>descricao</name>
+					<type>java.lang.String</type>
+				</attribute>
+				<attribute identifier="false">
+					<name>classe</name>
+					<type>java.lang.String</type>
+				</attribute>
+				<attribute identifier="false">
+					<name>metodo</name>
+					<type>java.lang.String</type>
+				</attribute>
+				<attribute identifier="false">
+					<name>tipo</name>
+					<type>java.lang.String</type>
+				</attribute>
+			</attributes>
+			<methods>
+				<size>18</size>
+				<method modifier="true">
+					<name>setId</name>
+					<return>
+						<type>void</type>
+					</return>
+					<parameters>
+						<size>1</size>
+						<parameter>
+							<name>id</name>
+							<type>java.lang.Long</type>
+						</parameter>
+					</parameters>
+				</method>
+				<method modifier="false">
+					<name>getId</name>
+					<return>
+						<type>java.lang.Long</type>
+					</return>
+					<parameters>
+						<size>0</size>
+					</parameters>
+				</method>
+				<method modifier="true">
+					<name>setNome</name>
+					<return>
+						<type>void</type>
+					</return>
+					<parameters>
+						<size>1</size>
+						<parameter>
+							<name>nome</name>
+							<type>java.lang.String</type>
+						</parameter>
+					</parameters>
+				</method>
+				<method modifier="false">
+					<name>getNome</name>
+					<return>
+						<type>java.lang.String</type>
+					</return>
+					<parameters>
+						<size>0</size>
+					</parameters>
+				</method>
+				<method modifier="true">
+					<name>setNivelAprovacaoInicial</name>
+					<return>
+						<type>void</type>
+					</return>
+					<parameters>
+						<size>1</size>
+						<parameter>
+							<name>nivelAprovacaoInicial</name>
+							<type>java.lang.Integer</type>
+						</parameter>
+					</parameters>
+				</method>
+				<method modifier="false">
+					<name>getNivelAprovacaoInicial</name>
+					<return>
+						<type>java.lang.Integer</type>
+					</return>
+					<parameters>
+						<size>0</size>
+					</parameters>
+				</method>
+				<method modifier="true">
+					<name>setCodigo</name>
+					<return>
+						<type>void</type>
+					</return>
+					<parameters>
+						<size>1</size>
+						<parameter>
+							<name>codigo</name>
+							<type>java.lang.String</type>
+						</parameter>
+					</parameters>
+				</method>
+				<method modifier="false">
+					<name>getCodigo</name>
+					<return>
+						<type>java.lang.String</type>
+					</return>
+					<parameters>
+						<size>0</size>
+					</parameters>
+				</method>
+				<method modifier="true">
+					<name>setAgendavel</name>
+					<return>
+						<type>void</type>
+					</return>
+					<parameters>
+						<size>1</size>
+						<parameter>
+							<name>agendavel</name>
+							<type>java.lang.Boolean</type>
+						</parameter>
+					</parameters>
+				</method>
+				<method modifier="false">
+					<name>getAgendavel</name>
+					<return>
+						<type>java.lang.Boolean</type>
+					</return>
+					<parameters>
+						<size>0</size>
+					</parameters>
+				</method>
+				<method modifier="true">
+					<name>setDescricao</name>
+					<return>
+						<type>void</type>
+					</return>
+					<parameters>
+						<size>1</size>
+						<parameter>
+							<name>descricao</name>
+							<type>java.lang.String</type>
+						</parameter>
+					</parameters>
+				</method>
+				<method modifier="false">
+					<name>getDescricao</name>
+					<return>
+						<type>java.lang.String</type>
+					</return>
+					<parameters>
+						<size>0</size>
+					</parameters>
+				</method>
+				<method modifier="true">
+					<name>setClasse</name>
+					<return>
+						<type>void</type>
+					</return>
+					<parameters>
+						<size>1</size>
+						<parameter>
+							<name>classe</name>
+							<type>java.lang.String</type>
+						</parameter>
+					</parameters>
+				</method>
+				<method modifier="false">
+					<name>getClasse</name>
+					<return>
+						<type>java.lang.String</type>
+					</return>
+					<parameters>
+						<size>0</size>
+					</parameters>
+				</method>
+				<method modifier="true">
+					<name>setMetodo</name>
+					<return>
+						<type>void</type>
+					</return>
+					<parameters>
+						<size>1</size>
+						<parameter>
+							<name>metodo</name>
+							<type>java.lang.String</type>
+						</parameter>
+					</parameters>
+				</method>
+				<method modifier="false">
+					<name>getMetodo</name>
+					<return>
+						<type>java.lang.String</type>
+					</return>
+					<parameters>
+						<size>0</size>
+					</parameters>
+				</method>
+				<method modifier="true">
+					<name>setTipo</name>
+					<return>
+						<type>void</type>
+					</return>
+					<parameters>
+						<size>1</size>
+						<parameter>
+							<name>tipo</name>
+							<type>java.lang.String</type>
+						</parameter>
+					</parameters>
+				</method>
+				<method modifier="false">
+					<name>getTipo</name>
+					<return>
+						<type>java.lang.String</type>
+					</return>
+					<parameters>
+						<size>0</size>
+					</parameters>
+				</method>
+			</methods>
+		</entity>
+		<entity>
+			<name>br.gov.controleacesso.cd.ServicoPerfilOrgaoCa</name>
+			<implementationName>br.gov.controleacesso.cd.ServicoPerfilOrgaoCaImpl</implementationName>
+			<attributes>
+				<size>1</size>
+				<attribute identifier="true">
+					<name>Id</name>
+					<type>java.lang.Long</type>
+				</attribute>
+			</attributes>
+			<methods>
+				<size>2</size>
+				<method modifier="true">
+					<name>setId</name>
+					<return>
+						<type>void</type>
+					</return>
+					<parameters>
+						<size>1</size>
+						<parameter>
+							<name>Id</name>
+							<type>java.lang.Long</type>
+						</parameter>
+					</parameters>
+				</method>
+				<method modifier="false">
+					<name>getId</name>
+					<return>
+						<type>java.lang.Long</type>
+					</return>
+					<parameters>
+						<size>0</size>
+					</parameters>
+				</method>
+			</methods>
+		</entity>
+		<entity>
+			<name>br.gov.controleacesso.cd.SistemaCa</name>
+			<implementationName>br.gov.controleacesso.cd.SistemaCaImpl</implementationName>
+			<attributes>
+				<size>2</size>
+				<attribute identifier="false">
+					<name>nome</name>
+					<type>java.lang.String</type>
+				</attribute>
+				<attribute identifier="true">
+					<name>id</name>
+					<type>java.lang.Long</type>
+				</attribute>
+			</attributes>
+			<methods>
+				<size>4</size>
+				<method modifier="true">
+					<name>setNome</name>
+					<return>
+						<type>void</type>
+					</return>
+					<parameters>
+						<size>1</size>
+						<parameter>
+							<name>nome</name>
+							<type>java.lang.String</type>
+						</parameter>
+					</parameters>
+				</method>
+				<method modifier="false">
+					<name>getNome</name>
+					<return>
+						<type>java.lang.String</type>
+					</return>
+					<parameters>
+						<size>0</size>
+					</parameters>
+				</method>
+				<method modifier="true">
+					<name>setId</name>
+					<return>
+						<type>void</type>
+					</return>
+					<parameters>
+						<size>1</size>
+						<parameter>
+							<name>id</name>
+							<type>java.lang.Long</type>
+						</parameter>
+					</parameters>
+				</method>
+				<method modifier="false">
+					<name>getId</name>
+					<return>
+						<type>java.lang.Long</type>
+					</return>
+					<parameters>
+						<size>0</size>
+					</parameters>
+				</method>
+			</methods>
+		</entity>
+		<entity>
+			<name>br.ufrj.coppe.system.cd.Student</name>
+			<implementationName>br.ufrj.coppe.system.cd.StudentImpl</implementationName>
+			<extends>br.ufrj.coppe.system.cd.Person</extends>
+			<attributes>
+				<size>3</size>
+				<attribute identifier="false">
+					<name>enrollmentNumber</name>
+					<type>java.lang.String</type>
+				</attribute>
+				<attribute identifier="false">
+					<name>enrollmentStatus</name>
+					<type>br.ufrj.coppe.system.eo.Status</type>
+				</attribute>
+				<attribute identifier="false">
+					<name>startDate</name>
+					<type>java.util.Date</type>
+				</attribute>
+			</attributes>
+			<methods>
+				<size>6</size>
+				<method modifier="true">
+					<name>setEnrollmentNumber</name>
+					<return>
+						<type>void</type>
+					</return>
+					<parameters>
+						<size>1</size>
+						<parameter>
+							<name>enrollmentNumber</name>
+							<type>java.lang.String</type>
+						</parameter>
+					</parameters>
+				</method>
+				<method modifier="false">
+					<name>getEnrollmentNumber</name>
+					<return>
+						<type>java.lang.String</type>
+					</return>
+					<parameters>
+						<size>0</size>
+					</parameters>
+				</method>
+				<method modifier="true">
+					<name>setEnrollmentStatus</name>
+					<return>
+						<type>void</type>
+					</return>
+					<parameters>
+						<size>1</size>
+						<parameter>
+							<name>enrollmentStatus</name>
+							<type>br.ufrj.coppe.system.eo.Status</type>
+						</parameter>
+					</parameters>
+				</method>
+				<method modifier="false">
+					<name>getEnrollmentStatus</name>
+					<return>
+						<type>br.ufrj.coppe.system.eo.Status</type>
+					</return>
+					<parameters>
+						<size>0</size>
+					</parameters>
+				</method>
+				<method modifier="true">
+					<name>setStartDate</name>
+					<return>
+						<type>void</type>
+					</return>
+					<parameters>
+						<size>1</size>
+						<parameter>
+							<name>startDate</name>
+							<type>java.util.Date</type>
+						</parameter>
+					</parameters>
+				</method>
+				<method modifier="false">
+					<name>getStartDate</name>
+					<return>
+						<type>java.util.Date</type>
+					</return>
+					<parameters>
+						<size>0</size>
+					</parameters>
+				</method>
+			</methods>
+		</entity>
+		<entity>
+			<name>br.gov.controleacesso.cd.ValorRestricaoCa</name>
+			<implementationName>br.gov.controleacesso.cd.ValorRestricaoCaImpl</implementationName>
+			<attributes>
+				<size>2</size>
+				<attribute identifier="true">
+					<name>id</name>
+					<type>java.lang.Long</type>
+				</attribute>
+				<attribute identifier="false">
+					<name>valor</name>
+					<type>java.lang.String</type>
+				</attribute>
+			</attributes>
+			<methods>
+				<size>4</size>
+				<method modifier="true">
+					<name>setId</name>
+					<return>
+						<type>void</type>
+					</return>
+					<parameters>
+						<size>1</size>
+						<parameter>
+							<name>id</name>
+							<type>java.lang.Long</type>
+						</parameter>
+					</parameters>
+				</method>
+				<method modifier="false">
+					<name>getId</name>
+					<return>
+						<type>java.lang.Long</type>
+					</return>
+					<parameters>
+						<size>0</size>
+					</parameters>
+				</method>
+				<method modifier="true">
+					<name>setValor</name>
+					<return>
+						<type>void</type>
+					</return>
+					<parameters>
+						<size>1</size>
+						<parameter>
+							<name>valor</name>
+							<type>java.lang.String</type>
+						</parameter>
+					</parameters>
+				</method>
+				<method modifier="false">
+					<name>getValor</name>
+					<return>
+						<type>java.lang.String</type>
+					</return>
+					<parameters>
+						<size>0</size>
+					</parameters>
+				</method>
+			</methods>
+		</entity>
+		<entity>
+			<name>br.gov.controleacesso.cd.ValorRestricaoDinamicoCa</name>
+			<implementationName>br.gov.controleacesso.cd.ValorRestricaoDinamicoCaImpl</implementationName>
+			<extends>br.gov.controleacesso.cd.ValorRestricaoCa</extends>
+			<attributes>
+				<size>0</size>
+			</attributes>
+			<methods>
+				<size>0</size>
+			</methods>
+		</entity>
+		<entity>
+			<name>br.gov.controleacesso.cd.ValorRestricaoEstaticoCa</name>
+			<implementationName>br.gov.controleacesso.cd.ValorRestricaoEstaticoCaImpl</implementationName>
+			<extends>br.gov.controleacesso.cd.ValorRestricaoCa</extends>
+			<attributes>
+				<size>0</size>
+			</attributes>
+			<methods>
+				<size>0</size>
+			</methods>
+		</entity>
+	</entities>
+	<entitiesTotal>18</entitiesTotal>
+</statistics>

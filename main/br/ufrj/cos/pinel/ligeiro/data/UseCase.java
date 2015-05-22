@@ -13,6 +13,8 @@ public class UseCase
 
 	private String moduleName;
 
+	private String activityDiagram;
+
 	private Controller controller;
 
 	private Collection<View> views;
@@ -70,6 +72,22 @@ public class UseCase
 	public void setModuleName(String moduleName)
 	{
 		this.moduleName = moduleName;
+	}
+
+	/**
+	 * @return the activityDiagram
+	 */
+	public String getActivityDiagram()
+	{
+		return activityDiagram;
+	}
+
+	/**
+	 * @param activityDiagram the activityDiagram to set
+	 */
+	public void setActivityDiagram(String activityDiagram)
+	{
+		this.activityDiagram = activityDiagram;
 	}
 
 	/**
