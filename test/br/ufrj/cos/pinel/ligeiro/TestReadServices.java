@@ -23,8 +23,8 @@ public class TestReadServices
 		{
 			Util.println("-- TestReadServices --");
 
-			Collection<Service> services = XMLUtil.readServices("data/statistics/statistics_services.xml");
-			//Collection<Service> services = XMLUtil.readServices("data/statistics/statistics_controleacesso.xml");
+			Collection<Service> services = XMLUtil.readServices("data/AcademicSystem/statistics/statistics_services.xml");
+			//Collection<Service> services = XMLUtil.readServices("data/AcademicSystem/statistics/statistics_controleacesso.xml");
 
 			Util.println("Services: " + services.size());
 

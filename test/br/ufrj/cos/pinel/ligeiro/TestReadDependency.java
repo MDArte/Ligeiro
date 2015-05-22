@@ -22,7 +22,7 @@ public class TestReadDependency
 		{
 			Util.println("-- TestReadDependency --");
 
-			Collection<BaseClass> classes = XMLUtil.readDependencies("data/dependency/as-core-student.xml");
+			Collection<BaseClass> classes = XMLUtil.readDependencies("data/AcademicSystem/dependency/as-core-student.xml");
 
 			Util.println("Classes: " + classes.size());
 

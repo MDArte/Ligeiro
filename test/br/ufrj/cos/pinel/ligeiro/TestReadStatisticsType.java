@@ -20,7 +20,7 @@ public class TestReadStatisticsType
 		{
 			Util.println("-- TestReadStatisticsType --");
 
-			String statisticsType = XMLUtil.readStatisticType("data/statistics/statistics_services.xml");
+			String statisticsType = XMLUtil.readStatisticType("data/AcademicSystem/statistics/statistics_services.xml");
 
 			Util.println("StatisticsType: " + statisticsType);
 
