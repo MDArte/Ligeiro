@@ -6,10 +6,10 @@ package br.ufrj.cos.pinel.ligeiro.data;
  */
 public class ClassUsage
 {
-	public static String CLASS = "class";
-	public static String ENTITY = "entity";
-	public static String SERVICE = "service";
-	public static String USE_CASE = "usecase";
+	public static final String CLASS = "class";
+	public static final String ENTITY = "entity";
+	public static final String SERVICE = "service";
+	public static final String USE_CASE = "usecase";
 
 	private String type;
 	private String element;

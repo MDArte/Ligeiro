@@ -27,7 +27,7 @@ public class TestReadUseCases
 		{
 			Util.println("-- TestReadUseCases --");
 
-			Collection<UseCase> useCases = XMLUtil.readUseCases("data/statistics/statistics_usecases.xml");
+			Collection<UseCase> useCases = XMLUtil.readUseCases("data/AcademicSystem/statistics/statistics_usecases.xml");
 			Util.println("UseCases: " + useCases.size());
 
 			for (UseCase useCase : useCases)

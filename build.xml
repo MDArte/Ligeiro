@@ -1,9 +1,9 @@
 <project name="Ligeiro" default="copy-classes-plugin" basedir=".">
-
 	<property environment="env"/>
 	<property name="project.version" value="1.0"/>
 	<property name="copyright.msg" value="Roque Pinel"/>
 	<property name="target.folder" value="${basedir}"/>
+	<property name="prefuse.version" value="beta-20071021"/>
 
 	<!-- ================== Common Targets ==================== -->
 
@@ -24,6 +24,7 @@
 		<property name="build.dir" location="build"/>
 		<property name="resources.temp.dir" location="build/resources_temp"/>
 		<property name="compile.dest.dir" location="build/tmp"/>
+		<property name="package.skel.dir" location="package-skel"/>
 
 		<!-- Source compliance -->
 		<property name="source.jdk" value="1.5"/>
@@ -31,6 +32,7 @@
 
 		<!-- Filenames -->
 		<property name="jarfile.name" value="${ant.project.name}-${project.version}.jar" />
+		<property name="prefuse.jarfile.name" value="prefuse-${prefuse.version}.jar" />
 		
 		<!-- Timestamp -->
 		<tstamp>
@@ -71,6 +73,7 @@
 
 		<echo message="compile.src: ${compile.src}"/>
 		<echo message="compile.dest.dir: ${compile.dest.dir}"/>
+		<echo message="package.skel.dir: ${package.skel.dir}"/>
 		<echo message="resources.temp.dir: ${resources.temp.dir}"/>
 		<echo message=" "/>
 		
@@ -88,9 +91,22 @@
 	</target>
 
 	<!-- ****************************************************** -->
+	<!-- Unzip the Prefuse Jar for Plugin                       -->
+	<!-- ****************************************************** -->
+	<target name="unzip-prefuse-jar" depends="print-properties" description="Unzip the prefuse JAR">
+		<unzip src="lib/${prefuse.jarfile.name}" dest="${compile.dest.dir}">
+			<patternset>
+				<exclude name="WEB-INF/"/>
+			</patternset>
+		</unzip>
+
+		<echo message="unzip-prefuse-jar done"/>
+	</target>
+
+	<!-- ****************************************************** -->
 	<!-- Build Classes                                          -->
 	<!-- ****************************************************** -->
-	<target name="build-classes" depends="print-properties" description="Compile classes (javac)">
+	<target name="build-classes" depends="unzip-prefuse-jar" description="Compile classes (javac)">
 		<mkdir dir="${compile.dest.dir}"/>
 
 		<javac 
@@ -131,8 +147,6 @@
 		</jar>
 
 		<echo message="build-jar done"/>
-
-		
 	</target>
 
 	<!-- ****************************************************** -->
@@ -142,8 +156,11 @@
 		<delete dir="${ligeiro.jar.plugin}/br"/>
 
 		<copy todir="${ligeiro.jar.plugin}">
-			<fileset dir="${compile.dest.dir}">
+			<fileset dir="${package.skel.dir}">
 				<include name="**/*" />
+			</fileset>
+			<fileset dir="${compile.dest.dir}">
+			    <include name="**/*" />
 			</fileset>
 		</copy>
 
@@ -154,6 +171,7 @@
 	<!--  Clear                                                   -->
 	<!--  ******************************************************  -->
 	<target name="clear" depends="set-properties" description="Deletes all generated files and directories">
+		<delete dir="${ligeiro.jar.plugin}"/>
 		<delete dir="${build.dir}"/>
 		<delete>
 			<fileset dir="${basedir}" includes="*.jar"/>
@@ -163,5 +181,4 @@
 		</delete>
 		<delete file="${src.java.dir}/version.properties"/>
 	</target>
-
 </project>

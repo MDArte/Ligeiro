@@ -26,6 +26,7 @@ import br.ufrj.cos.pinel.ligeiro.data.UseCase;
 import br.ufrj.cos.pinel.ligeiro.data.View;
 import br.ufrj.cos.pinel.ligeiro.exception.LigeiroException;
 import br.ufrj.cos.pinel.ligeiro.graph.ClassUsageGraph;
+import br.ufrj.cos.pinel.ligeiro.graph.ComponentGraph;
 import br.ufrj.cos.pinel.ligeiro.report.FPAReport;
 import br.ufrj.cos.pinel.ligeiro.report.LoadReport;
 import br.ufrj.cos.pinel.ligeiro.report.ReportResult;
@@ -130,7 +131,7 @@ public class Core
 
 	/**
 	 * Reads the FPA Configuration.
-	 * 
+	 *
 	 * @return fileName the XML's filename
 	 * @throws ReadXMLException
 	 */
@@ -143,10 +144,10 @@ public class Core
 
 	/**
 	 * Reads the statistics.
-	 * 
+	 *
 	 * @param fileName the XML's filename
 	 * @return loadReport the report
-	 * @throws ReadXMLException 
+	 * @throws ReadXMLException
 	 */
 	public LoadReport readStatistics(String fileName) throws ReadXMLException
 	{
@@ -233,7 +234,7 @@ public class Core
 
 	/**
 	 * Reads the dependencies.
-	 * 
+	 *
 	 * @param fileName the XML's filename
 	 * @return loadReport the report
 	 * @throws ReadXMLException
@@ -270,7 +271,7 @@ public class Core
 
 	/**
 	 * Verifies if a method changes data or the system's behavior.
-	 * 
+	 *
 	 * @param dependencyClass The dependency class that contains the method.
 	 * @param methodSignature The method signature to retrieve the dependencies.
 	 * @return The result will be <code>true</code> if the method changes data or the system's behavior
@@ -299,7 +300,7 @@ public class Core
 						if (entity != null)
 						{
 							String entityName = entity.getName();
-	
+
 							if (countedEntities != null && entityName != null)
 								countedEntities.add(entityName);
 						}
@@ -307,24 +308,24 @@ public class Core
 					else
 					{
 						String dependencyElementName = Util.getMethodClassName(dependency.getValue());
-	
+
 						Entity entity = entities.get(dependencyElementName);
-	
+
 						// if the dependency is an entity
 						if (entity != null)
 						{
 							String entityName = entity.getName();
-	
+
 							if (countedEntities != null && entityName != null)
 								countedEntities.add(entityName);
-	
+
 							if (dependencyElementName.equals(entity.getImplementationName()))
 								entityName = entity.getImplementationName();
-	
+
 							for (Method entityMethod : entity.getMethods())
 							{
 								String signature = entityName + "." + entityMethod.getSignature();
-			
+
 								if (dependency.getValue().equals(signature) && entityMethod.isModifier())
 								{
 									ret = true;
@@ -335,25 +336,25 @@ public class Core
 						else
 						{
 							DAO dao = daos.get(dependencyElementName);
-	
+
 							// if the dependency is a DAO
 							if (dao != null)
 							{
 								Entity daoEntity = dao.getEntity();
-	
+
 								if (countedEntities != null && daoEntity != null && daoEntity.getName() != null)
 									countedEntities.add(daoEntity.getName());
-	
+
 								String daoName = dao.getName();
-	
-								// if the dependency is related to the implementation name, then use it 
+
+								// if the dependency is related to the implementation name, then use it
 								if (dependencyElementName.equals(dao.getImplementationName()))
 									daoName = dao.getImplementationName();
-	
+
 								for (DAOMethod daoMethod : dao.getMethods())
 								{
 									String signature = daoName + "." + daoMethod.getName();
-	
+
 									if (daoMethod.isDelete() && dependency.getValue().equals(signature))
 									{
 										ret = true;
@@ -367,24 +368,24 @@ public class Core
 								if (methodClassName != null)
 								{
 									IBaseClass clazz = allClasses.get(methodClassName);
-	
+
 									if (clazz != null)
 									{
 										Set<String> methodSignatures = clazz.getMethodsSignatures();
-	
+
 										BaseClass newDependencyClass = dependencyClasses.get(clazz.getImplementationName());
-	
+
 										boolean foundMethod = false;
-	
+
 										if (newDependencyClass != null)
 										{
 											String methodName = Util.getMethodName(dependency.getValue());
-	
+
 											String[] params = Util.getMethodParameters(dependency.getValue());
-	
+
 											boolean foundBestMatch = false;
 											Method methodMatched = null;
-	
+
 											// looking for the method to get the right signature
 											for (Method method : clazz.getMethods())
 											{
@@ -394,7 +395,7 @@ public class Core
 													|| (method.getImplementationName() != null && methodName.equals(method.getImplementationName())))
 												{
 													boolean match = true;
-	
+
 													int i = 0;
 													for (Parameter param : method.getParameters())
 													{
@@ -405,11 +406,11 @@ public class Core
 														}
 														i++;
 													}
-	
+
 													if (match)
 													{
 														methodMatched = method;
-	
+
 														// matchs all parameters
 														if (i >= params.length)
 															foundBestMatch = true;
@@ -419,11 +420,11 @@ public class Core
 												if (foundBestMatch)
 													break;
 											}
-	
+
 											if (methodMatched != null)
 											{
 												foundMethod = true;
-	
+
 												if (doesMethodChangeDataOrBehavior(newDependencyClass,
 													clazz.getImplementationName() + "." + methodMatched.getSignature()))
 												{
@@ -431,7 +432,7 @@ public class Core
 												}
 											}
 										}
-	
+
 										if (!foundMethod)
 										{
 											// if the method is from the own class
@@ -445,7 +446,7 @@ public class Core
 											else
 											{
 												newDependencyClass = dependencyClasses.get(methodClassName);
-		
+
 												if (doesMethodChangeDataOrBehavior(newDependencyClass, dependency.getValue()))
 												{
 													ret = true;
@@ -469,7 +470,7 @@ public class Core
 
 	/**
 	 * Starts the Function Point Analysis for Data Functions.
-	 * 
+	 *
 	 * TODO: the methods extended should be analyzed
 	 */
 	public void startFunctionPointAnalysisDF()
@@ -516,7 +517,7 @@ public class Core
 						{
 							String entityName = entity.getName();
 
-							// if the dependency is related to the implementation name, then use it 
+							// if the dependency is related to the implementation name, then use it
 							if (dependencyElementName.equals(entity.getImplementationName()))
 								entityName = entity.getImplementationName();
 
@@ -555,7 +556,7 @@ public class Core
 							{
 								String daoName = dao.getName();
 
-								// if the dependency is related to the implementation name, then use it 
+								// if the dependency is related to the implementation name, then use it
 								if (dependencyElementName.equals(dao.getImplementationName()))
 									daoName = dao.getImplementationName();
 
@@ -591,7 +592,7 @@ public class Core
 
 	/**
 	 * Builds the report for Data Functions.
-	 * 
+	 *
 	 * @param fpaConfig The configuration to be used.
 	 * @return the report
 	 */
@@ -662,7 +663,7 @@ public class Core
 
 	/**
 	 * Starts the Function Point Analysis for Transaction Functions.
-	 * 
+	 *
 	 * Looks for Use Cases.
 	 */
 	private void startFunctionPointAnalysisTF_UseCases()
@@ -913,7 +914,7 @@ public class Core
 
 	/**
 	 * Starts the Function Point Analysis for Transaction Functions.
-	 * 
+	 *
 	 * Looks for Web Services.
 	 */
 	private void startFunctionPointAnalysisTF_WebServices()
@@ -952,7 +953,7 @@ public class Core
 
 					if (ret)
 					{
-						// TODO: classify if it is an EI or an EO 
+						// TODO: classify if it is an EI or an EO
 
 						if (method.getReturnType().equals("void"))
 						{
@@ -979,7 +980,7 @@ public class Core
 
 	/**
 	 * Builds the report for Transaction Functions.
-	 * 
+	 *
 	 * @param fpaConfig The configuration to be used.
 	 * @return the report
 	 */
@@ -1171,12 +1172,12 @@ public class Core
 
 	/**
 	 * Creates a class usage report.
-	 * 
+	 *
 	 * Checks which services a controller uses.
 	 * Checks which services and entities a service used.
-	 * 
+	 *
 	 * @param fileName the report's file name
-	 * @throws LigeiroException 
+	 * @throws LigeiroException
 	 */
 	public void createClassUsageReport(String fileName) throws LigeiroException
 	{
@@ -1190,10 +1191,10 @@ public class Core
 
 	/**
 	 * Loads the class usage from entities, allClasses and dependencyClasses.
-	 * 
+	 *
 	 * The informations loaded is not complete, but it is useful
 	 * for generating graphs.
-	 * 
+	 *
 	 * @throws LigeiroException
 	 */
 	public void loadClassUsageReport() throws LigeiroException
@@ -1203,10 +1204,10 @@ public class Core
 
 	/**
 	 * Loads the class usage report.
-	 * 
+	 *
 	 * The informations loaded is not complete, but it is useful
 	 * for generating graphs.
-	 * 
+	 *
 	 * @param fileName the report's file name
 	 * @throws LigeiroException
 	 */
@@ -1220,8 +1221,23 @@ public class Core
 			classUsages = classUsageReport.loadCSV();
 	}
 
+	/**
+	 * Generate the Class Usage Graph based on the information previous loaded.
+	 *
+	 * @throws LigeiroException
+	 */
 	public void generateClassUsageGraph() throws LigeiroException
 	{
 		ClassUsageGraph.generate(classUsages);
+	}
+
+	/**
+	 * Generate the Component Graph based on the information previous loaded.
+	 *
+	 * @throws LigeiroException
+	 */
+	public void generateComponentGraph() throws LigeiroException
+	{
+		ComponentGraph.generate(useCases);
 	}
 }

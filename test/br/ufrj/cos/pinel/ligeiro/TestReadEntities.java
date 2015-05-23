@@ -23,7 +23,7 @@ public class TestReadEntities
 		{
 			Util.println("-- TestReadEntities --");
 
-			Collection<Entity> entities = XMLUtil.readEntities("data/statistics/statistics_entities.xml");
+			Collection<Entity> entities = XMLUtil.readEntities("data/AcademicSystem/statistics/statistics_entities.xml");
 			Util.println("Entities: " + entities.size());
 
 			for (Entity entity : entities)
