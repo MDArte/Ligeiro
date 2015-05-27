@@ -1,9 +1,7 @@
-<project name="Ligeiro" default="copy-classes-plugin" basedir=".">
-	<property environment="env"/>
+<project name="Ligeiro" default="clear" basedir=".">
+	<!--<property environment="env"/>-->
 	<property name="project.version" value="1.0"/>
 	<property name="copyright.msg" value="Roque Pinel"/>
-	<property name="target.folder" value="${basedir}"/>
-	<property name="prefuse.version" value="beta-20071021"/>
 
 	<!-- ================== Common Targets ==================== -->
 
@@ -11,36 +9,33 @@
 	<!-- Set Properties                                         -->
 	<!-- ****************************************************** -->
 	<target name="set-properties" description="Set properties">
-		<!-- Project paths -->
-		<property name="src.java.dir" location="main"/>
-		<property name="src.test.java.dir" location="test"/>
-		<property name="etc.dir" location="etc"/>
+		<!-- Project -->
+		<property name="src.main.dir" location="main"/>
+		<property name="src.test.dir" location="test"/>
 		<property name="lib.dir" location="lib"/>
-
-		<property name="ligeiro.jar.plugin" value="${target.folder}/../br.ufrj.cos.pinel.ligeiro/"/>
-
-		<!-- Build paths -->
-		<property name="compile.src" value="${src.java.dir}"/>
-		<property name="build.dir" location="build"/>
-		<property name="resources.temp.dir" location="build/resources_temp"/>
-		<property name="compile.dest.dir" location="build/tmp"/>
 		<property name="package.skel.dir" location="package-skel"/>
 
-		<!-- Source compliance -->
-		<property name="source.jdk" value="1.5"/>
-		<property name="target.jdk" value="1.5"/>
+		<!-- Build -->
+		<property name="build.dir" location="build"/>
+		<property name="build.jar.api.dir" location="${build.dir}/api"/>
+		<property name="build.jar.plugin.dir" value="${basedir}/../br.ufrj.cos.pinel.ligeiro/"/>
+		<property name="build.test.dir" location="${build.dir}/test"/>
 
-		<!-- Filenames -->
+		<!-- Source compliance -->
+		<property name="source.jdk" value="1.7"/>
+		<property name="target.jdk" value="1.7"/>
+
+		<!-- Files -->
 		<property name="jarfile.name" value="${ant.project.name}-${project.version}.jar" />
-		<property name="prefuse.jarfile.name" value="prefuse-${prefuse.version}.jar" />
-		
+		<property name="prefuse.jarfile.path" value="lib/prefuse-beta-20071021.jar" />
+
 		<!-- Timestamp -->
 		<tstamp>
 			<format property="build.time" pattern="yyyy.MM.dd HH:mm:ss" />
 		</tstamp>
 
 		<!-- Classpath -->
-		<path id="compile.classpath">
+		<path id="lib.classpath">
 			<fileset dir="${lib.dir}">
 				<include name="**/*.jar"/>
 			</fileset>
@@ -54,34 +49,34 @@
 	<!-- Print Properties                                       -->
 	<!-- ****************************************************** -->
 	<target name="print-properties" depends="set-properties" description="Display properties">
-
-		<echo message="target.folder: ${target.folder}"/>
+		<echo message="basedir: ${basedir}"/>
 		<echo message="project.name: ${ant.project.name}"/>
 		<echo message="project.version: ${project.version}"/>
-		<echo message=" "/>
-
-		<echo message="ligeiro.jar.plugin: ${ligeiro.jar.plugin}"/>
 		<echo message=" "/>
 
 		<echo message="java.version: ${java.version}"/>
 		<echo message="java.home: ${java.home}"/>
 		<echo message="java.class.path: ${java.class.path}"/>
 		<echo message=" "/>
-
-		<echo message="src.java.dir: ${src.java.dir}"/>
-		<echo message=" "/>
-
-		<echo message="compile.src: ${compile.src}"/>
-		<echo message="compile.dest.dir: ${compile.dest.dir}"/>
-		<echo message="package.skel.dir: ${package.skel.dir}"/>
-		<echo message="resources.temp.dir: ${resources.temp.dir}"/>
-		<echo message=" "/>
 		
+		<echo message="src.main.dir: ${src.main.dir}"/>
+		<echo message="src.test.dir: ${src.test.dir}"/>
+		<echo message="lib.dir: ${lib.dir}"/>
+		<echo message="package.skel.dir: ${package.skel.dir}"/>
+		<echo message=" "/>
+
+		<echo message="build.dir: ${build.dir}"/>
+		<echo message="build.jar.api.dir: ${build.jar.api.dir}"/>
+		<echo message="build.jar.plugin.dir: ${build.jar.plugin.dir}"/>
+		<echo message="build.test.dir: ${build.test.dir}"/>
+		<echo message=" "/>
+
 		<echo message="source.jdk: ${source.jdk}"/>
 		<echo message="target.jdk: ${target.jdk}"/>
 		<echo message=" "/>
 
 		<echo message="jarfile.name: ${jarfile.name}"/>
+		<echo message="prefuse.jarfile.path: ${prefuse.jarfile.path}"/>
 		<echo message=" "/>
 
 		<echo message=""/>
@@ -91,40 +86,29 @@
 	</target>
 
 	<!-- ****************************************************** -->
-	<!-- Unzip the Prefuse Jar for Plugin                       -->
-	<!-- ****************************************************** -->
-	<target name="unzip-prefuse-jar" depends="print-properties" description="Unzip the prefuse JAR">
-		<unzip src="lib/${prefuse.jarfile.name}" dest="${compile.dest.dir}">
-			<patternset>
-				<exclude name="WEB-INF/"/>
-			</patternset>
-		</unzip>
-
-		<echo message="unzip-prefuse-jar done"/>
-	</target>
-
-	<!-- ****************************************************** -->
 	<!-- Build Classes                                          -->
 	<!-- ****************************************************** -->
-	<target name="build-classes" depends="unzip-prefuse-jar" description="Compile classes (javac)">
-		<mkdir dir="${compile.dest.dir}"/>
+	<target name="build-classes" depends="print-properties" description="Compile classes (javac)">
+		<mkdir dir="${build.jar.api.dir}"/>
 
-		<javac 
-			srcdir="${compile.src}"
-			destdir="${compile.dest.dir}"
-			debug="on"
-			optimize="on"
-			deprecation="off"
+		<javac
+			srcdir="${src.main.dir}"
+			destdir="${build.jar.api.dir}"
+			debug="true"
+			optimize="true"
+			deprecation="false"
 			source="${source.jdk}"
 			target="${target.jdk}">
 
-			<classpath refid="compile.classpath"/>
-			<compilerarg line="-source 1.5"/>
+			<classpath refid="lib.classpath"/>
+			<compilerarg line="-source ${source.jdk}"/>
 		</javac>
 
 		<echo message="build-classes done"/>
 	</target>
 
+	<!-- ===================== JAR Targets ==================== -->
+	
 	<!-- ****************************************************** -->
 	<!-- Build JAR                                              -->
 	<!-- ****************************************************** -->
@@ -135,7 +119,7 @@
 
 		<jar
 			destfile="${jarfile.name}"
-			basedir="${compile.dest.dir}">
+			basedir="${build.jar.api.dir}">
 			<manifest>
 				<attribute name="Built-On"  value="${build.time}"/>
 				<attribute name="Build-Jdk" value="${java.version}"/>
@@ -143,42 +127,98 @@
 				<attribute name="Application-Version" value="${project.version}"/>
 				<attribute name="Copyright" value="${copyright.msg}"/>
 			</manifest>
-			<metainf file="${taglib.definition}"/> 
+			<metainf file="${taglib.definition}"/>
 		</jar>
 
 		<echo message="build-jar done"/>
 	</target>
 
+	<!-- =================== Plugin Targets =================== -->
+	
 	<!-- ****************************************************** -->
 	<!-- Copy Classes for Plugin                                -->
 	<!-- ****************************************************** -->
 	<target name="copy-classes-plugin" depends="build-classes" description="Compile classes (javac)">
-		<delete dir="${ligeiro.jar.plugin}/br"/>
+		<delete dir="${build.jar.plugin.dir}"/>
+		<mkdir dir="${build.jar.plugin.dir}"/>
 
-		<copy todir="${ligeiro.jar.plugin}">
+		<unzip src="${prefuse.jarfile.path}" dest="${build.jar.plugin.dir}">
+			<patternset>
+				<exclude name="WEB-INF/"/>
+			</patternset>
+		</unzip>
+		
+		<copy todir="${build.jar.plugin.dir}">
 			<fileset dir="${package.skel.dir}">
 				<include name="**/*" />
 			</fileset>
-			<fileset dir="${compile.dest.dir}">
-			    <include name="**/*" />
+			<fileset dir="${build.jar.api.dir}">
+				<include name="**/*" />
 			</fileset>
 		</copy>
 
 		<echo message="copy-classes-plugin done"/>
 	</target>
 
+	<!-- ==================== Test Targets ====================== -->
+	
+	<!--  ******************************************************  -->
+	<!--  Build Test Classes                                      -->
+	<!--  ******************************************************  -->
+	<target name="build-test-classes" depends="build-classes" description="Build test classes">
+		<mkdir dir="${build.test.dir}"/>
+
+		<javac
+			srcdir="${src.test.dir}"
+			destdir="${build.test.dir}"
+			debug="true"
+			optimize="true"
+			deprecation="false"
+			source="${source.jdk}"
+			target="${target.jdk}">
+
+			<classpath>
+				<path refid="lib.classpath"/>
+				<pathelement location="${build.jar.api.dir}"/>
+			</classpath>
+			<compilerarg line="-source ${source.jdk}"/>
+		</javac>
+
+		<echo message="build-classes done"/>
+	</target>
+
+	<!--  ******************************************************  -->
+	<!--  Test                                                    -->
+	<!--  ******************************************************  -->
+	<target name="test" depends="build-test-classes" description="Run all tests">
+		<junit haltonerror="true" haltonfailure="true">
+			<classpath>
+				<path refid="lib.classpath"/>
+				<pathelement location="${build.jar.api.dir}"/>
+				<pathelement location="${build.test.dir}"/>
+			</classpath>
+			<formatter type="plain" usefile="false" />
+			<batchtest fork="true">
+				<fileset dir="${src.test.dir}" includes="**/*Test*.java"/>
+			</batchtest>
+		</junit>
+	</target>
+	
+	<!-- ==================== Final Targets ===================== -->
+	
 	<!--  ******************************************************  -->
 	<!--  Clear                                                   -->
 	<!--  ******************************************************  -->
 	<target name="clear" depends="set-properties" description="Deletes all generated files and directories">
-		<delete dir="${ligeiro.jar.plugin}"/>
+		<delete dir="bin"/>
 		<delete dir="${build.dir}"/>
+		<delete dir="${build.jar.plugin.dir}"/>
 		<delete>
 			<fileset dir="${basedir}" includes="*.jar"/>
 		</delete>
 		<delete>
-			<fileset dir="${src.java.dir}" includes="*.xml"/>
+			<fileset dir="${src.main.dir}" includes="*.xml"/>
 		</delete>
-		<delete file="${src.java.dir}/version.properties"/>
+		<delete file="${src.main.dir}/version.properties"/>
 	</target>
 </project>

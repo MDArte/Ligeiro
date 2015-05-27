@@ -225,7 +225,7 @@ public class Util
 			String paramsStr = methodSignature.substring(firstParentheses + 1, lastParentheses);
 
 			if (!Util.isEmptyOrNull(paramsStr))
-				params = paramsStr.split(",");
+				params = paramsStr.trim().split("\\s*,\\s*");
 		}
 
 		return params;
