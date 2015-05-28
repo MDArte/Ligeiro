@@ -192,6 +192,7 @@
 	<!--  ******************************************************  -->
 	<target name="test" depends="build-test-classes" description="Run all tests">
 		<junit haltonerror="true" haltonfailure="true">
+			<sysproperty key="basedir" value="${basedir}"/>
 			<classpath>
 				<path refid="lib.classpath"/>
 				<pathelement location="${build.jar.api.dir}"/>
@@ -199,7 +200,7 @@
 			</classpath>
 			<formatter type="plain" usefile="false" />
 			<batchtest fork="true">
-				<fileset dir="${src.test.dir}" includes="**/*Test*.java"/>
+				<fileset dir="${src.test.dir}" includes="**/*Test*.java" excludes="**/GenericTest.java" />
 			</batchtest>
 		</junit>
 	</target>

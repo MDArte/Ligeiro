@@ -1,7 +1,8 @@
-package br.ufrj.cos.pinel.ligeiro;
+package br.ufrj.cos.pinel.ligeiro.common;
 
 import org.junit.Test;
 
+import br.ufrj.cos.pinel.ligeiro.GenericTest;
 import br.ufrj.cos.pinel.ligeiro.common.Util;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertArrayEquals;
@@ -11,7 +12,7 @@ import static org.junit.Assert.assertArrayEquals;
  * @author Roque Pinel
  * 
  */
-public class UtilTest
+public class UtilTest extends GenericTest
 {
 	private static String classSignature = "br.ufrj.coppe.system.cs.student.pbi.StudentHandlerPBI";
 	private static String methodSignature = classSignature + ".listStudents(br.ufrj.coppe.system.vo.StudentVO, java.lang.Integer)";
