@@ -27,13 +27,6 @@ import br.ufrj.cos.pinel.ligeiro.data.View;
  */
 public class XMLUtilTest extends GenericTest
 {
-	private static String classesFilename = getFilepath("data/AcademicSystem/statistics/statistics_controleacesso.xml");
-	private static String configFilename = getFilepath("conf/LigeiroConfig.xml");
-	private static String dependencyFilename = getFilepath("data/AcademicSystem/dependency/as-core-student.xml");
-	private static String entitiesFilename = getFilepath("data/AcademicSystem/statistics/statistics_entities.xml");
-	private static String servicesFilename = getFilepath("data/AcademicSystem/statistics/statistics_services.xml");
-	private static String useCasesFilename = getFilepath("data/AcademicSystem/statistics/statistics_usecases.xml");
-	
 	@Test
 	public void readServices() throws Exception
 	{
