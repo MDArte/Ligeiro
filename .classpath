@@ -2,7 +2,10 @@
 <classpath>
 	<classpathentry kind="src" path="main"/>
 	<classpathentry kind="src" path="test"/>
+	<classpathentry kind="src" path="examples"/>
 	<classpathentry kind="lib" path="lib/prefuse-beta-20071021.jar"/>
+	<classpathentry kind="lib" path="lib/junit-4.12.jar"/>
+	<classpathentry kind="lib" path="lib/hamcrest-core-1.3.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -9,14 +9,14 @@ import br.ufrj.cos.pinel.ligeiro.common.Util;
  * @author Roque Pinel
  *
  */
-public class TestCoreClassUsageReport extends Test
+public class CoreComponentGraph
 {
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args)
 	{
-		Util.println("-- TestCoreClassUsageReport --");
+		Util.println("-- CoreComponentGraph --");
 
 		Core core = new Core();
 
@@ -49,9 +49,7 @@ public class TestCoreClassUsageReport extends Test
 
 			Util.println(">> Starting...");
 
-			core.loadClassUsageReport();
-
-			core.createClassUsageReport("data/ClassUsageReport.csv");
+			core.generateComponentGraph();
 
 			Util.println("Done.");
 		}
