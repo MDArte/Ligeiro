@@ -18,7 +18,7 @@
 		<!-- Build -->
 		<property name="build.dir" location="build"/>
 		<property name="build.jar.api.dir" location="${build.dir}/api"/>
-		<property name="build.jar.plugin.dir" value="${basedir}/../br.ufrj.cos.pinel.ligeiro/"/>
+		<property name="build.jar.plugin.dir" value="${basedir}/../br.ufrj.cos.pinel.ligeiro"/>
 		<property name="build.test.dir" location="${build.dir}/test"/>
 
 		<!-- Source compliance -->
