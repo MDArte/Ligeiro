@@ -238,29 +238,26 @@ public class XMLUtilTest extends GenericTest
 	@Test
 	public void readDependencies() throws Exception
 	{
-		Object[] classes = XMLUtil.readDependencies(dependencyFilename).toArray();
-		assertEquals(2, classes.length);
+		Object[] classes = XMLUtil.readDependencies(sampleDependencyFilename).toArray();
+		assertEquals(9, classes.length);
 
 		// Class 1
 
 		BaseClass clazz = (BaseClass) classes[0];
-		assertEquals("br.ufrj.coppe.system.cs.student.StudentHandlerBean", clazz.getName());
+		assertEquals("br.ufrj.coppe.system.uc.system.student.search.SearchStudentControllerImpl", clazz.getName());
 		assertNull(clazz.getImplementationName());
 		assertNull(clazz.getModuleName());
 		assertEquals(0, clazz.getAttributes().size());
 		assertEquals(0, clazz.getAssociations().size());
 
 		Object[] methods = clazz.getMethods().toArray();
-		assertEquals(18, methods.length);
+		assertEquals(1, methods.length);
 
 		Method method = (Method) methods[0];
-		assertEquals("br.ufrj.coppe.system.cs.student.StudentHandlerBean.StudentHandlerBean()", method.getName());
-		assertNull(method.getImplementationName());
-		assertNull(method.getReturnType());
-		assertEquals(0, method.getParameters().size());
-		
-		method = (Method) methods[1];
-		assertEquals("br.ufrj.coppe.system.cs.student.StudentHandlerBean.ctx", method.getName());
+		assertEquals("br.ufrj.coppe.system.uc.system.student.search.SearchStudentControllerImpl.searchStudent("
+				+ "org.apache.struts.action.ActionMapping, br.ufrj.coppe.system.uc.system.student.search.SearchStudentForm,"
+				+ " javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)",
+				method.getName());
 		assertNull(method.getImplementationName());
 		assertNull(method.getReturnType());
 		assertEquals(0, method.getParameters().size());
