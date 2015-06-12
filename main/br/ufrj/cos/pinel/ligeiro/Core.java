@@ -399,7 +399,7 @@ public class Core
 													int i = 0;
 													for (Parameter param : method.getParameters())
 													{
-														if (i < params.length && !param.getType().equals(params[i]))
+														if (i < params.length && !param.getType().equals(params[i].trim()))
 														{
 															match = false;
 															break;
