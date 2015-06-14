@@ -265,7 +265,7 @@ public class Core
 		return loadReport;
 	}
 
-	// avoing method stack, so local instance
+	// avoiding method stack, so local instance
 	private Set<String> visitedMethods = null;
 	private Set<String> countedEntities = null;
 
@@ -411,7 +411,7 @@ public class Core
 													{
 														methodMatched = method;
 
-														// matchs all parameters
+														// matches all parameters
 														if (i >= params.length)
 															foundBestMatch = true;
 													}
