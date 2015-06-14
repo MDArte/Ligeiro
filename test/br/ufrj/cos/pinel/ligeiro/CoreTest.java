@@ -10,7 +10,6 @@ import java.io.IOException;
 import org.junit.Test;
 
 import br.ufrj.cos.pinel.ligeiro.common.FPAConfig;
-import br.ufrj.cos.pinel.ligeiro.common.Util;
 import br.ufrj.cos.pinel.ligeiro.report.FPAReport;
 
 /**
